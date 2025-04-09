@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "StickDeadzone(min=0.15)",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -195,6 +195,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5e0ea698-8491-410b-9e2c-aa86f3dff8e0",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/hat",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -327,6 +338,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e7bd63dc-79d2-49a6-964a-89a4bd5bf6cb",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1c04ea5f-b012-41d1-a6f7-02e963b52893",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -365,6 +387,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4221210b-b029-4223-ab0f-bcfac9204c58",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false

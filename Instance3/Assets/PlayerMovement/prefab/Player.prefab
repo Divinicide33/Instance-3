@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfffcbc6c160cc846afd71cdd904bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbJumpMax: 2
   jumpForce: 10
 --- !u!114 &4491546608162255470
 MonoBehaviour:
@@ -422,5 +423,5 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     private int nbJump;
-    private int nbJumpMax = 2;
+    [SerializeField] private int nbJumpMax = 2;
     [SerializeField] private float jumpForce;
     private Rigidbody2D rb;
     private bool isGrounded = false;
@@ -12,21 +12,16 @@ public class PlayerJump : MonoBehaviour
     {
         nbJump = nbJumpMax;
         rb = GetComponent<Rigidbody2D>();
-        GroundCheck.onGrounded += ChangeBool;
+        GroundCheck.onGrounded += ResetJump;
         Player.onJump += Jump;
     }
-    private void ChangeBool(bool value)
+    private void ResetJump(bool value)
     {
         isGrounded = value;
+        if (isGrounded) nbJump = nbJumpMax;
     }
 
-    void Update()
-    {
-        if (nbJump != nbJumpMax && isGrounded)
-        {
-            ResetJump();
-        }
-    }
+    
     public void Jump(bool isJumpPressed) // if you can jump : decremente from the count and do the jump
     {
         if (isJumpPressed)
@@ -51,8 +46,4 @@ public class PlayerJump : MonoBehaviour
         if (rb.linearVelocityY > 0) rb.linearVelocityY /= 2;
     }
 
-    private void ResetJump() // make the player able to jump again
-    {
-        nbJump = nbJumpMax;
-    }
 }

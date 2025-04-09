@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
     private Stats stats;
     private Vector2 direction;
+    [SerializeField] private float offSetInput = 0.5f;
 
     public bool canMove = true;
     private void Awake() 
@@ -27,7 +28,15 @@ public class PlayerMove : MonoBehaviour
     public void Move(Vector2 inputDirection)
     {
         direction = inputDirection;
-        if (direction.x > 0.1) player.isFacingRight = true;
-        else if (direction.x < -0.1) player.isFacingRight = false;
+        if (direction.x > offSetInput) 
+        {
+            player.isFacingRight = true;
+            direction.x = 1;
+        }
+        else if (direction.x < -offSetInput) 
+        {
+            player.isFacingRight = false;
+            direction.x = -1;
+        }
     }
 }

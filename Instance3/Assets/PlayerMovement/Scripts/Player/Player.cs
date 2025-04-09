@@ -10,11 +10,11 @@ public class Player : Entity
     private PlayerDash dash;
     private PlayerGlide glide;
 
-    [HideInInspector] public static Action<Vector2> onMove;
-    [HideInInspector] public static Action<bool> onJump;
-    [HideInInspector] public static Action onAttack;
-    [HideInInspector] public static Action onDash;
-    [HideInInspector] public static Action<bool> onGlide;
+    public static Action<Vector2> onMove { get; set; }
+    public static Action<bool> onJump { get; set; }
+    public static Action onAttack { get; set; }
+    public static Action onDash { get; set; }
+    public static Action<bool> onGlide { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
     void Start()

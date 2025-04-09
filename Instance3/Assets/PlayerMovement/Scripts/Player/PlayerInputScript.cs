@@ -29,6 +29,7 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (context.started)
         {
+            Debug.Log("Jump");
             Player.onJump?.Invoke(true);
             Player.onGlide?.Invoke(true);
         }
