@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-public class Player : Entity
+[RequireComponent(typeof(Stats))]
+public class PlayerController : Entity
 {
     private Stats stats;
     private PlayerMove move;

@@ -18,11 +18,11 @@ public class PlayerInputScript : MonoBehaviour
 
         if (isMoving)
         {
-            Player.onMove?.Invoke(context.ReadValue<Vector2>());
+            PlayerController.onMove?.Invoke(context.ReadValue<Vector2>());
         }
         else
         {
-            Player.onMove?.Invoke(Vector2.zero);
+            PlayerController.onMove?.Invoke(Vector2.zero);
         }
     }
     public void OnJump(InputAction.CallbackContext context)
@@ -30,20 +30,20 @@ public class PlayerInputScript : MonoBehaviour
         if (context.started)
         {
             Debug.Log("Jump");
-            Player.onJump?.Invoke(true);
-            Player.onGlide?.Invoke(true);
+            PlayerController.onJump?.Invoke(true);
+            PlayerController.onGlide?.Invoke(true);
         }
         else if (context.canceled)
         {
-            Player.onJump?.Invoke(false);
-            Player.onGlide?.Invoke(false);
+            PlayerController.onJump?.Invoke(false);
+            PlayerController.onGlide?.Invoke(false);
         }
     }
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            Player.onDash?.Invoke();
+            PlayerController.onDash?.Invoke();
         }
     }
 }

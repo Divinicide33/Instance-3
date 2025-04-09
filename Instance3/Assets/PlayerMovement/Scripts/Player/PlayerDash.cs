@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Player player;
+    private PlayerController player;
     private PlayerMove playerMove;
 
     [Header("Dash Variable")]
@@ -19,19 +19,19 @@ public class PlayerDash : MonoBehaviour
     private bool isGrounded = false;
     void Awake()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<PlayerController>();
         playerMove = GetComponent<PlayerMove>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void OnEnable()
     {
-        Player.onDash += Dash;
+        PlayerController.onDash += Dash;
         GroundCheck.onGrounded += ChangeBool;
     }
     void OnDisable()
     {
-        Player.onDash -= Dash;
+        PlayerController.onDash -= Dash;
         GroundCheck.onGrounded -= ChangeBool;
     }
 

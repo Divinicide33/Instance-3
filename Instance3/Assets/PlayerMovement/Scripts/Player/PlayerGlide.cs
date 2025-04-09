@@ -8,7 +8,15 @@ public class PlayerGlide : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        Player.onGlide += Glide;
+        PlayerController.onGlide += Glide;
+    }
+    private void OnEnable() 
+    {
+        PlayerController.onGlide += Glide;
+    }
+    private void OnDisable() 
+    {
+        PlayerController.onGlide -= Glide;
     }
     private void Update() 
     {
