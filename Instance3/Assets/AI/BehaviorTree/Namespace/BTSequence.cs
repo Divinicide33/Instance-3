@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public class RB_BTSequence : RB_BTNode
+    public class BTSequence : BTNode
     {
         // Constructor for a sequence node without children
-        public RB_BTSequence() : base() { }
+        public BTSequence() : base() { }
 
         // Constructor for a sequence node with children
-        public RB_BTSequence(List<RB_BTNode> children) : base(children) { }
+        public BTSequence(List<BTNode> children) : base(children) { }
 
         // Evaluate the sequence node
         public override BTNodeState Evaluate()
@@ -16,7 +16,7 @@ namespace BehaviorTree
             bool anyChildIsRunning = false;  // Flag to track if any child is running
 
             // Iterate through each child node
-            foreach (RB_BTNode BTNode in _children)
+            foreach (BTNode BTNode in _children)
             {
                 // Exit the loop if any child is running
                 if (anyChildIsRunning)

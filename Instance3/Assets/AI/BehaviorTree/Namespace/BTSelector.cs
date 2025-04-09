@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public class RB_BTSelector : RB_BTNode
+    public class BTSelector : BTNode
     {
         // Constructor for a selector node without children
-        public RB_BTSelector() : base() { }
+        public BTSelector() : base() { }
 
         // Constructor for a selector node with children
-        public RB_BTSelector(List<RB_BTNode> children) : base(children) { }
+        public BTSelector(List<BTNode> children) : base(children) { }
 
         // Evaluate the selector node
         public override BTNodeState Evaluate()
         {
             // Iterate through each child node
-            foreach (RB_BTNode BTNode in _children)
+            foreach (BTNode BTNode in _children)
             {
                 switch (BTNode.Evaluate())
                 {
