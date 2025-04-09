@@ -12,8 +12,6 @@ public class PlayerJump : MonoBehaviour
     {
         nbJump = nbJumpMax;
         rb = GetComponent<Rigidbody2D>();
-        GroundCheck.onGrounded += ResetJump;
-        Player.onJump += Jump;
     }
     private void ResetJump(bool value)
     {
@@ -21,7 +19,16 @@ public class PlayerJump : MonoBehaviour
         if (isGrounded) nbJump = nbJumpMax;
     }
 
-    
+    void OnEnable()
+    {
+        GroundCheck.onGrounded += ResetJump;
+        PlayerController.onJump += Jump;
+    }
+    void OnDisable()
+    {
+        GroundCheck.onGrounded -= ResetJump;
+        PlayerController.onJump -= Jump;
+    }
     public void Jump(bool isJumpPressed) // if you can jump : decremente from the count and do the jump
     {
         if (isJumpPressed)

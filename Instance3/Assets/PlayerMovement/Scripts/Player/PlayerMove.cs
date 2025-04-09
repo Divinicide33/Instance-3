@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Player player;
+    private PlayerController player;
     private Rigidbody2D rb;
     private Stats stats;
     private Vector2 direction;
@@ -13,8 +13,16 @@ public class PlayerMove : MonoBehaviour
     {
         stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Player>();
-        Player.onMove += Move;
+        player = GetComponent<PlayerController>();
+    }
+
+    void OnEnable()
+    {
+        PlayerController.onMove += Move;
+    }
+    void OnDisable()
+    {
+        PlayerController.onMove -= Move;
     }
 
     private void Update() 
