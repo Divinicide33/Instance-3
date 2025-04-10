@@ -586,6 +586,7 @@ MonoBehaviour:
     Style: 1
     Time: 2
     CustomCurve:
+      serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
