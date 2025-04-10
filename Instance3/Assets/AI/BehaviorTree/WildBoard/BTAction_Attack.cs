@@ -4,15 +4,15 @@ namespace BehaviorTree
 {
     public class BTAction_Attack : BTNode
     {
-        private GameObject _attacker;
-        private GameObject _target;
-        private int _damage;
+        public GameObject _attacker;
+        public GameObject _target;
+        public float _damage;
 
-        public BTAction_Attack(GameObject attacker, GameObject target, int damage)
+        public BTAction_Attack(BTBoarTree btParent)
         {
-            _attacker = attacker;
-            _target = target;
-            _damage = damage;
+            _attacker = btParent.gameObject;
+            _target = btParent.gameObject;
+            _damage = btParent.damage;
         }
 
         public override BTNodeState Evaluate()

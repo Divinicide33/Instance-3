@@ -1,99 +1,83 @@
 using UnityEngine;
+using BehaviorTree;
 
-namespace BehaviorTree
+public class BTAction_Charge : BTNode
 {
-    public class BTAction_Charge : BTNode
+    public Transform _boar;
+    public GameObject _target;
+    public float _chargeDelay;
+    public float _dashSpeed;
+    public float _dashDuration;
+    public float _timer = 0f;
+    public bool _charging = false;
+    public float _dashTimer = 0f;
+    public Vector3 _targetPosition;
+
+    public bool _hasTarget = false;
+    public LayerMask _playerLayer;
+    public LayerMask _obstacleLayer;
+    public float _knockbackForce;
+
+    public bool IsCharging() => _charging || _hasTarget;
+
+    public BTAction_Charge(BTBoarTree btParent, Transform boar)
     {
-        private Transform _boar;
-        private GameObject _target;
+        _boar = boar;
+        _target = btParent.player;
+        _chargeDelay = btParent.chargeDelay;
+        _dashSpeed = btParent.dashSpeed;
+        _dashDuration = btParent.dashDuration;
+        _playerLayer = btParent.playerLayer;
+        _obstacleLayer = btParent.obstacleLayer;
+        _knockbackForce = btParent.knockbackForce;
+    }
 
-        private float _chargeDelay;
-        private float _dashSpeed;
-        private float _dashDuration;
-        private float _timer = 0f;
-        private bool _charging = false;
-        private Vector2 _dashDirection;
-        private float _dashTimer = 0f;
-
-        private Transform _fovOrigin;
-        private LayerMask _playerLayer;
-
-        // Raycast pour vérifier si un obstacle bloque la charge
-        [SerializeField] private float raycastDistance = 0.5f;
-
-        public BTAction_Charge(Transform boar, float chargeDelay, float dashSpeed, float dashDuration, Transform fovOrigin, LayerMask playerLayer)
+    public override BTNodeState Evaluate()
+    {
+        if (root.target == Vector3.zero)
         {
-            _boar = boar;
-            _target = boar.gameObject;
-            _chargeDelay = chargeDelay;
-            _dashSpeed = dashSpeed;
-            _dashDuration = dashDuration;
-            _fovOrigin = fovOrigin;
-            _playerLayer = playerLayer;
+            _state = BTNodeState.FAILURE;
+            return _state;
         }
 
-        public override BTNodeState Evaluate()
+
+        if (!_charging)
         {
-            if (!_charging)
+            _timer += Time.deltaTime;
+            if (_timer >= _chargeDelay)
             {
-                _timer += Time.deltaTime;
-                if (_timer >= _chargeDelay)
-                {
-                    // Calcul de la direction de charge vers le joueur
-                    Vector2 directionToTarget = (_target.transform.position - _boar.position).normalized;
-                    _dashDirection = new Vector2(Mathf.Sign(directionToTarget.x), 0f); // Dash horizontal uniquement
-
-                    // Check if the target is in the FOV and within range
-                    RaycastHit2D hit = Physics2D.Raycast(_fovOrigin.position, _dashDirection, raycastDistance, _playerLayer);
-                    if (hit.collider != null && hit.collider.gameObject == _target)
-                    {
-                        _charging = true;
-                        Debug.Log("Charge started");  // Ajout du log de début de charge
-                    }
-                    else
-                    {
-                        Debug.Log("Charge failed: Target not in FOV or out of range.");
-                    }
-                }
-                else
-                {
-                    return BTNodeState.RUNNING;
-                }
+                _charging = true;
+                _dashTimer = 0f;
             }
-            else
-            {
-                _dashTimer += Time.deltaTime;
-
-                // Appliquer le dash uniquement sur l'axe X, Y reste inchangé
-                _boar.position += (Vector3)(_dashDirection * _dashSpeed * Time.deltaTime);
-
-                // Log de déplacement pendant le dash
-                Debug.Log($"Dash moving, current position: {_boar.position}");
-
-                // Si le dash est terminé, réinitialiser les variables et retourner SUCCESS
-                if (_dashTimer >= _dashDuration)
-                {
-                    _timer = 0f;
-                    _dashTimer = 0f;
-                    _charging = false;
-                    Debug.Log("Charge completed");  // Ajout du log à la fin de la charge
-                    return BTNodeState.SUCCESS;
-                }
-
-                return BTNodeState.RUNNING;
-            }
-
-            return BTNodeState.RUNNING;
+            _state = BTNodeState.RUNNING;
+            return _state;
         }
-
-        // Fonction pour dessiner les Gizmos dans l'éditeur
-        public void DrawGizmos()
+        else
         {
-            if (_fovOrigin != null)
+            _dashTimer += Time.deltaTime;
+            Collider2D hitPlayer = Physics2D.OverlapCircle(_boar.position, 0.5f, _playerLayer);
+            if (hitPlayer != null)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(_fovOrigin.position, _fovOrigin.position + (Vector3)(_dashDirection * raycastDistance));
+                var rb = hitPlayer.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    //REMOVE Y
+                    Vector2 knockbackDir = (hitPlayer.transform.position - _boar.position).normalized;
+                    rb.linearVelocity = knockbackDir * _knockbackForce;
+                    //rb.AddForce(knockbackDir * _knockbackForce, ForceMode2D.Impulse);
+                }
             }
+
+            if (_dashTimer >= _dashDuration)
+            {
+                _charging = false;
+                root.target = Vector3.zero;
+                _timer = 0f; 
+                _state = BTNodeState.SUCCESS;
+                return _state;
+            }
+            _state = BTNodeState.RUNNING;
+            return _state;
         }
     }
 }

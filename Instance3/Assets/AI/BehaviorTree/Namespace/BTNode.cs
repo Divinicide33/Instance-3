@@ -2,38 +2,88 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    // L'état d'un nœud
+    // Enum to represent the state of a behavior tree node
     public enum BTNodeState
     {
-        SUCCESS,
-        FAILURE,
-        RUNNING
+        RUNNING,  // Node is currently running
+        SUCCESS,  // Node completed successfully
+        FAILURE   // Node failed to complete
     }
 
-    // Classe de base pour les nœuds du comportement
-    public abstract class BTNode
+    public class BTNode
     {
-        // Liste des enfants du nœud
-        protected List<BTNode> _children;
+        protected BTNodeState _state;  // The current state of the node
 
-        // L'état actuel du nœud
-        protected BTNodeState _state;
+        public BTNode Parent;  // Reference to the parent node
+        public BTBoarTree root;
+        protected List<BTNode> _children = new();  // List of child nodes
 
-        // Constructeur sans enfants
+        private Dictionary<string, object> _dataContext = new();  // Data context for storing key-value pairs
+
+        // Constructor for a node without children
         public BTNode()
         {
-            _children = new List<BTNode>();
-            _state = BTNodeState.RUNNING; // Par défaut, le nœud est en cours d'exécution
+            Parent = null;
         }
 
-        // Constructeur avec des enfants
+        // Constructor for a node with children
         public BTNode(List<BTNode> children)
         {
-            _children = children;
-            _state = BTNodeState.RUNNING;
+            foreach (BTNode child in children)
+                _Attach(child);  // Attach each child node
         }
 
-        // Méthode abstraite pour évaluer le nœud
-        public abstract BTNodeState Evaluate();
+        // Attach a child node to this node
+        private void _Attach(BTNode BTNode)
+        {
+            BTNode.Parent = this;  // Set this node as the parent of the child
+            _children.Add(BTNode);  // Add the child to the list of children
+        }
+
+        // Evaluate the node (default implementation returns FAILURE)
+        public virtual BTNodeState Evaluate() => BTNodeState.FAILURE;
+
+        // Set data in the node's context
+        public void SetData(string key, object value)
+        {
+            _dataContext[key] = value;
+        }
+
+        // Get data from the node's context or its ancestors' contexts
+        public object GetData(string key)
+        {
+            if (_dataContext.TryGetValue(key, out object value))
+                return value;
+
+            BTNode BTNode = Parent;
+            while (BTNode != null)
+            {
+                value = BTNode.GetData(key);
+                if (value != null)
+                    return value;
+                BTNode = BTNode.Parent;
+            }
+            return null;
+        }
+
+        // Clear data from the node's context or its ancestors' contexts
+        public bool ClearData(string key)
+        {
+            if (_dataContext.ContainsKey(key))
+            {
+                _dataContext.Remove(key);
+                return true;
+            }
+
+            BTNode BTNode = Parent;
+            while (BTNode != null)
+            {
+                bool cleared = BTNode.ClearData(key);
+                if (cleared)
+                    return true;
+                BTNode = BTNode.Parent;
+            }
+            return false;
+        }
     }
 }

@@ -4,15 +4,15 @@ using BehaviorTree;
 
 public class BTAction_MoveToTarget : BTNode
 {
-    private Transform _entityTransform;
-    private Transform _targetTransform;
-    private float _moveSpeed;
+    public Transform _entityTransform;
+    public Transform _targetTransform;
+    public float _moveSpeed;
 
-    public BTAction_MoveToTarget(Transform entity, Transform target, float moveSpeed)
+    public BTAction_MoveToTarget(BTBoarTree btParent)
     {
-        _entityTransform = entity;
-        _targetTransform = target;
-        _moveSpeed = moveSpeed;
+        _entityTransform = btParent.transform;
+        _targetTransform = btParent.transform.parent;
+        _moveSpeed = btParent.moveSpeed;
     }
 
     public override BTNodeState Evaluate()
@@ -24,13 +24,13 @@ public class BTAction_MoveToTarget : BTNode
 
             if (distance < 0.1f)
             {
-                return BTNodeState.SUCCESS;  // Arrivé à la destination
+                return BTNodeState.SUCCESS;  
             }
 
-            return BTNodeState.RUNNING;  // Toujours en mouvement
+            return BTNodeState.RUNNING; 
         }
 
-        return BTNodeState.FAILURE;  // Pas de cible
+        return BTNodeState.FAILURE;
     }
 }
 

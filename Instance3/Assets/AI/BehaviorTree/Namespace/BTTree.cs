@@ -4,7 +4,7 @@ namespace BehaviorTree
 {
     public abstract class BTTree : MonoBehaviour
     {
-        private BTNode _root = null; // Le nœud racine de l'arbre de comportement
+        public BTNode _root = null; // Le nœud racine de l'arbre de comportement
 
         public BTNode Root { get { return _root; } } // Propriété publique pour accéder au nœud racine
 

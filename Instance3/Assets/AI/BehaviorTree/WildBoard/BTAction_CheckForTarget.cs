@@ -1,50 +1,61 @@
 using UnityEngine;
 using BehaviorTree;
+using static UnityEngine.GraphicsBuffer;
 
 public class BTAction_CheckForTarget : BTNode
 {
-    private Transform _entityTransform;
-    private GameObject _target;
-    private float _detectionRange = 6f; // Portée de détection (rayon du cercle)
-    private float _fovAngle = 60f; // Angle du champ de vision (FOV) - 60 degrés pour un cône de vision
+    private BTBoarTree _bt;
 
-    public BTAction_CheckForTarget(Transform entity, GameObject target)
+    public BTAction_CheckForTarget(BTBoarTree bt)
     {
-        _entityTransform = entity;
-        _target = target;
+        _bt = bt;
     }
 
     public override BTNodeState Evaluate()
     {
-        // 1. Calculer la direction de vision de l'entité (ici, la direction dans laquelle elle regarde/mouvement)
-        Vector2 forwardDirection = _entityTransform.right;  // On suppose que l'entité regarde dans la direction X (ou vers l'avant)
 
-        // 2. Calculer la direction du joueur par rapport à l'entité
-        Vector2 targetDirection = (Vector2)_target.transform.position - (Vector2)_entityTransform.position;
-
-        // 3. Calculer l'angle entre la direction de l'entité et celle du joueur
-        float angleBetween = Vector2.Angle(forwardDirection, targetDirection);
-
-        // Log pour vérifier les calculs
-        Debug.Log($"Forward Direction: {forwardDirection}, Target Direction: {targetDirection}");
-        Debug.Log($"Angle Between: {angleBetween}");
-
-        // 4. Vérifier si l'angle est dans le champ de vision
-        if (angleBetween <= _fovAngle / 2)
+        Vector2 directionToPlayer = _bt.player.transform.position - _bt.fovOrigin.position;
+        float distance = directionToPlayer.magnitude;
+        if (distance <= _bt.detectionRadius)
         {
-            // 5. Vérifier la distance au joueur pour s'assurer qu'il est dans la portée du FOV
-            float distance = Vector2.Distance(_entityTransform.position, _target.transform.position);
-            Debug.Log($"Distance to Target: {distance}");
-
-            if (distance <= _detectionRange)
+            float angle = Vector2.Angle(_bt.fovOrigin.right, directionToPlayer.normalized);
+            if (angle < _bt.fovAngle / 2f)
             {
-                // Si dans le FOV et à portée, détecter le joueur
-                Debug.Log("Player detected!");
-                return BTNodeState.SUCCESS;
+
+                Vector3 directionDebug = _bt.player.transform.position - _bt.boar.transform.position;
+                Debug.DrawRay(_bt.boar.transform.position, directionDebug, Color.yellow);
+
+                Vector2 direction = (_bt.player.transform.position - _bt.boar.transform.position).normalized;
+                //_bt.boar.transform.position += (Vector3)(direction * _bt.dashSpeed * Time.deltaTime);
+                Vector2 origin = _bt.boar.transform.position;
+                Vector2 target = _bt.player.transform.position;
+                float distanceDash = Vector2.Distance(origin, target);
+
+                RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, distance);
+
+                if (hits.Length > 0)
+                {
+                    RaycastHit2D firstHit = hits[0];
+
+                    if (firstHit.collider.gameObject.layer != _bt.playerLayer)
+                    {
+                        Debug.Log("NotPlayer");
+                        _bt.target = Vector3.zero;
+                        _state = BTNodeState.FAILURE;
+                        return _state;
+                    }
+                    else
+                    {
+                        Debug.Log("Succes");
+                        //_chargeAction.SetChargeTarget(_bt.player.transform.position);
+                        _bt.target = _bt.player.transform.position;
+                        _state = BTNodeState.SUCCESS;
+                        return _state;
+                    }
+                }
             }
         }
-
-        // Si le joueur est hors du FOV ou hors de portée, ne pas le détecter
-        return BTNodeState.FAILURE;
+        _state = BTNodeState.FAILURE;
+        return _state;
     }
 }

@@ -1,35 +1,48 @@
 using UnityEngine;
-using System.Collections.Generic;
 using BehaviorTree;
+using System.Collections.Generic;
 
 public class BTBoarTree : BTTree
 {
-    [SerializeField] private GameObject boar;
-    [SerializeField] private GameObject player;
-    [SerializeField] private float moveSpeed = 2f;
+    [Header("Références aux objets")]
+    [SerializeField] public GameObject boar;
+    [SerializeField] public GameObject player;
 
-    // Charge config exposée dans l'inspecteur
-    [SerializeField] private float chargeDelay = 1f;
-    [SerializeField] private float dashSpeed = 10f;
-    [SerializeField] private float dashDuration = 0.3f;
+    [Header("Paramètres de mouvement")]
+    [SerializeField] public float moveSpeed = 2f;
 
-    // Ajout du FOV
-    [SerializeField] private Transform fovOrigin;
-    [SerializeField] private LayerMask playerLayer;
+    [Header("Paramètres de charge")]
+    [SerializeField] public float chargeDelay = 1f;
+    [SerializeField] public float dashSpeed = 10f;
+    [SerializeField] public float dashDuration = 0.3f;
 
-    private BTAction_Charge _chargeNode; // Pour dessiner le Gizmo
-    private BTAction_CheckForTarget _checkForTargetNode;
+    [Header("Paramètres de détection")]
+    [SerializeField] public Transform fovOrigin;
+    [SerializeField] public LayerMask playerLayer;
+    [SerializeField] public float detectionRadius = 10f;
+    [SerializeField] public float fovAngle = 60f;
+
+    [Header("Dégâts et Knockback")]
+    [SerializeField] public float damage = 10f;
+    [SerializeField] public float knockbackForce = 5f;
+
+    [SerializeField]
+    public LayerMask obstacleLayer;
+
+    public Vector3 target = Vector3.zero;
 
     protected override BTNode SetupTree()
     {
-        // Création des nœuds
-        _checkForTargetNode = new BTAction_CheckForTarget(boar.transform, player);  // Détecter dans un rayon de 6 unités
-        _chargeNode = new BTAction_Charge(boar.transform,chargeDelay, dashSpeed, dashDuration ,fovOrigin , playerLayer);
+        BTNode root = new BTSelector(new List<BTNode>
+        {
+            new BTSequence(new List<BTNode>
+            {
+                new BTAction_CheckForTarget(this),
+                new BTAction_Charge(this, boar.transform),
+            }),
+            new BTAction_Patrol(this),
+        });
 
-        var engage = new BTSequence(new List<BTNode> { _checkForTargetNode, _chargeNode });
-        var patrol = new BTAction_Patrol(boar.transform, moveSpeed, player, fovOrigin);
-
-        return new BTSelector(new List<BTNode> { engage, patrol });
+        return root;
     }
-
 }
