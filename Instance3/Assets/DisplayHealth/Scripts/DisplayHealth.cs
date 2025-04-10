@@ -18,6 +18,7 @@ public class DisplayHealth : UIElement
         base.OnEnable();
         onUpdateHpMax += ChangeHpMax;
     }
+    
     protected override void OnDisable()
     {
         base.OnDisable();
@@ -56,14 +57,17 @@ public class DisplayHealth : UIElement
 
         UpdateDisplay();
     }
+
     protected override void Show()
     {
         HealthPanel.gameObject.SetActive(true);
     }
+
     protected override void Hide()
     {
         HealthPanel.gameObject.SetActive(false);
     }
+
     protected override void UpdateDisplay()
     {
         // Debug.Log("Entered UpdateDisplay");

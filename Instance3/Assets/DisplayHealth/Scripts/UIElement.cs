@@ -17,6 +17,7 @@ public abstract class UIElement : MonoBehaviour
         onHide += Hide;
         onUpdate += UpdateDisplay;
     }
+    
     protected virtual void OnDisable()
     {
         onShow -= Show;
