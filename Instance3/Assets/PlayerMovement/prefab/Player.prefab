@@ -15,12 +15,14 @@ GameObject:
   - component: {fileID: 3079863978662543617}
   - component: {fileID: 6467716109358984024}
   - component: {fileID: 8245985858131250423}
+  - component: {fileID: 1640116097676028478}
   - component: {fileID: 4491546608162255470}
   - component: {fileID: 5223180371587998291}
   - component: {fileID: 4748789451198910664}
   - component: {fileID: 6103533508610122396}
   - component: {fileID: 2760405850647996783}
   - component: {fileID: 564035682160163730}
+  - component: {fileID: 8448164904437001605}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -148,11 +150,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5249059981422526792}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc420be60b7bf0489c86e77a9377c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkillName: Dash
   dashForce: 25
   dashDuration: 0.1
   dashCooldown: 0.5
@@ -168,8 +171,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfffcbc6c160cc846afd71cdd904bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbJumpMax: 2
   jumpForce: 10
+--- !u!114 &1640116097676028478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563a26edbacd474b9102ee63eb589e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillName: DoubleJump
+  nbJumpToAdd: 1
 --- !u!114 &4491546608162255470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,11 +193,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5249059981422526792}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9758dad8c08157c4695799aeb3d33e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkillName: Glide
   maxVelocityY: 1
 --- !u!114 &5223180371587998291
 MonoBehaviour:
@@ -427,3 +444,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &8448164904437001605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0385b4e6bb80e1e40aa82f2d2ab1e658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSkills: []

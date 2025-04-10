@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerDash : MonoBehaviour
+public class PlayerDash : SkillModule
 {
     private Rigidbody2D rb;
     private PlayerController player;
