@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 4
+  healthMax: 5
   damage: 2
   speed: 2
 --- !u!114 &3079863978662543617
@@ -138,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0e8ac2b44282e44a5a2d735440c695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offSetInput: 0.5
   canMove: 1
 --- !u!114 &6467716109358984024
 MonoBehaviour:
