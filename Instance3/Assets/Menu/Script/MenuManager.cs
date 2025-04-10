@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 
 public class MenuManager : MonoBehaviour
@@ -14,6 +15,21 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenuFirstButton;
     [SerializeField] private GameObject creditsMenuFirstButton;
 
+    private FadeInOut fade;
+
+    private void Start()
+    {
+        fade = FindObjectOfType<FadeInOut>();
+    }
+
+    private IEnumerator _ChangeScene()
+    {
+        fade.FadeIn();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(1);
+
+    }
+
     private void SetSelected(GameObject button)
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -24,7 +40,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(_ChangeScene());
     }
 
     public void OpenSettings()
