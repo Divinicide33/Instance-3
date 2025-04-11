@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseImage;
+    [SerializeField] private GameObject OptionImage;
+    [SerializeField] private GameObject ControlImage;
+    [SerializeField] private GameObject SoundImage;
     [SerializeField] private float slowdownDuration = 1f; 
     [SerializeField] private GameObject pauseMenuFirstButton;
 
@@ -12,7 +16,18 @@ public class PauseMenu : MonoBehaviour
     private bool isPaused = false;
     private Coroutine pauseCoroutine;
 
+    public static Action onStartPause;
 
+    private void Start()
+    {
+        onStartPause += TogglePause;
+    }
+
+    private void OnDestroy()
+    {
+        onStartPause -= TogglePause;
+
+    }
 
     public void TogglePause()
     {
@@ -41,6 +56,7 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 0f;
         pauseImage.SetActive(true);
+        InputManager.onSwitchInputMap?.Invoke(InputActionMap.UI);
         SetSelected(pauseMenuFirstButton);
         pauseCoroutine = null;
     }
@@ -48,6 +64,7 @@ public class PauseMenu : MonoBehaviour
     private IEnumerator SpeedUpTime()
     {
         pauseImage.SetActive(false);
+        InputManager.onSwitchInputMap?.Invoke(InputActionMap.Player);
         float t = 0f;
         float start = Time.timeScale;
 
@@ -68,5 +85,22 @@ public class PauseMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void OpenOptions()
+    {
+        OptionImage.SetActive(true);
+    }
+
+    public void OpenControls()
+    {
+        ControlImage.SetActive(true);
+
+    }
+
+    public void OpenSounds()
+    {
+        SoundImage.SetActive(true);
+
     }
 }

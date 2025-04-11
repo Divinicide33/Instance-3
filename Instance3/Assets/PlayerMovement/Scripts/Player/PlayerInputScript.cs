@@ -74,4 +74,10 @@ public class PlayerInputScript : MonoBehaviour
         isEnable = false;
         Debug.Log("Input disabled");
     }
+
+    public void StartPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PauseMenu.onStartPause?.Invoke();
+    }
 }
