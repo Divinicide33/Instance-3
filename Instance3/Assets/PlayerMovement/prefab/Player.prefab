@@ -401,6 +401,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Potion
+  nbPotions: 0
+  nbPotionsMax: 4
+  healValue: 4
 --- !u!1 &7157970686025683427
 GameObject:
   m_ObjectHideFlags: 0

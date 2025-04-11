@@ -75,6 +75,15 @@ public class PlayerInputScript : MonoBehaviour
         }
     }
 
+    public void OnUsePotion(InputAction.CallbackContext context)
+    {
+        if (!isEnable) return;
+        if (context.started)
+        {
+            PlayerController.onUsePotion?.Invoke();
+        }
+    }
+
     private void EnableInput()
     {
         isEnable = true;

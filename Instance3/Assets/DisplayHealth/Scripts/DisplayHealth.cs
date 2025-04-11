@@ -7,7 +7,7 @@ public class DisplayHealth : UIElement
 {
     [SerializeField] private Stats playerStats;
     public static Action<Stats> onUpdateHpMax { get; set; }
-    [SerializeField] private Transform HealthPanel;
+    [SerializeField] private Transform healthPanel;
     [SerializeField] GameObject hpImage;
     [SerializeField] private Sprite hpFilled;
     [SerializeField] private Sprite hpHollow;
@@ -41,7 +41,7 @@ public class DisplayHealth : UIElement
 
             for (int i = 0; i < nb; i++)
             {
-                GameObject newHpGo = Instantiate(hpImage, HealthPanel);
+                GameObject newHpGo = Instantiate(hpImage, healthPanel);
                 images.Add(newHpGo.GetComponent<Image>());
             }
         }
@@ -60,17 +60,16 @@ public class DisplayHealth : UIElement
 
     protected override void Show()
     {
-        HealthPanel.gameObject.SetActive(true);
+        healthPanel.gameObject.SetActive(true);
     }
 
     protected override void Hide()
     {
-        HealthPanel.gameObject.SetActive(false);
+        healthPanel.gameObject.SetActive(false);
     }
 
     protected override void UpdateDisplay()
     {
-        // Debug.Log("Entered UpdateDisplay");
         UpdateImage();
     }
 
