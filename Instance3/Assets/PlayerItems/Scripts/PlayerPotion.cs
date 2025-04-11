@@ -16,6 +16,11 @@ public class PlayerPotion : ItemModule
     }
     protected override void Use()
     {
+        if (stats.health == stats.healthMax)
+        {
+            Debug.Log("Already full life");
+            return;
+        }
         nbPotions--;
         if (nbPotions < 0) nbPotions = 0;
 
@@ -47,6 +52,16 @@ public class PlayerPotion : ItemModule
         if (Input.GetKeyDown(KeyCode.E))
         {
             Use();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UiManager.HideAllUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            UiManager.ShowAllUI();
         }
     }
 

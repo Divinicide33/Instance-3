@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class DisplayPotions : UIElement
+public class DisplayPotions : UIElement<DisplayPotions>
 {
     [SerializeField] private Transform PotionsPanel;
     [SerializeField] TMP_Text nbPotions;

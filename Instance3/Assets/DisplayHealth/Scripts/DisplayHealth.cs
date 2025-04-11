@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayHealth : UIElement
+public class DisplayHealth : UIElement<DisplayHealth>
 {
     [SerializeField] private Stats playerStats;
     public static Action<Stats> onUpdateHpMax { get; set; }
