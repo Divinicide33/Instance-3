@@ -18,6 +18,7 @@ public class PlayerController : Entity
     public static Action<bool> onGlide { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
+
     void Start()
     {
         stats = GetComponent<Stats>();
@@ -26,6 +27,13 @@ public class PlayerController : Entity
         attack = GetComponent<PlayerAttack>();
         dash = GetComponent<PlayerDash>();
         glide = GetComponent<PlayerGlide>();
+
+        UpdatePlayerUi();
+
     }
 
+    void UpdatePlayerUi()
+    {
+        DisplayHealth.onUpdateHpMax?.Invoke(stats);
+    }
 }

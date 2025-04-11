@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerGlide : MonoBehaviour
+public class PlayerGlide : SkillModule
 {
     private Rigidbody2D rb;
     [SerializeField] private float maxVelocityY;
