@@ -21,6 +21,7 @@ namespace AI.WildBoard
         [SerializeField] public LayerMask playerLayer;
         [SerializeField] public float detectionRadius = 10f;
         [SerializeField] public float fovAngle = 60f;
+        [SerializeField] public float DurationEnterDash = 2f;
 
         [Header("D�g�ts et Knockback")] [SerializeField]
         public float damage = 10f;
@@ -29,6 +30,8 @@ namespace AI.WildBoard
 
         [SerializeField] public LayerMask obstacleLayer;
 
+
+        public Vector2 lastDashDirection = Vector2.right;
         protected override BTNode SetupTree()
         {
             BTNode root = new BTSelector(new List<BTNode>

@@ -434,19 +434,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   chargeDelay: 1
+  dashStarted: 0
   dashSpeed: 10
-  dashDuration: 0.3
+  dashDuration: 1
   fovOrigin: {fileID: 1326039067}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
   detectionRadius: 6
   fovAngle: 60
+  DurationEnterDash: 1
   damage: 10
-  knockbackForce: 3
+  knockbackForce: 15
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+  lastDashDirection: {x: 1, y: 0}
 --- !u!1 &537418560
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +623,7 @@ GameObject:
   - component: {fileID: 1034664349}
   - component: {fileID: 1034664348}
   - component: {fileID: 1034664347}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

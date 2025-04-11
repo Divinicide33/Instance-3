@@ -6,20 +6,29 @@ namespace AI.WildBoard
     public class BTCondition_IsPlayerInFOV : BTNode
     {
         private BTBoarTree tree;
+
+        private float Timer;
         
         public BTCondition_IsPlayerInFOV(BTBoarTree tree)
         {
             this.tree = tree;
+            Timer = tree.DurationEnterDash;
         }
 
         public override BTNodeState Evaluate()
         {
+
             // Si le dash est déjà en cours, on ne fait pas de détection.
             if (tree.dashStarted)
             {
                 return BTNodeState.SUCCESS;
             }
             
+            Timer += Time.deltaTime;
+            if(Timer <= tree.DurationEnterDash)
+            {
+                return BTNodeState.FAILURE;
+            }
             // 1. Détection de zone
             Collider2D[] hits = Physics2D.OverlapCircleAll(tree.fovOrigin.position, tree.detectionRadius, tree.playerLayer);
             //Debug.Log($"OverlapSphere : {hits.Length} objets détectés dans la zone de détection.");
@@ -68,6 +77,7 @@ namespace AI.WildBoard
             Debug.DrawRay(tree.fovOrigin.position, directionToTarget * distanceToTarget, Color.green);
             //tree.playerIsInFOV = true;
             tree.dashStarted = true;
+            Timer = 0;
             return BTNodeState.SUCCESS;
         }
         
