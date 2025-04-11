@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class DoorTrigger : MonoBehaviour
+public class Door : MonoBehaviour
 {
-    [SerializeField] private RoomId destinationRoom;
+    /*[SerializeField] private RoomId destinationRoom;
     [SerializeField] private Transform destination;
     [SerializeField] private bool goLeft = false;
 
@@ -24,5 +24,25 @@ public class DoorTrigger : MonoBehaviour
             Transform player = playerController.transform;
             RoomManager.onDoorUsed?.Invoke(destinationRoom, player, destination);
         }
+    }*/
+
+
+
+
+    [SerializeField] private RoomId destinationRoom;
+    [SerializeField] private Transform destinationSpawnPoint;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.TryGetComponent<PlayerController>(out _))
+            return;
+
+        StartCoroutine(EnterDoor(other.transform));
+    }
+
+    private System.Collections.IEnumerator EnterDoor(Transform player)
+    {
+        yield return RoomManager1.Instance.ChangeRoom(destinationRoom, player, destinationSpawnPoint.position);
+
     }
 }
