@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,18 +9,57 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsMenu;
+
     [Header("First Selected Buttons")]
     [SerializeField] private GameObject mainMenuFirstButton;
     [SerializeField] private GameObject settingsMenuFirstButton;
     [SerializeField] private GameObject creditsMenuFirstButton;
 
+    [Header("Input")]
+    [SerializeField] private PlayerInput playerInput;
+
+    private void OnEnable()
+    {
+        if (playerInput != null)
+            playerInput.onControlsChanged += OnControlsChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (playerInput != null)
+            playerInput.onControlsChanged -= OnControlsChanged;
+    }
+
+    private void OnControlsChanged(PlayerInput input)
+    {
+        // detect if using gamepad
+        if (input.currentControlScheme == "Joystick")
+        {
+            SelectFirstButton();
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    private void SelectFirstButton()
+    {
+        if (settingsMenu.activeSelf)
+            SetSelected(settingsMenuFirstButton);
+        else if (creditsMenu.activeSelf)
+            SetSelected(creditsMenuFirstButton);
+        else
+            SetSelected(mainMenuFirstButton);
+    }
+
     private void SetSelected(GameObject button)
     {
+        if (button == null) return;
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button);
     }
-
-
 
     public void PlayGame()
     {
@@ -31,14 +70,18 @@ public class MenuManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
-        SetSelected(settingsMenuFirstButton);
+
+        if (playerInput.currentControlScheme == "Joystick")
+            SetSelected(settingsMenuFirstButton);
     }
 
     public void OpenCredits()
     {
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
-        SetSelected(creditsMenuFirstButton);
+
+        if (playerInput.currentControlScheme == "Joystick")
+            SetSelected(creditsMenuFirstButton);
     }
 
     public void BackToMainMenu()
@@ -46,9 +89,10 @@ public class MenuManager : MonoBehaviour
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         mainMenu.SetActive(true);
-        SetSelected(mainMenuFirstButton);
-    }
 
+        if (playerInput.currentControlScheme == "Joystick")
+            SetSelected(mainMenuFirstButton);
+    }
 
     public void QuitGame()
     {
