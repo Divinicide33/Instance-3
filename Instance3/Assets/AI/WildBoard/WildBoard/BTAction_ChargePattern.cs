@@ -24,7 +24,7 @@ namespace AI.WildBoard
             if (!charging)
             {
                 delayTimer -= Time.deltaTime;
-                Debug.Log($"Charge Delay Phase 1: {delayTimer:F2}/{tree.chargeDelay}");
+                //Debug.Log($"Charge Delay Phase 1: {delayTimer:F2}/{tree.chargeDelay}");
                 if (delayTimer > 0)
                 {
                     return BTNodeState.RUNNING;
@@ -32,13 +32,13 @@ namespace AI.WildBoard
                 
                 charging = true; // Le délai est écoulé, on passe à la phase de dash
                 dashTimer = tree.dashDuration;
-                Debug.Log("Charge delay terminé. Démarrage du dash.");
+                //Debug.Log("Charge delay terminé. Démarrage du dash.");
             }
 
             // Phase 2 : Dash
             dashTimer -= Time.deltaTime;
+            //Debug.Log($"Charge Delay Phase 2: {delayTimer:F2}/{tree.chargeDelay}");
             
-            Debug.Log($"Charge Delay Phase 2: {delayTimer:F2}/{tree.chargeDelay}");
             float jumpForce = 2f; // Valeur ajustable pour le saut
             Vector2 movement = new Vector2(tree.dashSpeed * Time.deltaTime, jumpForce * Time.deltaTime);
             tree.gameObject.transform.Translate(movement);
@@ -74,7 +74,7 @@ namespace AI.WildBoard
             charging = false;
             delayTimer = tree.chargeDelay;
             dashTimer = tree.dashDuration;
-            Debug.Log("Pattern de charge terminé. Les compteurs sont réinitialisés.");
+            //Debug.Log("Pattern de charge terminé. Les compteurs sont réinitialisés.");
         }
     }
 }
