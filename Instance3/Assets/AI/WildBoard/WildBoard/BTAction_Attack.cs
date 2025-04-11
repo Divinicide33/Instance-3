@@ -1,6 +1,7 @@
 using UnityEngine;
+using BehaviorTree;
 
-namespace BehaviorTree
+namespace AI.WildBoard
 {
     public class BTAction_Attack : BTNode
     {
@@ -22,7 +23,7 @@ namespace BehaviorTree
                 //Health targetHealth = _target.GetComponent<Health>();
                 //if (targetHealth != null)
                 //{
-                //    targetHealth.TakeDamage(_damage);  // Applique les dégâts au joueur
+                //    targetHealth.TakeDamage(_damage);  // Applique les dï¿½gï¿½ts au joueur
                 //    return BTNodeState.SUCCESS;
                 //}
             }

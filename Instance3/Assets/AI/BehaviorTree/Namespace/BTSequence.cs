@@ -16,7 +16,7 @@ namespace BehaviorTree
             bool anyChildIsRunning = false;  // Flag to track if any child is running
 
             // Iterate through each child node
-            foreach (BTNode BTNode in _children)
+            foreach (BTNode BTNode in children)
             {
                 // Exit the loop if any child is running
                 if (anyChildIsRunning)
@@ -28,8 +28,8 @@ namespace BehaviorTree
                 switch (BTNode.Evaluate())
                 {
                     case BTNodeState.FAILURE:
-                        _state = BTNodeState.FAILURE;
-                        return _state;  // Return FAILURE if any child fails
+                        state = BTNodeState.FAILURE;
+                        return state;  // Return FAILURE if any child fails
 
                     case BTNodeState.SUCCESS:
                         continue;  // Continue to the next child if the current one succeeds
@@ -39,14 +39,14 @@ namespace BehaviorTree
                         continue;  // Set the flag and continue to the next child if the current one is running
 
                     default:
-                        _state = BTNodeState.SUCCESS;
-                        return _state;  // Return SUCCESS by default
+                        state = BTNodeState.SUCCESS;
+                        return state;  // Return SUCCESS by default
                 }
             }
 
             // Set the state based on whether any child is running
-            _state = anyChildIsRunning ? BTNodeState.RUNNING : BTNodeState.SUCCESS;
-            return _state;
+            state = anyChildIsRunning ? BTNodeState.RUNNING : BTNodeState.SUCCESS;
+            return state;
         }
     }
 }

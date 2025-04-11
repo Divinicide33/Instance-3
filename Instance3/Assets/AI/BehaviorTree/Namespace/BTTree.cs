@@ -4,24 +4,23 @@ namespace BehaviorTree
 {
     public abstract class BTTree : MonoBehaviour
     {
-        public BTNode _root = null; // Le nœud racine de l'arbre de comportement
+        private BTNode root = null; // The root node of the behavior tree
+        public BTNode Root { get { return root; } } // Public property to access the root node
 
-        public BTNode Root { get { return _root; } } // Propriété publique pour accéder au nœud racine
-
-        // Appelé lorsque l'instance du script est chargée
+        // Called when the script instance is being loaded
         protected virtual void Start()
         {
-            _root = SetupTree(); // Configurer l'arbre de comportement et assigner le nœud racine
+            root = SetupTree(); // Setup the behavior tree and assign the root node
         }
 
-        // Appelé une fois par frame
+        // Called once per frame
         protected virtual void Update()
         {
-            if (_root != null)
-                _root.Evaluate(); // Évaluer l'arbre de comportement en commençant par le nœud racine
+            if (root != null)
+                root.Evaluate(); // Evaluate the behavior tree starting from the root node
         }
 
-        // Méthode abstraite pour configurer l'arbre de comportement
+        // Abstract method to be implemented by derived classes to setup the behavior tree
         protected abstract BTNode SetupTree();
     }
 }
