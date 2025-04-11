@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,7 +60,6 @@ public class RoomManager : MonoBehaviour
         //UnloadScene(currentRoom);
 
         currentRoom = newRoom;
-
     }
 
     private static string GetSceneName(RoomId room)

@@ -13,14 +13,15 @@ public class DoorTrigger : MonoBehaviour
         {
             destination.localPosition = new Vector3(-destination.localPosition.x, destination.localPosition.y, destination.localPosition.z);
         }
+        MiniMapRoomManager.instance.RevealRoom();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
+        PlayerController playerController = other.GetComponentInParent<PlayerController>();
+        if (playerController != null)
         {
-            DontDestroyOnLoad(other.gameObject);
             PlayerInputScript.onDisableInput?.Invoke();
-            Transform player = other.transform;
+            Transform player = playerController.transform;
             RoomManager.onDoorUsed?.Invoke(destinationRoom, player, destination);
         }
     }
