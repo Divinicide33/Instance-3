@@ -1,18 +1,30 @@
+using System;
 using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
     private int nbJump;
-    [SerializeField] private int nbJumpMax = 2;
+    private int nbJumpMax = 1;
     [SerializeField] private float jumpForce;
     private Rigidbody2D rb;
     private bool isGrounded = false;
 
+    public static Action<bool> onChangeJump { get; set; }
     private void Awake() 
     {
         nbJump = nbJumpMax;
         rb = GetComponent<Rigidbody2D>();
+
     }
+
+    private void ChangeJump(bool value)
+    {
+        if (value) nbJumpMax = 2;
+        else nbJumpMax = 1;
+
+        if (isGrounded) nbJump = nbJumpMax;
+    }
+
     private void ResetJump(bool value)
     {
         isGrounded = value;
@@ -23,12 +35,16 @@ public class PlayerJump : MonoBehaviour
     {
         GroundCheck.onGrounded += ResetJump;
         PlayerController.onJump += Jump;
+        onChangeJump += ChangeJump;
     }
+
     void OnDisable()
     {
         GroundCheck.onGrounded -= ResetJump;
         PlayerController.onJump -= Jump;
+        onChangeJump -= ChangeJump;
     }
+
     public void Jump(bool isJumpPressed) // if you can jump : decremente from the count and do the jump
     {
         if (isJumpPressed)
