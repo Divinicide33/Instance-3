@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "17887dbe-104e-4b7d-98e1-d323f5db421f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -399,6 +408,28 @@
                     "processors": "",
                     "groups": ";Joystick",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2db444cd-c2cc-4f5f-9455-5890f321b3c2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2bc913a6-0a47-49c0-8b22-5549757d70cc",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
