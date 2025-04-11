@@ -97,10 +97,8 @@ public class AudioManager : MonoBehaviour
     {
         foreach (var source in sfxSources) 
         {
-            source.Stop();
+            source.Pause();
         }
-
-        activeSFX.Clear();
     }
 
     private void HandleStopAllSFX()
