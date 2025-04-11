@@ -1,6 +1,6 @@
 using UnityEngine;
 
-    [CreateAssetMenu(fileName = "Nex SFX", menuName = "AudioManager/SFX")]
+    [CreateAssetMenu(fileName = "New SFX", menuName = "AudioManager/SFX")]
     public class SFXAsset : ScriptableObject
     {
         public string sfxName;

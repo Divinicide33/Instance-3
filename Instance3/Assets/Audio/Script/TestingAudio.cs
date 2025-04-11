@@ -21,7 +21,7 @@ public class TestingAudio : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            AudioManager.OnPlaySFX?.Invoke("Test3");
+            AudioManager.OnPlayMusic?.Invoke("MusicTest");
         }
     }
 }

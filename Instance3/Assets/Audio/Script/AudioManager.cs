@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class AudioManager : MonoBehaviour
     public static Action<string> OnPlayMusic;
     public static Action OnPauseMusic;
     public static Action OnStopMusic;
+
+    [Header("Mixer")]
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
 
     [Header("Databases")]
     [SerializeField] private SFXDatabase sfxDatabase;
@@ -27,11 +33,13 @@ public class AudioManager : MonoBehaviour
     private void Awake() 
     {
         musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.outputAudioMixerGroup = musicGroup;
         musicSource.playOnAwake = false;
 
         for (int i = 0; i < sfxPoolSize; i++) 
         {
             AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.outputAudioMixerGroup = sfxGroup;
             sfxSource.playOnAwake = false;
             sfxSources.Add(sfxSource);
         }

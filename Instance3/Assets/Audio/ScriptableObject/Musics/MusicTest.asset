@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3365a2a5143791478f550f920caebfb, type: 3}
-  m_Name: MusicDataBase
+  m_Script: {fileID: 11500000, guid: a7aa63ed5e1ab204aab532e841db9f52, type: 3}
+  m_Name: MusicTest
   m_EditorClassIdentifier: 
-  sfxClips:
-  - {fileID: 11400000, guid: 1533faca0ce1f9944b8629d6efc74f25, type: 2}
+  sfxName: MusicTest
+  clip: {fileID: 8300000, guid: 5f868c63ee6c08246bd495f012d3dc90, type: 3}
+  volume: 1
+  loop: 0
