@@ -1,106 +1,165 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections;
+using UnityEngine.InputSystem;
+
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseImage;
-    [SerializeField] private GameObject OptionImage;
-    [SerializeField] private GameObject ControlImage;
-    [SerializeField] private GameObject SoundImage;
-    [SerializeField] private float slowdownDuration = 1f; 
-    [SerializeField] private GameObject pauseMenuFirstButton;
+    [Header("UI References")]
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject controlsPanel;
+    [SerializeField] private GameObject soundPanel;
+    [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private GameObject optionsFirstButton;
+    [SerializeField] private GameObject controlsFirstButton;
+    [SerializeField] private GameObject soundFirstButton;
 
 
-    private bool isPaused = false;
-    private Coroutine pauseCoroutine;
+    [Header("Settings")]
+    [SerializeField] private float transitionDuration = 1f;
+
+    private PlayerInput playerInput;
+
 
     public static Action onStartPause;
+    public static Action onCancel;
+
+    private bool isPaused = false;
+    private Coroutine transitionCoroutine;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     private void Start()
     {
         onStartPause += TogglePause;
+        onCancel += HandleCancelInput;
+
     }
 
     private void OnDestroy()
     {
         onStartPause -= TogglePause;
+        onCancel -= HandleCancelInput;
 
     }
 
     public void TogglePause()
     {
-        if (pauseCoroutine != null) return;
+        if (transitionCoroutine != null) return;
 
         if (!isPaused)
-            pauseCoroutine = StartCoroutine(SlowDownTime());
+            transitionCoroutine = StartCoroutine(RampTimeScale(1f, 0f, OnPauseComplete));
         else
-            pauseCoroutine = StartCoroutine(SpeedUpTime());
+            transitionCoroutine = StartCoroutine(RampTimeScale(0f, 1f, OnResumeComplete));
     }
 
-    private IEnumerator SlowDownTime()
+    private IEnumerator RampTimeScale(float from, float to, Action onComplete)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / transitionDuration);
+            Time.timeScale = Mathf.Lerp(from, to, t);
+            yield return null;
+        }
+
+        Time.timeScale = to;
+        transitionCoroutine = null;
+        onComplete?.Invoke();
+    }
+
+    private void OnPauseComplete()
     {
         isPaused = true;
-
-        float t = 0f;
-        float start = Time.timeScale;
-
-        while (t < slowdownDuration)
-        {
-            t += Time.unscaledDeltaTime;
-            float normalized = Mathf.Clamp01(t / slowdownDuration);
-            Time.timeScale = Mathf.Lerp(start, 0f, normalized);
-            yield return null;
-        }
-
-        Time.timeScale = 0f;
-        pauseImage.SetActive(true);
+        pausePanel.SetActive(true);
+        SetSelectedUI(firstSelectedButton);
         InputManager.onSwitchInputMap?.Invoke(InputActionMap.UI);
-        SetSelected(pauseMenuFirstButton);
-        pauseCoroutine = null;
     }
 
-    private IEnumerator SpeedUpTime()
+    private void OnResumeComplete()
     {
-        pauseImage.SetActive(false);
-        InputManager.onSwitchInputMap?.Invoke(InputActionMap.Player);
-        float t = 0f;
-        float start = Time.timeScale;
-
-        while (t < slowdownDuration)
-        {
-            t += Time.unscaledDeltaTime;
-            float normalized = Mathf.Clamp01(t / slowdownDuration);
-            Time.timeScale = Mathf.Lerp(start, 1f, normalized);
-            yield return null;
-        }
-
-        Time.timeScale = 1f;
         isPaused = false;
-        pauseCoroutine = null;
+        pausePanel.SetActive(false);
+        InputManager.onSwitchInputMap?.Invoke(InputActionMap.Player);
     }
 
-    private void SetSelected(GameObject button)
+    private void SetSelectedUI(GameObject button)
     {
+        if (button == null) return;
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    public void OpenOptions()
+    private void OpenPanel(GameObject panel, GameObject firstButton)
     {
-        OptionImage.SetActive(true);
+        if (panel == null) return;
+
+        panel.SetActive(true);
+
+        if (playerInput != null && playerInput.currentControlScheme == "Joystick")
+        {
+            SetSelectedUI(firstButton);
+        }
+    }
+    private void ClosePanel(GameObject panel)
+    {
+        if (panel != null)
+            panel.SetActive(false);
     }
 
-    public void OpenControls()
-    {
-        ControlImage.SetActive(true);
 
+    private void HandleCancelInput()
+    {
+        if (optionsPanel != null && optionsPanel.activeSelf)
+        {
+            CloseOptions();
+        }
+        else if (controlsPanel != null && controlsPanel.activeSelf)
+        {
+            CloseControls();
+        }
+        else if (soundPanel != null && soundPanel.activeSelf)
+        {
+            CloseSounds();
+        }
+        else
+        {
+            onStartPause?.Invoke();
+        }
     }
 
-    public void OpenSounds()
-    {
-        SoundImage.SetActive(true);
 
+    #region Submenus
+
+    public void OpenOptions() => OpenPanel(optionsPanel, optionsFirstButton);
+    public void CloseOptions() => ClosePanel(optionsPanel);
+
+    public void OpenControls() => OpenPanel(controlsPanel, controlsFirstButton);
+    public void CloseControls() => ClosePanel(controlsPanel);
+
+    public void OpenSounds() => OpenPanel(soundPanel, soundFirstButton);
+    public void CloseSounds() => ClosePanel(soundPanel);
+
+    private void ShowPanel(GameObject panel)
+    {
+        if (panel != null)
+            panel.SetActive(true);
     }
+
+    private void HidePanel(GameObject panel)
+    {
+        if (panel != null)
+            panel.SetActive(false);
+    }
+
+    #endregion
 }

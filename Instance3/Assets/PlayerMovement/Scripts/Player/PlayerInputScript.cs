@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -79,5 +80,11 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (context.started)
             PauseMenu.onStartPause?.Invoke();
+    }
+
+    public void HandleCancel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PauseMenu.onCancel?.Invoke();
     }
 }
