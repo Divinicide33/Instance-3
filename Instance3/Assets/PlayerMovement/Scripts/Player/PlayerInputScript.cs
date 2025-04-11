@@ -1,10 +1,26 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
 {
-    bool isMoving = false;
+    private bool isMoving = false;
+    private bool isEnable;
+    public static Action onEnableInput { get; set; }
+    public static Action onDisableInput { get; set; }
+
+    private void OnEnable()
+    {
+        onEnableInput += EnableInput;
+        onDisableInput += DisableInput;
+    }
+
+    private void OnDisable()
+    {
+        onEnableInput -= EnableInput;
+        onDisableInput -= DisableInput;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -45,5 +61,17 @@ public class PlayerInputScript : MonoBehaviour
         {
             PlayerController.onDash?.Invoke();
         }
+    }
+
+    private void EnableInput()
+    {
+        isEnable = true;
+        Debug.Log("Input enabled");
+    }
+
+    private void DisableInput()
+    {
+        isEnable = false;
+        Debug.Log("Input disabled");
     }
 }
