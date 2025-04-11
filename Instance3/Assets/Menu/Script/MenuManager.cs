@@ -53,6 +53,8 @@ public class MenuManager : MonoBehaviour
             SetSelected(creditsMenuFirstButton);
         else
             SetSelected(mainMenuFirstButton);
+    }
+
     private FadeInOut fade;
 
     private void Start()
