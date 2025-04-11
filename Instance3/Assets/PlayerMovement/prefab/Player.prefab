@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0385b4e6bb80e1e40aa82f2d2ab1e658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSkills: []
 --- !u!114 &3079863978662543617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc420be60b7bf0489c86e77a9377c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillName: Dash
+  ModuleName: Dash
   dashForce: 25
   dashDuration: 0.1
   dashCooldown: 0.5
@@ -174,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5563a26edbacd474b9102ee63eb589e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillName: DoubleJump
+  ModuleName: DoubleJump
   nbJumpToAdd: 1
 --- !u!114 &4491546608162255470
 MonoBehaviour:
@@ -188,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9758dad8c08157c4695799aeb3d33e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillName: Glide
+  ModuleName: Glide
   maxVelocityY: 1
 --- !u!114 &6103533508610122396
 MonoBehaviour:
