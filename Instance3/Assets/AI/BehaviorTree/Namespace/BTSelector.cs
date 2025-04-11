@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public class RB_BTSelector : RB_BTNode
+    public class BTSelector : BTNode
     {
         // Constructor for a selector node without children
-        public RB_BTSelector() : base() { }
+        public BTSelector() : base() { }
 
         // Constructor for a selector node with children
-        public RB_BTSelector(List<RB_BTNode> children) : base(children) { }
+        public BTSelector(List<BTNode> children) : base(children) { }
 
         // Evaluate the selector node
         public override BTNodeState Evaluate()
         {
             // Iterate through each child node
-            foreach (RB_BTNode BTNode in _children)
+            foreach (BTNode BTNode in children)
             {
                 switch (BTNode.Evaluate())
                 {
@@ -22,20 +22,20 @@ namespace BehaviorTree
                         continue;  // Move to the next child if the current one fails
 
                     case BTNodeState.SUCCESS:
-                        _state = BTNodeState.SUCCESS;
-                        return _state;  // Return SUCCESS if any child succeeds
+                        state = BTNodeState.SUCCESS;
+                        return state;  // Return SUCCESS if any child succeeds
 
                     case BTNodeState.RUNNING:
-                        _state = BTNodeState.RUNNING;
-                        return _state;  // Return RUNNING if any child is still running
+                        state = BTNodeState.RUNNING;
+                        return state;  // Return RUNNING if any child is still running
 
                     default:
                         continue;  // Continue to the next child for any other state
                 }
             }
 
-            _state = BTNodeState.FAILURE;
-            return _state;  // Return FAILURE if all children fail
+            state = BTNodeState.FAILURE;
+            return state;  // Return FAILURE if all children fail
         }
     }
 }

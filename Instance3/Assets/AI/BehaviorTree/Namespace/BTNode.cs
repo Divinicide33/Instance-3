@@ -10,33 +10,33 @@ namespace BehaviorTree
         FAILURE   // Node failed to complete
     }
 
-    public class RB_BTNode
+    public class BTNode
     {
-        protected BTNodeState _state;  // The current state of the node
+        protected BTNodeState state;  // The current state of the node
 
-        public RB_BTNode Parent;  // Reference to the parent node
-        protected List<RB_BTNode> _children = new();  // List of child nodes
+        public BTNode Parent;  // Reference to the parent node
+        protected List<BTNode> children = new();  // List of child nodes
 
-        private Dictionary<string, object> _dataContext = new();  // Data context for storing key-value pairs
+        private Dictionary<string, object> dataContext = new();  // Data context for storing key-value pairs
 
         // Constructor for a node without children
-        public RB_BTNode()
+        public BTNode()
         {
             Parent = null;
         }
 
         // Constructor for a node with children
-        public RB_BTNode(List<RB_BTNode> children)
+        public BTNode(List<BTNode> children)
         {
-            foreach (RB_BTNode child in children)
-                _Attach(child);  // Attach each child node
+            foreach (BTNode child in children)
+                Attach(child);  // Attach each child node
         }
 
         // Attach a child node to this node
-        private void _Attach(RB_BTNode BTNode)
+        private void Attach(BTNode BTNode)
         {
             BTNode.Parent = this;  // Set this node as the parent of the child
-            _children.Add(BTNode);  // Add the child to the list of children
+            children.Add(BTNode);  // Add the child to the list of children
         }
 
         // Evaluate the node (default implementation returns FAILURE)
@@ -45,16 +45,16 @@ namespace BehaviorTree
         // Set data in the node's context
         public void SetData(string key, object value)
         {
-            _dataContext[key] = value;
+            dataContext[key] = value;
         }
 
         // Get data from the node's context or its ancestors' contexts
         public object GetData(string key)
         {
-            if (_dataContext.TryGetValue(key, out object value))
+            if (dataContext.TryGetValue(key, out object value))
                 return value;
 
-            RB_BTNode BTNode = Parent;
+            BTNode BTNode = Parent;
             while (BTNode != null)
             {
                 value = BTNode.GetData(key);
@@ -68,13 +68,13 @@ namespace BehaviorTree
         // Clear data from the node's context or its ancestors' contexts
         public bool ClearData(string key)
         {
-            if (_dataContext.ContainsKey(key))
+            if (dataContext.ContainsKey(key))
             {
-                _dataContext.Remove(key);
+                dataContext.Remove(key);
                 return true;
             }
 
-            RB_BTNode BTNode = Parent;
+            BTNode BTNode = Parent;
             while (BTNode != null)
             {
                 bool cleared = BTNode.ClearData(key);
