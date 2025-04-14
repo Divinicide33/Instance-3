@@ -5,13 +5,9 @@ public class PlayerGlide : SkillModule
     private Rigidbody2D rb;
     [SerializeField] private float maxVelocityY;
     private bool isGliding = false;
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        PlayerController.onGlide += Glide;
-    }
     private void OnEnable() 
     {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
         PlayerController.onGlide += Glide;
     }
     private void OnDisable() 
