@@ -1,27 +1,45 @@
 using UnityEngine;
 
-public class DoorTrigger : MonoBehaviour
+public class Door : MonoBehaviour
 {
-    [SerializeField] private RoomId destinationRoom;
-    [SerializeField] private Transform destination;
+    //[SerializeField] private RoomId destinationRoom;
+    //[SerializeField] private Transform destination;
     [SerializeField] private bool goLeft = false;
-
+    [SerializeField] private RoomId destinationRoom;
+    [SerializeField] private Transform destinationSpawnPoint;
 
     private void Start()
     {
         if (goLeft)
         {
-            destination.localPosition = new Vector3(-destination.localPosition.x, destination.localPosition.y, destination.localPosition.z);
+            destinationSpawnPoint.localPosition = new Vector3(-destinationSpawnPoint.localPosition.x, destinationSpawnPoint.localPosition.y, destinationSpawnPoint.localPosition.z);
         }
+        MiniMapRoomManager.instance.RevealRoom();
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
-        {
-            DontDestroyOnLoad(other.gameObject);
-            PlayerInputScript.onDisableInput?.Invoke();
-            Transform player = other.transform;
-            RoomManager.onDoorUsed?.Invoke(destinationRoom, player, destination);
-        }
+        if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out _))
+            return;
+
+        StartCoroutine(EnterDoor(other.transform.parent));
+        MiniMapRoomManager.instance.RevealRoom();
     }
+
+    private System.Collections.IEnumerator EnterDoor(Transform player)
+    {
+
+        yield return RoomManager1.Instance.ChangeRoom(destinationRoom, player, destinationSpawnPoint.position);
+    }
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    
+    //    if (playerController != null)
+    //    {
+    //        PlayerInputScript.onDisableInput?.Invoke();
+    //        Transform player = playerController.transform;
+    //        
+    //    }
+    //}
 }
