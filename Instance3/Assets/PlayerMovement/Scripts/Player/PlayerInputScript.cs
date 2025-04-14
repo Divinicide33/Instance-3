@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputScript : MonoBehaviour
 {
     private bool isMoving = false;
-    private bool isEnable;
+    private bool isEnable = true;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
 
@@ -47,7 +47,6 @@ public class PlayerInputScript : MonoBehaviour
         if (!isEnable) return;
         if (context.started)
         {
-            Debug.Log("Jump");
             PlayerController.onJump?.Invoke(true);
             PlayerController.onGlide?.Invoke(true);
         }
