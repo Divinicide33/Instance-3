@@ -1275,6 +1275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1462817899}
   - component: {fileID: 1462817898}
+  - component: {fileID: 1462817900}
   m_Layer: 0
   m_Name: CameraConfiner
   m_TagString: Untagged
@@ -1328,10 +1329,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 10.666289, y: -6.0122385}
-      - {x: 10.667626, y: 5.9955525}
-      - {x: -10.680025, y: 6.001493}
-      - {x: -10.667301, y: -5.9915104}
+    - - {x: 11.94675, y: -5.9695563}
+      - {x: 11.969428, y: 6.9345574}
+      - {x: -11.939145, y: 6.961839}
+      - {x: -11.9477625, y: -5.970169}
   m_UseDelaunayMesh: 0
 --- !u!4 &1462817899
 Transform:
@@ -1348,6 +1349,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462817900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462817897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9492ec884edaf84da49b1c8b1af461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1464473405
 GameObject:
   m_ObjectHideFlags: 0
