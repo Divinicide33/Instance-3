@@ -51,7 +51,7 @@ public class PlayerJump : MonoBehaviour
         {
             if (nbJump <= 0) return;
             nbJump--;
-            Debug.Log($"nbJump = {nbJump}");
+            //Debug.Log($"nbJump = {nbJump}");
 
             Vector2 jumpDirection = new Vector2(0, jumpForce);
             rb.linearVelocityY = 0;

@@ -26,7 +26,7 @@ public class GroundCheck : MonoBehaviour
         {
             isGrounded = check;
             onGrounded?.Invoke(isGrounded);
-            Debug.Log($"isGrounded = {isGrounded}");
+            //Debug.Log($"isGrounded = {isGrounded}");
         }
     }
 

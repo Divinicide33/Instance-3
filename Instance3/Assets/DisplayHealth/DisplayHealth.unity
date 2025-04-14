@@ -1059,9 +1059,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6103533508610122396, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 72
+    - target: {fileID: 7421083053208338391, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
+      propertyPath: ModuleName
+      value: PlayerState
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
