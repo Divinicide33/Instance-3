@@ -1,6 +1,15 @@
 using UnityEngine;
 
-public abstract class SkillModule : MonoBehaviour
+public abstract class SkillModule : PlayerModule
 {
-    public string SkillName;
+
+}
+
+public enum SkillsName
+{
+    Dash,
+    DoubleJump,
+    Glide,
+    PlayerState
+
 }

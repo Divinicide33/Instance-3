@@ -16,6 +16,7 @@ public class PlayerController : Entity
     public static Action onAttack { get; set; }
     public static Action onDash { get; set; }
     public static Action<bool> onGlide { get; set; }
+    public static Action onUsePotion { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
 

@@ -53,7 +53,7 @@ public class PlayerDash : SkillModule
     {
         if (!isDashing && canDash)
         {
-            playerMove.canMove = false;
+            PlayerMove.onSetMove?.Invoke(false);
             height = transform.position.y;
             rb.linearVelocityY = 0;
 
@@ -87,7 +87,7 @@ public class PlayerDash : SkillModule
     public void StopDash()
     {
         isDashing = false;
-        playerMove.canMove = true;
+        PlayerMove.onSetMove?.Invoke(true);
         rb.linearVelocityX = 0;
     }
 

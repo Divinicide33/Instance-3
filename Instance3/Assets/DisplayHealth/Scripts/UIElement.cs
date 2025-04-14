@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class UIElement : MonoBehaviour
+public abstract class UIElement<T> : MonoBehaviour, IUI where T : UIElement<T>
 {
     public static Action onShow { get; set; }
     public static Action onHide { get; set; }
@@ -16,6 +16,7 @@ public abstract class UIElement : MonoBehaviour
         onShow += Show;
         onHide += Hide;
         onUpdate += UpdateDisplay;
+        UiManager.RegisterUI(this);
     }
     
     protected virtual void OnDisable()
@@ -25,4 +26,6 @@ public abstract class UIElement : MonoBehaviour
         onUpdate -= UpdateDisplay;
     }
 
+    public void HideUI() => Hide();
+    public void ShowUI() => Show();
 }
