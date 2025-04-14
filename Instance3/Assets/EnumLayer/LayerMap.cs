@@ -10,4 +10,5 @@ public enum LayerMap
     UI,
     Platform,
     MapUI,
+    Enemy
 }

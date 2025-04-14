@@ -47,22 +47,22 @@ public class PlayerPotion : ItemModule
         DisplayPotions.onHide?.Invoke();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Use();
-        }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         Use();
+    //     }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            UiManager.HideAllUI();
-        }
+    //     if (Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         UiManager.HideAllUI();
+    //     }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            UiManager.ShowAllUI();
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.T))
+    //     {
+    //         UiManager.ShowAllUI();
+    //     }
+    // }
 
 }

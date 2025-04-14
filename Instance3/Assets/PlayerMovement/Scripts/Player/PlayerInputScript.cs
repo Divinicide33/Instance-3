@@ -23,7 +23,6 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!isEnable) return;
         if (context.started)
         {
             isMoving = true;
@@ -86,12 +85,14 @@ public class PlayerInputScript : MonoBehaviour
     private void EnableInput()
     {
         isEnable = true;
+        PlayerMove.onSetMove?.Invoke(true);
         Debug.Log("Input enabled");
     }
 
     private void DisableInput()
     {
         isEnable = false;
+        PlayerMove.onSetMove?.Invoke(false);
         Debug.Log("Input disabled");
     }
 }

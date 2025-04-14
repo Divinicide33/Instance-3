@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -7,8 +8,8 @@ public class PlayerMove : MonoBehaviour
     private Stats stats;
     private Vector2 direction;
     [SerializeField] private float offSetInput = 0.5f;
-
-    public bool canMove = true;
+    public static Action<bool> onSetMove { get; set; }
+    private bool canMove = true;
     private void Awake() 
     {
         stats = GetComponent<Stats>();
@@ -19,10 +20,19 @@ public class PlayerMove : MonoBehaviour
     void OnEnable()
     {
         PlayerController.onMove += Move;
+        onSetMove += SetCanMove;
     }
     void OnDisable()
     {
         PlayerController.onMove -= Move;
+        onSetMove -= SetCanMove;
+    }
+
+    private void SetCanMove(bool value)
+    {
+        canMove = value;
+        Debug.Log($"canMove = {canMove}");
+        rb.linearVelocityX = 0;
     }
 
     private void Update() 
