@@ -32,6 +32,27 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Map/GestionMap/RoomScene/Room1.unity
     guid: 7da535d0e7985a34cae929c83ba60086
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/Room2.unity
+    guid: 05422c00b803fa745aa35d0dd816ca5a
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/Room3.unity
+    guid: 9c9c0da16ffbbcb49bef18c5f3f50d13
+  - enabled: 0
+    path: Assets/Menu/Scenes/GameScene.unity
+    guid: 8d84d577b94114a498c3206f6ac81ccf
+  - enabled: 1
+    path: Assets/PlayerMovement/PlayerMovement.unity
+    guid: 30cf419b9af3c2747ad29ea5d038ccaf
+  - enabled: 1
+    path: Assets/MenuInGame/Scene/PauseScene.unity
+    guid: 01781b2c17a57f64a882c5f62ef61f60
+  - enabled: 1
+    path: Assets/MenuInGame/Scene/VictoryScene.unity
+    guid: 0d77b21f73f737b4c8a909261c876891
+  - enabled: 1
+    path: Assets/MenuInGame/Scene/DefeatScene.unity
+    guid: 223223186ab806b4ba6da2d979b4bfd6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
