@@ -1,89 +1,103 @@
-using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
 
 public class RoomManager : MonoBehaviour
 {
     public static RoomManager Instance { get; private set; }
 
-    public static Action<RoomId, Transform , Transform> onDoorUsed;
+    public RoomId rooms;
 
-    [SerializeField] private RoomId currentRoom;
+    [SerializeField] private RoomId startingRoom;
+    [SerializeField] private CinemachineConfiner2D confiner;
 
+    private RoomId currentRoom;
+    private Dictionary<RoomId, Scene> loadedRooms = new();
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    private async void Start()
+    {
+        GiveColliderForCinemachine.onColliderChange += UpdateConfinerWithRoom;
+        await LoadRoom(startingRoom);
+    }
+
+    private void OnDestroy()
+    {
+        GiveColliderForCinemachine.onColliderChange -= UpdateConfinerWithRoom;
+    }
+
+    public async Task LoadRoom(RoomId newRoom)
+    {
+        if (loadedRooms.ContainsKey(newRoom))
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            Debug.Log("Room déjà chargée : " + newRoom);
             return;
         }
-    }
 
-    private void Start()
-    {
-        LoadScene(currentRoom);
-    }
-
-    private void OnEnable()
-    {
-        onDoorUsed += OnPlayerEnterRoom;
-    }
-
-    private void OnDisable()
-    {
-        onDoorUsed -= OnPlayerEnterRoom;
-    }
-
-    public void OnPlayerEnterRoom(RoomId newRoom, Transform playerPosition, Transform newPosition)
-    {
-        ChangeRoom(newRoom);
-        ChangePlayerPosition(playerPosition, newPosition);
-    }
-
-    private void ChangePlayerPosition(Transform playerPosition, Transform newPosition)
-    {
-        playerPosition.position = newPosition.position;
-    }
-
-    public void ChangeRoom(RoomId newRoom)
-    {
-        if (currentRoom == newRoom)
-            return;
-
-        LoadScene(newRoom);
-        //UnloadScene(currentRoom);
-
-        currentRoom = newRoom;
-    }
-
-    private static string GetSceneName(RoomId room)
-    {
-        return room.ToString();
-    }
-
-    private void LoadScene(RoomId room)
-    {
-        string sceneName = GetSceneName(room);
-        SceneManager.LoadScene(sceneName);
-        
-        Debug.Log("Scène initiale chargée : " + sceneName);
-    }
-
-/*    private async void UnloadScene(RoomId room)
-    {
-        string sceneName = GetSceneName(room);
-        AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(sceneName);
-        while (!unloadOp.isDone)
-        {
+        string sceneName = newRoom.ToString();
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        while (!loadOp.isDone)
             await Task.Yield();
-        }
-        loadedRooms.Remove(room);
-        Debug.Log("Déchargé : " + sceneName);
-    }*/
 
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+        loadedRooms.Add(newRoom, loadedScene);
+        currentRoom = newRoom;
+
+        NotifyConfiner(loadedScene);
+    }
+
+    public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
+    {
+        Debug.Log("Changement de salle : " + newRoom);
+        UnloadRoom(currentRoom);
+
+
+        Debug.Log("Salle déchargée : " + currentRoom);
+        rooms = newRoom;
+        currentRoom = newRoom;
+        await LoadRoom(newRoom);
+
+        playerTransform.position = newPosition;
+    }
+
+    private void UnloadRoom(RoomId room)
+    {
+        if (loadedRooms.TryGetValue(room, out Scene scene))
+        {
+            SceneManager.UnloadSceneAsync(scene);
+            loadedRooms.Remove(room);
+        }
+    }
+
+    private void UpdateConfinerWithRoom(PolygonCollider2D poly)
+    {
+        confiner.BoundingShape2D = poly;
+        confiner.InvalidateBoundingShapeCache();
+
+    }
+
+    private void NotifyConfiner(Scene roomScene)
+    {
+        foreach (GameObject root in roomScene.GetRootGameObjects())
+        {
+            GiveColliderForCinemachine giver = root.GetComponentInChildren<GiveColliderForCinemachine>();
+            if (giver != null)
+            {
+                // Déplace dans la scène active si nécessaire
+                //SceneManager.MoveGameObjectToScene(giver.gameObject, SceneManager.GetActiveScene());
+                giver.SendCollider(confiner.gameObject);
+                StartCoroutine(giver.ReloadCollider(confiner.gameObject));
+                return;
+            }
+        }
+
+        Debug.LogWarning("Aucun GiveColliderForCinemachine trouvé dans : " + roomScene.name);
+    }
 }

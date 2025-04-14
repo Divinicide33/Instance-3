@@ -1,6 +1,4 @@
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MiniMapRoomManager : MonoBehaviour
 {
@@ -8,7 +6,7 @@ public class MiniMapRoomManager : MonoBehaviour
 
     private MapContainerData[] rooms;
 
-    [SerializeField] private GameObject dontDestroy; //remove this later
+    [SerializeField] private RoomManager roomManager;
 
     private void Awake()
     {
@@ -17,7 +15,6 @@ public class MiniMapRoomManager : MonoBehaviour
             instance = this;
         }
         rooms = GetComponentsInChildren<MapContainerData>(true);
-        DontDestroyOnLoad(dontDestroy);
     }
 
     private void Start()
@@ -27,11 +24,9 @@ public class MiniMapRoomManager : MonoBehaviour
 
     public void RevealRoom()
     {
-        string newLoadedScene = SceneManager.GetActiveScene().name;
-        Debug.Log("New loaded scene: " + newLoadedScene);
         for (int i = 0; i < rooms.Length; i++)
         {
-            if (rooms[i].roomScene.ToString() == newLoadedScene && !rooms[i].hasBeenRevealed)
+            if (rooms[i].roomScene == roomManager.rooms && !rooms[i].hasBeenRevealed)
             {
                 rooms[i].gameObject.SetActive(true);
                 rooms[i].hasBeenRevealed = true;

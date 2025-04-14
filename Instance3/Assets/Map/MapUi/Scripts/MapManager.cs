@@ -6,6 +6,7 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private GameObject miniMap;
     [SerializeField] private GameObject largeMap;
+    [SerializeField] private GameObject miniMapCamera;
 
     public bool isLargeMapActive { get; private set; }
 
@@ -38,6 +39,7 @@ public class MapManager : MonoBehaviour
         miniMap.SetActive(false);
         largeMap.SetActive(true);
         isLargeMapActive = true;
+        miniMapCamera.transform.position = new Vector3(miniMapCamera.transform.position.x, miniMapCamera.transform.position.y, -200f);
     }
 
     public void CloseLargeMap()
@@ -45,5 +47,6 @@ public class MapManager : MonoBehaviour
         miniMap.SetActive(true);
         largeMap.SetActive(false);
         isLargeMapActive = false;
+        miniMapCamera.transform.position = new Vector3(miniMapCamera.transform.position.x, miniMapCamera.transform.position.y, -25f);
     }
 }

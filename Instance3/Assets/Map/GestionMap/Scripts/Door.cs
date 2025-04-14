@@ -29,7 +29,7 @@ public class Door : MonoBehaviour
     private System.Collections.IEnumerator EnterDoor(Transform player)
     {
 
-        yield return RoomManager1.Instance.ChangeRoom(destinationRoom, player, destinationSpawnPoint.position);
+        yield return RoomManager.Instance.ChangeRoom(destinationRoom, player, destinationSpawnPoint.position);
     }
 
     //private void OnTriggerEnter2D(Collider2D other)
