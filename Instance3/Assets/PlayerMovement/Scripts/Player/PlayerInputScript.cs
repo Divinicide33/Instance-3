@@ -23,6 +23,7 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
             isMoving = true;
@@ -43,6 +44,7 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
             Debug.Log("Jump");
@@ -57,9 +59,28 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
             PlayerController.onDash?.Invoke();
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!isEnable) return;
+        if (context.started)
+        {
+            PlayerController.onAttack?.Invoke();
+        }
+    }
+
+    public void OnUsePotion(InputAction.CallbackContext context)
+    {
+        if (!isEnable) return;
+        if (context.started)
+        {
+            PlayerController.onUsePotion?.Invoke();
         }
     }
 
