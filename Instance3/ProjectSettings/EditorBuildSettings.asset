@@ -5,27 +5,33 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Menu/Scenes/Menu.unity
     guid: 0f5541dc62c07934c98dff239ff7b492
   - enabled: 1
+    path: Assets/MVP/MVP_Game.unity
+    guid: 5bbc5f9e17874be4d98831a16befa7ef
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/TutorialRoom.unity
+    guid: d52631867ac3feb42a690faa01755c35
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/Tutorial2Room.unity
+    guid: 5381656f6dcfdbd448ac7f43056ee209
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/Tutorial3Room.unity
+    guid: 128fb64dfea77cd45b25d674788686af
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/AccessBossRoom.unity
+    guid: 8b1eb037cba0d9244b18a2a8bf634f92
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/HermesRoom.unity
+    guid: 955d690b38d0bc04cb00dc099400b04b
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/UpgradeRoomLeft.unity
+    guid: be8194036c83d7a4e8c3cf3150195352
+  - enabled: 0
     path: Assets/Map/GestionMap/RoomScene/Room1.unity
     guid: 7da535d0e7985a34cae929c83ba60086
-  - enabled: 1
-    path: Assets/Map/GestionMap/RoomScene/Room2.unity
-    guid: 05422c00b803fa745aa35d0dd816ca5a
-  - enabled: 1
-    path: Assets/Map/GestionMap/RoomScene/Room3.unity
-    guid: 9c9c0da16ffbbcb49bef18c5f3f50d13
-  - enabled: 0
-    path: Assets/Menu/Scenes/GameScene.unity
-    guid: 8d84d577b94114a498c3206f6ac81ccf
-  - enabled: 1
-    path: Assets/PlayerMovement/PlayerMovement.unity
-    guid: 30cf419b9af3c2747ad29ea5d038ccaf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
