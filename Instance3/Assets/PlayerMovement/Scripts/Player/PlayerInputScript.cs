@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputScript : MonoBehaviour
 {
     private bool isMoving = false;
-    private bool isEnable;
+    private bool isEnable = true;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
 
@@ -23,6 +23,7 @@ public class PlayerInputScript : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
             isMoving = true;
@@ -43,9 +44,9 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
-            Debug.Log("Jump");
             PlayerController.onJump?.Invoke(true);
             PlayerController.onGlide?.Invoke(true);
         }
@@ -57,9 +58,28 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (!isEnable) return;
         if (context.started)
         {
             PlayerController.onDash?.Invoke();
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!isEnable) return;
+        if (context.started)
+        {
+            PlayerController.onAttack?.Invoke();
+        }
+    }
+
+    public void OnUsePotion(InputAction.CallbackContext context)
+    {
+        if (!isEnable) return;
+        if (context.started)
+        {
+            PlayerController.onUsePotion?.Invoke();
         }
     }
 
