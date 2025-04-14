@@ -151,9 +151,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 541842326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -250, y: 150}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -250, y: -150}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54293951
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4831f3184e63e7a48890716eaef8c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroy: {fileID: 272384771}
+  roomManager: {fileID: 1199660274}
 --- !u!1 &788955860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1071,7 @@ Transform:
   m_GameObject: {fileID: 1128215629}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1091,7 +1091,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1199660272}
-  - component: {fileID: 1199660273}
   - component: {fileID: 1199660274}
   m_Layer: 0
   m_Name: RoomManager
@@ -1115,19 +1114,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 272384772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1199660273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199660271}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91264af844fdb1b4bb602f7a967efe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentRoom: 0
 --- !u!114 &1199660274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffe0c2d683b583418a8fba41753e8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rooms: 0
   startingRoom: 0
   confiner: {fileID: 85694393}
 --- !u!1 &1227435665
@@ -1498,6 +1485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miniMap: {fileID: 54293949}
   largeMap: {fileID: 1431372941}
+  miniMapCamera: {fileID: 1128215629}
 --- !u!1001 &1405170852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1794,8 +1782,8 @@ Transform:
   m_GameObject: {fileID: 1793381193}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.57, y: -0.71, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalPosition: {x: 14.36, y: 0.9, z: 0}
+  m_LocalScale: {x: 20.71875, y: 18.285938, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1473271123}
