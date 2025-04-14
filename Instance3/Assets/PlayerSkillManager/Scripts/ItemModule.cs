@@ -8,6 +8,7 @@ public abstract class ItemModule : PlayerModule
 public enum ItemsName
 {
     Potion,
-    Arc
+    Bow,
+    Sword
 
 }

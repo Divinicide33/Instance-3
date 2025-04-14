@@ -4,9 +4,10 @@ using UnityEngine;
 public class PlayerState : SkillModule
 {
     Stats stats;
+    Rigidbody2D rb;
     public static Action onInvincible { get; set; }
     public static Action<int> onTakeDamage { get; set; }
-    public static Action onKnockBack { get; set; }
+    public static Action<Vector3, float> onKnockBack { get; set; }
 
     [SerializeField] private float invincibilityDuration = 1f;
     private float invincibilityTimer = 0;
@@ -35,7 +36,7 @@ public class PlayerState : SkillModule
         DisplayHealth.onUpdate?.Invoke();
     }
 
-    private void KnockBack()
+    private void KnockBack(Vector3 direction, float power)
     {
         //Debug.Log("onKnockBack is called");
 
@@ -43,11 +44,15 @@ public class PlayerState : SkillModule
         knockBackTimer = 0;
 
         PlayerInputScript.onDisableInput?.Invoke();
+        
+        rb.AddForce(direction * power, ForceMode2D.Impulse);
+
     }
 
     private void OnEnable()
     {
         if (stats == null) stats = GetComponent<Stats>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
         onInvincible += Invincible;
         onTakeDamage += TakeDamage;
         onKnockBack += KnockBack;

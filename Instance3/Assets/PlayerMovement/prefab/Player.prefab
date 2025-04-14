@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 564035682160163730}
   - component: {fileID: 194301721331538098}
   - component: {fileID: 7421083053208338391}
+  - component: {fileID: 640623758850949485}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -419,6 +420,19 @@ MonoBehaviour:
   ModuleName: PlayerState
   invincibilityDuration: 1
   knockBackDuration: 0.5
+--- !u!114 &640623758850949485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e684316b49271ad42a6aee2acf353190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModuleName: Sword
 --- !u!1 &7157970686025683427
 GameObject:
   m_ObjectHideFlags: 0
