@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class PlayerPotion : ItemModule
 {
+    PlayerController player;
     Stats stats;
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
     private void Awake() 
     {
-        stats = GetComponent<Stats>();
         nbPotions = nbPotionsMax;
-
         UpdateUi();
     }
     protected override void Use()
@@ -21,12 +20,11 @@ public class PlayerPotion : ItemModule
             Debug.Log("Already full life");
             return;
         }
+
         nbPotions--;
         if (nbPotions < 0) nbPotions = 0;
 
-        stats.health += healValue;
-        if (stats.healthMax < stats.health) stats.health = stats.healthMax;
-
+        player.Healing(healValue);
         UpdateUi();
     }
 
@@ -39,30 +37,17 @@ public class PlayerPotion : ItemModule
 
     void OnEnable()
     {
+        if (stats == null) stats = GetComponent<Stats>();
+        if (player == null) player = GetComponent<PlayerController>();
+        PlayerController.onUsePotion += Use;
         DisplayPotions.onShow?.Invoke();
+        UpdateUi();
     }
 
     void OnDisable()
     {
+        PlayerController.onUsePotion -= Use;
         DisplayPotions.onHide?.Invoke();
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.E))
-    //     {
-    //         Use();
-    //     }
-
-    //     if (Input.GetKeyDown(KeyCode.R))
-    //     {
-    //         UiManager.HideAllUI();
-    //     }
-
-    //     if (Input.GetKeyDown(KeyCode.T))
-    //     {
-    //         UiManager.ShowAllUI();
-    //     }
-    // }
 
 }

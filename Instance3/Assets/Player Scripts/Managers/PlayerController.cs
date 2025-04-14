@@ -37,4 +37,9 @@ public class PlayerController : Entity
     {
         DisplayHealth.onUpdateHpMax?.Invoke(stats);
     }
+
+    public override void Defeat()
+    {
+        Debug.Log("Player is dead");
+    }
 }

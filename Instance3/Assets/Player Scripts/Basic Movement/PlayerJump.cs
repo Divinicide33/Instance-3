@@ -29,6 +29,7 @@ public class PlayerJump : MonoBehaviour
     {
         isGrounded = value;
         if (isGrounded) nbJump = nbJumpMax;
+        else if (!isGrounded && nbJump == nbJumpMax) nbJump--;
     }
 
     void OnEnable()
