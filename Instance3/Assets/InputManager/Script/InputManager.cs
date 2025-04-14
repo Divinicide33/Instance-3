@@ -29,3 +29,9 @@ public enum InputActionMap
     UI, 
     Player
 }
+
+public enum ControlScheme
+{
+    Joystick,
+    KeyboardMouse
+}

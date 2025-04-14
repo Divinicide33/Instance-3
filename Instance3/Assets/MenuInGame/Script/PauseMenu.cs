@@ -1,38 +1,41 @@
-using UnityEngine;
-using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("UI References")]
-    [SerializeField] private GameObject pausePanel;
+    [Header("UI Panels")]
+    [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject controlsPanel;
-    [SerializeField] private GameObject soundPanel;
-    [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private GameObject soundsPanel;
+
+    [Header("First Buttons")]
+    [SerializeField] private GameObject pauseMenuFirstButton;
     [SerializeField] private GameObject optionsFirstButton;
     [SerializeField] private GameObject controlsFirstButton;
-    [SerializeField] private GameObject soundFirstButton;
+    [SerializeField] private GameObject soundsFirstButton;
 
+    [Header("Input")]
+    [SerializeField] private PlayerInput playerInput;
 
-    [Header("Settings")]
-    [SerializeField] private float transitionDuration = 1f;
+    [SerializeField] private float timeToPause;
 
-    private PlayerInput playerInput;
+    private UIPanelManager panelManager;
+    private GameObject currentFirstButton;
 
+    private string lastControlScheme = ControlScheme.KeyboardMouse.ToString();
+    private bool isPaused;
+    private Coroutine transitionCoroutine;
 
     public static Action onStartPause;
     public static Action onCancel;
 
-    private bool isPaused = false;
-    private Coroutine transitionCoroutine;
-
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        panelManager = new UIPanelManager(pauseMenuPanel, optionsPanel, controlsPanel, soundsPanel);
     }
 
     private void Start()
@@ -40,6 +43,8 @@ public class PauseMenu : MonoBehaviour
         onStartPause += TogglePause;
         onCancel += HandleCancelInput;
 
+        if (playerInput != null)
+            playerInput.onControlsChanged += OnControlsChanged;
     }
 
     private void OnDestroy()
@@ -47,6 +52,34 @@ public class PauseMenu : MonoBehaviour
         onStartPause -= TogglePause;
         onCancel -= HandleCancelInput;
 
+        if (playerInput != null)
+            playerInput.onControlsChanged -= OnControlsChanged;
+    }
+
+    private void OnControlsChanged(PlayerInput input)
+    {
+        lastControlScheme = input.currentControlScheme;
+        if (lastControlScheme == ControlScheme.Joystick.ToString() && currentFirstButton != null)
+        {
+            SetSelectedUI(currentFirstButton);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    private void SetSelectedUI(GameObject button)
+    {
+        if (lastControlScheme == ControlScheme.Joystick.ToString() && button != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(button);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     public void TogglePause()
@@ -54,112 +87,97 @@ public class PauseMenu : MonoBehaviour
         if (transitionCoroutine != null) return;
 
         if (!isPaused)
-            transitionCoroutine = StartCoroutine(RampTimeScale(1f, 0f, OnPauseComplete));
+            transitionCoroutine = StartCoroutine(TransitionTimeScale(1f, 0f, OnPauseComplete));
         else
-            transitionCoroutine = StartCoroutine(RampTimeScale(0f, 1f, OnResumeComplete));
+            transitionCoroutine = StartCoroutine(TransitionTimeScale(0f, 1f, OnResumeComplete));
     }
 
-    private IEnumerator RampTimeScale(float from, float to, Action onComplete)
+    private IEnumerator TransitionTimeScale(float from, float to, Action callback)
     {
         float elapsed = 0f;
-
-        while (elapsed < transitionDuration)
+        while (elapsed < timeToPause)
         {
             elapsed += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(elapsed / transitionDuration);
-            Time.timeScale = Mathf.Lerp(from, to, t);
+            Time.timeScale = Mathf.Lerp(from, to, elapsed / 1f);
             yield return null;
         }
 
         Time.timeScale = to;
         transitionCoroutine = null;
-        onComplete?.Invoke();
+        callback?.Invoke();
     }
 
     private void OnPauseComplete()
     {
         isPaused = true;
-        pausePanel.SetActive(true);
-        SetSelectedUI(firstSelectedButton);
+        panelManager.ShowOnly(pauseMenuPanel);
+        currentFirstButton = pauseMenuFirstButton;
+
+        if (playerInput != null)
+            lastControlScheme = playerInput.currentControlScheme;
+
+        SetSelectedUI(currentFirstButton);
         InputManager.onSwitchInputMap?.Invoke(InputActionMap.UI);
     }
 
     private void OnResumeComplete()
     {
         isPaused = false;
-        pausePanel.SetActive(false);
+        panelManager.HideAll();
         InputManager.onSwitchInputMap?.Invoke(InputActionMap.Player);
     }
 
-    private void SetSelectedUI(GameObject button)
-    {
-        if (button == null) return;
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(button);
-    }
-
-    private void OpenPanel(GameObject panel, GameObject firstButton)
-    {
-        if (panel == null) return;
-
-        panel.SetActive(true);
-
-        if (playerInput != null && playerInput.currentControlScheme == "Joystick")
-        {
-            SetSelectedUI(firstButton);
-        }
-    }
-    private void ClosePanel(GameObject panel)
-    {
-        if (panel != null)
-            panel.SetActive(false);
-    }
-
-
     private void HandleCancelInput()
     {
-        if (optionsPanel != null && optionsPanel.activeSelf)
+        if (controlsPanel.activeSelf || soundsPanel.activeSelf)
         {
-            CloseOptions();
+            OpenOptions();
         }
-        else if (controlsPanel != null && controlsPanel.activeSelf)
+        else if (optionsPanel.activeSelf)
         {
-            CloseControls();
+            OpenPauseMenu();
         }
-        else if (soundPanel != null && soundPanel.activeSelf)
-        {
-            CloseSounds();
-        }
-        else
+        else if (pauseMenuPanel.activeSelf)
         {
             onStartPause?.Invoke();
         }
     }
 
+    // === UI Callbacks ===
 
-    #region Submenus
+    public void ResumeGame() => onStartPause?.Invoke();
 
-    public void OpenOptions() => OpenPanel(optionsPanel, optionsFirstButton);
-    public void CloseOptions() => ClosePanel(optionsPanel);
-
-    public void OpenControls() => OpenPanel(controlsPanel, controlsFirstButton);
-    public void CloseControls() => ClosePanel(controlsPanel);
-
-    public void OpenSounds() => OpenPanel(soundPanel, soundFirstButton);
-    public void CloseSounds() => ClosePanel(soundPanel);
-
-    private void ShowPanel(GameObject panel)
+    public void OpenOptions()
     {
-        if (panel != null)
-            panel.SetActive(true);
+        panelManager.ShowOnly(optionsPanel);
+        currentFirstButton = optionsFirstButton;
+        SetSelectedUI(currentFirstButton);
     }
 
-    private void HidePanel(GameObject panel)
+    public void OpenPauseMenu()
     {
-        if (panel != null)
-            panel.SetActive(false);
+        panelManager.ShowOnly(pauseMenuPanel);
+        currentFirstButton = pauseMenuFirstButton;
+        SetSelectedUI(currentFirstButton);
     }
 
-    #endregion
+    public void OpenControlPanel()
+    {
+        panelManager.ShowOnly(controlsPanel);
+        currentFirstButton = controlsFirstButton;
+        SetSelectedUI(currentFirstButton);
+    }
+
+    public void OpenSoundPanel()
+    {
+        panelManager.ShowOnly(soundsPanel);
+        currentFirstButton = soundsFirstButton;
+        SetSelectedUI(currentFirstButton);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game called.");
+        Application.Quit();
+    }
 }
