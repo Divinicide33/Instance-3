@@ -1,35 +1,41 @@
 using BehaviorTree;
 using UnityEngine;
 
-public class BTAction_DashChance : BTNode
+namespace AI.Hermes
 {
-    private HermèsBehaviorTree Tree;
-
-    public BTAction_DashChance(HermèsBehaviorTree btParent)
+    public class BTAction_DashChance : BTNode
     {
-        Tree = btParent;
-    }
+        private BTHermesTree tree;
 
-    public override BTNodeState Evaluate()
-    {
-        switch (Tree.Action)
+        public BTAction_DashChance(BTHermesTree btParent)
         {
-            case HermèsBehaviorTree.HermesAction.None:
-                float dashChance = Random.Range(0f, 100f);
-                if (dashChance <= Tree.DashChance)
-                {
-                    Tree.Action = HermèsBehaviorTree.HermesAction.Dash;
-                    return BTNodeState.SUCCESS;
-                }
-                Tree.Action = HermèsBehaviorTree.HermesAction.Jump;
-                break;
-            case HermèsBehaviorTree.HermesAction.Dash:
-                return BTNodeState.SUCCESS;
-            case HermèsBehaviorTree.HermesAction.Jump:
-                return BTNodeState.FAILURE;
-            default:
-                break;
+            tree = btParent;
         }
-        return BTNodeState.FAILURE;
+
+        public override BTNodeState Evaluate()
+        {
+            switch (tree.action)
+            {
+                case Action.None:
+                    float dashChance = Random.Range(0f, 100f);
+                    if (dashChance <= tree.dashChance)
+                    {
+                        tree.action = Action.Dash;
+                        return BTNodeState.SUCCESS;
+                    }
+                    tree.action = Action.Jump;
+                    break;
+
+                case Action.Dash:
+                    return BTNodeState.SUCCESS;
+                
+                case Action.Jump:
+                    return BTNodeState.FAILURE;
+                
+                default:
+                    break;
+            }
+            return BTNodeState.FAILURE;
+        }
     }
 }

@@ -1,33 +1,37 @@
 using BehaviorTree;
 using UnityEngine;
 
-public class BTAction_Cooldown : BTNode
+namespace AI.Hermes
 {
-    private HermèsBehaviorTree Tree;
-    private float _cooldownTime;
-    private float _elapsedTime;
-
-    public BTAction_Cooldown(HermèsBehaviorTree btParent)
+    public class BTAction_Cooldown : BTNode
     {
-        Tree = btParent;
-        _cooldownTime = btParent.CoolDownEnterDash;
-        _elapsedTime = _cooldownTime;
-    }
+        private BTHermesTree tree;
+        private float coolDownTime;
+        private float elapsedTime;
 
-    public override BTNodeState Evaluate()
-    {
-        if (Tree.actionStarted)
+        public BTAction_Cooldown(BTHermesTree btParent)
         {
-            return BTNodeState.SUCCESS;
+            tree = btParent;
+            coolDownTime = btParent.coolDownEnterDash;
+            elapsedTime = coolDownTime;
         }
-        _elapsedTime += Time.deltaTime;
 
-        if (_elapsedTime >= _cooldownTime)
+        public override BTNodeState Evaluate()
         {
-            _elapsedTime = 0f;
-            Tree.actionStarted = true;
-            return BTNodeState.SUCCESS; 
+            if (tree.actionStarted)
+            {
+                return BTNodeState.SUCCESS;
+            }
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= coolDownTime)
+            {
+                elapsedTime = 0f;
+                tree.actionStarted = true;
+                return BTNodeState.SUCCESS;
+            }
+            tree.actionStarted = false;
+            return BTNodeState.FAILURE;
         }
-        return BTNodeState.FAILURE;
     }
 }

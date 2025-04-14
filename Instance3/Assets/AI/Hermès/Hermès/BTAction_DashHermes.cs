@@ -1,66 +1,69 @@
-using AI.WildBoard;
 using BehaviorTree;
 using UnityEngine;
 
-public class BTAction_DashHermes : BTNode
+namespace AI.Hermes
 {
-    private HermèsBehaviorTree Tree;
-    private bool charging = false;
-    private float dashTimer;
-    private float delayTimer;
-    private Vector2 _direction;
-
-    public BTAction_DashHermes(HermèsBehaviorTree btParent)
+    public class BTAction_DashHermes : BTNode
     {
-        this.Tree = btParent;
-        delayTimer = btParent.chargeDelay;
-        dashTimer = btParent.dashDuration;
-    }
+        private BTHermesTree tree;
+        private float dashTimer;
+        private Vector2 direction;
+        private Transform raycastTransform;
+        private float detectionDistance = 0.5f;
 
-    public override BTNodeState Evaluate()
-    {
-        // Phase 2 : Dash
-        dashTimer -= Time.deltaTime;
+        private float flipCoolDown = 0.2f;
+        private float lastFlipTime = -1f;
 
-        Vector2 dashDirection = new Vector2(Tree.dashSpeed * Time.deltaTime, 0); // On suppose ici une direction horizontale
-        Tree.gameObject.transform.Translate(dashDirection);
+        private int platformMask;
 
-        // Enregistrer la direction du dash
-        Tree.lastDashDirection = dashDirection.normalized;
-
-        // Détection de collision avec le joueur et knockback
-        Collider2D hitPlayer = Physics2D.OverlapCircle(Tree.gameObject.transform.position, 0.7f, Tree.playerLayer);
-        if (hitPlayer != null)
+        public BTAction_DashHermes(BTHermesTree btParent)
         {
-            Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Vector2 knockbackDir = ((Vector2)hitPlayer.transform.position - (Vector2)Tree.gameObject.transform.position);
-                knockbackDir.y = 0;
-                knockbackDir.Normalize();
-                knockbackDir.y = knockbackDir.magnitude;
-                rb.linearVelocity = knockbackDir * Tree.knockbackForce;
-                //invincibilter.invoke() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            }
+            this.tree = btParent;
+            platformMask = LayerMask.GetMask(LayerMap.Platform.ToString());
+            dashTimer = btParent.dashDuration;
+            direction = Vector2.right;
+            raycastTransform = btParent.raycast;
         }
 
-        // CHANGE DIRECTION WHEN WALL !!!!!!!!!!!!!!!!!!!!!
-
-        if (dashTimer > 0)
+        public override BTNodeState Evaluate()
         {
+            dashTimer -= Time.deltaTime;
+
+            Vector2 raycastDirection = tree.tree.localScale.x >= 0 ? Vector2.right : Vector2.left;
+            direction = raycastDirection;
+
+            RaycastHit2D hitWall = Physics2D.Raycast(raycastTransform.position, raycastDirection, detectionDistance, platformMask);
+
+            Debug.DrawRay(raycastTransform.position, raycastDirection * detectionDistance, Color.red);
+
+            if (hitWall.collider != null && Time.time - lastFlipTime >= flipCoolDown)
+            {
+                tree.FlipDirection(ref direction);
+                lastFlipTime = Time.time;
+                dashTimer = tree.dashDuration;
+                //Debug.Log("Collision détectée avec : " + hitWall.collider.name);
+            }
+
+            Vector2 dashMovement = direction * tree.dashSpeed * Time.deltaTime;
+            tree.gameObject.transform.Translate(dashMovement);
+
+            tree.lastDashDirection = direction;
+
+            if (dashTimer <= 0)
+            {
+                ResetCharge();
+                return BTNodeState.SUCCESS;
+            }
+
             return BTNodeState.RUNNING;
         }
 
-        ResetCharge();
-        return BTNodeState.SUCCESS;
-    }
-
-    private void ResetCharge()
-    {
-        Tree.actionStarted = false;
-        charging = false;
-        delayTimer = Tree.chargeDelay;
-        dashTimer = Tree.dashDuration;
-        Tree.Action = HermèsBehaviorTree.HermesAction.None;
+        private void ResetCharge()
+        {
+            tree.actionStarted = false;
+            dashTimer = tree.dashDuration;
+            tree.action = Action.None;
+            tree.charged = false;
+        }
     }
 }

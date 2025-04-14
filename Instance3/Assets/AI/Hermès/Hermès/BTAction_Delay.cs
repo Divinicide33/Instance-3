@@ -1,40 +1,37 @@
 using BehaviorTree;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class BTAction_Delay : BTNode
+namespace AI.Hermes
 {
-    private HermèsBehaviorTree Hermes;
-
-    private bool charged = false;
-    private float dashTimer;
-    private float delayTimer;
-
-    public BTAction_Delay(HermèsBehaviorTree btParent)
+    public class BTAction_Delay : BTNode
     {
-        Hermes = btParent;
-        delayTimer = btParent.chargeDelay;
-        dashTimer = btParent.dashDuration;
-    }
+        private BTHermesTree tree;
 
-    public override BTNodeState Evaluate()
-    {
-        // Phase 1 : Charge Delay
-        if (charged)
+        private float delayTimer;
+
+        public BTAction_Delay(BTHermesTree btParent)
         {
-            return BTNodeState.SUCCESS; 
+            tree = btParent;
+            delayTimer = btParent.chargeDelay;
         }
 
-        delayTimer -= Time.deltaTime;
-        
-        if (delayTimer > 0)
+        public override BTNodeState Evaluate()
         {
-            return BTNodeState.RUNNING;
+            if (tree.charged)
+            {
+                return BTNodeState.SUCCESS;
+            }
+
+            delayTimer -= Time.deltaTime;
+
+            if (delayTimer > 0)
+            {
+                return BTNodeState.RUNNING;
+            }
+
+            delayTimer = tree.chargeDelay;
+            tree.charged = true;
+            return BTNodeState.SUCCESS;
         }
-
-        charged = true;
-        dashTimer = Hermes.dashDuration;
-
-        return BTNodeState.SUCCESS;
     }
 }

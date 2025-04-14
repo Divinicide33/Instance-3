@@ -1,53 +1,57 @@
-using BehaviorTree;
-using UnityEngine;
+//using BehaviorTree;
+//using UnityEngine;
 
-public class BTAction_JumpCharge : BTNode
-{
-    private HermèsBehaviorTree Tree;
-    private float _jumpHeight;
-    private float _jumpDuration;
-    private float _jumpTime;
-    private bool _isJumping;
-    private Vector3 _targetPosition;
-    private Vector3 _jumpStartPos;
+//namespace AI.Hermes
+//{
+//    public class BTAction_JumpCharge : BTNode
+//    {
+//        private BTHermesTree tree;
+//        private float jumpHeight;
+//        private float jumpDuration;
+//        private float jumpTime;
+//        private bool isJumping;
+//        private Vector3 tragetPosition;
+//        private Vector3 jumpStartPos;
 
-    public BTAction_JumpCharge(HermèsBehaviorTree btParent)
-    {
-        Tree = btParent;
-        _jumpHeight = btParent._jumpHeight;
-        _jumpDuration = btParent._jumpDuration;
-        _isJumping = false;
-    }
+//        public BTAction_JumpCharge(BTHermesTree btParent)
+//        {
+//            tree = btParent;
+//            jumpHeight = btParent.jumpHeight;
+//            jumpDuration = btParent.jumpDuration;
+//            isJumping = false;
+//        }
 
-    public override BTNodeState Evaluate()
-    {
-        if (!_isJumping)
-        {
-            _targetPosition = Tree.player.position;
-            _jumpStartPos = Tree.Tree.position;
+//        public override BTNodeState Evaluate()
+//        {
+//            if (!isJumping)
+//            {
+//                tragetPosition = tree.player.position;
+//                jumpStartPos = tree.tree.position;
 
-            _jumpTime = 0f;
-            _isJumping = true;
-        }
-        _jumpTime += Time.deltaTime;
+//                jumpTime = 0f;
+//                isJumping = true;
+//            }
+//            jumpTime += Time.deltaTime;
 
-        if (_jumpTime < _jumpDuration)
-        {
-            float jumpProgress = _jumpTime / _jumpDuration;
-            float jumpHeight = Mathf.Sin(jumpProgress * Mathf.PI) * _jumpHeight;
+//            if (jumpTime < jumpDuration)
+//            {
+//                float jumpProgress = jumpTime / jumpDuration;
+//                float jumpHeight = Mathf.Sin(jumpProgress * Mathf.PI) * this.jumpHeight;
 
-            Vector3 newPosition = Vector3.Lerp(_jumpStartPos, _targetPosition, jumpProgress);
-            newPosition.y += jumpHeight;
+//                Vector3 newPosition = Vector3.Lerp(jumpStartPos, tragetPosition, jumpProgress);
+//                newPosition.y += jumpHeight;
 
-            Tree.Tree.position = newPosition;
+//                tree.tree.position = newPosition;
 
-            return BTNodeState.RUNNING; 
-        }
-        Tree.Tree.position = _targetPosition;
+//                return BTNodeState.RUNNING;
+//            }
+//            tree.tree.position = tragetPosition;
 
-        Tree.Action = HermèsBehaviorTree.HermesAction.None;
-        Tree.actionStarted = false;
-        _isJumping = false ;
-        return BTNodeState.SUCCESS;
-    }
-}
+//            tree.action = Action.None;
+//            tree.actionStarted = false;
+//            isJumping = false;
+//            tree.charged = false;
+//            return BTNodeState.SUCCESS;
+//        }
+//    }
+//}

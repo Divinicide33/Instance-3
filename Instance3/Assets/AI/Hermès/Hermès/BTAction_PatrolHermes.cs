@@ -1,43 +1,44 @@
 using UnityEngine;
 using BehaviorTree;
 
-public class BTAction_PatrolHermes : BTNode
+namespace AI.Hermes
 {
-    private HermèsBehaviorTree Tree;
-    private Vector2 _direction;
-    private float _detectionDistance = 0.75f;  
-    private bool _initialized = false;
-
-    public BTAction_PatrolHermes(HermèsBehaviorTree btParent)
+    public class BTAction_PatrolHermes : BTNode
     {
-        Tree = btParent;
-    }
+        private BTHermesTree tree;
+        private Vector2 direction;
+        private float detectionDistance = 0.5f;
+        private Transform raycastTransform;
 
-    public override BTNodeState Evaluate()
-    {
-        if (!_initialized)
-        {
-            _direction = Tree.lastDashDirection != Vector2.zero ? Tree.lastDashDirection : Vector2.right;
-            bool facingRight = _direction.x > 0f;
-            Tree.Tree.eulerAngles = new Vector3(0f, facingRight ? 0f : 180f, 0f);
+        private int platformMask;
 
-            _initialized = true;
-        }
-        RaycastHit2D hitObstacle = Physics2D.Raycast(Tree.Tree.position, _direction, _detectionDistance, LayerMask.GetMask("Platform"));
-        if (hitObstacle.collider != null)
+        public BTAction_PatrolHermes(BTHermesTree btParent)
         {
-            FlipDirection();
+            tree = btParent;
+            platformMask = LayerMask.GetMask(LayerMap.Platform.ToString());
+            raycastTransform = tree.raycast;
         }
 
-        Tree.Tree.position += (Vector3)(_direction.normalized * Tree.speed * Time.deltaTime);
+        public override BTNodeState Evaluate()
+        {
+            direction = tree.lastDashDirection.x >= 0 ? Vector2.right : Vector2.left;
+            Vector3 scale = tree.tree.localScale;
+            scale.x = direction.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+            tree.tree.localScale = scale;
 
-        return BTNodeState.RUNNING;
-    }
+            RaycastHit2D hitObstacle = Physics2D.Raycast(raycastTransform.position, direction, detectionDistance, platformMask);
+            Debug.DrawRay(raycastTransform.position, direction * detectionDistance, Color.green);
 
-    public void FlipDirection()
-    {
-        _direction *= -1;
-        Vector3 currentEuler = Tree.Tree.eulerAngles;
-        Tree.Tree.eulerAngles = new Vector3(currentEuler.x, currentEuler.y + 180f, currentEuler.z);
+            if (hitObstacle.collider != null)
+            {
+                tree.FlipDirection(ref direction);
+                tree.lastDashDirection = direction;
+            }
+
+            // Mouvement
+            tree.tree.position += (Vector3)(direction.normalized * tree.speed * Time.deltaTime);
+
+            return BTNodeState.RUNNING;
+        }
     }
 }
