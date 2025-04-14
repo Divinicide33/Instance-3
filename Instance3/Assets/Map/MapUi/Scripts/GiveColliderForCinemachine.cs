@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GiveColliderForCinemachine : MonoBehaviour
@@ -7,7 +8,7 @@ public class GiveColliderForCinemachine : MonoBehaviour
 
     private PolygonCollider2D polygonCollider2D;
 
-    public void SendCollider()
+    public void SendCollider(GameObject cinemachine)
     {
         if (polygonCollider2D == null)
         {
@@ -22,5 +23,12 @@ public class GiveColliderForCinemachine : MonoBehaviour
         {
             Debug.LogWarning("Aucun PolygonCollider2D trouvé dans " + gameObject.name);
         }
+    }
+
+    public System.Collections.IEnumerator ReloadCollider(GameObject cinemachine)
+    {
+        cinemachine.SetActive(false);
+        yield return new WaitForEndOfFrame();
+        cinemachine.SetActive(true);
     }
 }

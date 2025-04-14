@@ -1,3 +1,4 @@
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,7 +28,7 @@ public class MiniMapRoomManager : MonoBehaviour
     public void RevealRoom()
     {
         string newLoadedScene = SceneManager.GetActiveScene().name;
-
+        Debug.Log("New loaded scene: " + newLoadedScene);
         for (int i = 0; i < rooms.Length; i++)
         {
             if (rooms[i].roomScene.ToString() == newLoadedScene && !rooms[i].hasBeenRevealed)

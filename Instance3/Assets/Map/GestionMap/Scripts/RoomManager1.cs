@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Cinemachine;
+using System;
 
 public class RoomManager1 : MonoBehaviour
 {
     public static RoomManager1 Instance { get; private set; }
+
+
 
     [SerializeField] private RoomId startingRoom;
     [SerializeField] private CinemachineConfiner2D confiner;
@@ -45,6 +48,7 @@ public class RoomManager1 : MonoBehaviour
             await Task.Yield();
 
         Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+        SceneManager.SetActiveScene(loadedScene);
         loadedRooms.Add(newRoom, loadedScene);
         currentRoom = newRoom;
 
@@ -53,9 +57,13 @@ public class RoomManager1 : MonoBehaviour
 
     public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
-        await LoadRoom(newRoom);
+        Debug.Log("Changement de salle : " + newRoom);
         UnloadRoom(currentRoom);
+
+
+        Debug.Log("Salle déchargée : " + currentRoom);
         currentRoom = newRoom;
+        await LoadRoom(newRoom);
 
         playerTransform.position = newPosition;
     }
@@ -73,6 +81,7 @@ public class RoomManager1 : MonoBehaviour
     {
         confiner.BoundingShape2D = poly;
         confiner.InvalidateBoundingShapeCache();
+
     }
 
     private void NotifyConfiner(Scene roomScene)
@@ -83,8 +92,9 @@ public class RoomManager1 : MonoBehaviour
             if (giver != null)
             {
                 // Déplace dans la scène active si nécessaire
-                SceneManager.MoveGameObjectToScene(giver.gameObject, SceneManager.GetActiveScene());
-                giver.SendCollider();
+                //SceneManager.MoveGameObjectToScene(giver.gameObject, SceneManager.GetActiveScene());
+                giver.SendCollider(confiner.gameObject);
+                StartCoroutine(giver.ReloadCollider(confiner.gameObject));
                 return;
             }
         }
