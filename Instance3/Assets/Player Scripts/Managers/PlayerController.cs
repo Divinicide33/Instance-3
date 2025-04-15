@@ -49,7 +49,7 @@ public class PlayerController : Entity
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible) return;
+        if (isInvincible || isDead) return;
 
         isInvincible = true; // to only get hit once
 
@@ -70,7 +70,7 @@ public class PlayerController : Entity
 
     public override void Defeat()
     {
-        Debug.Log("Player is dead");
+        base.Defeat();
         PlayerInputScript.onIsPlayerDead?.Invoke(true);
     }
 
