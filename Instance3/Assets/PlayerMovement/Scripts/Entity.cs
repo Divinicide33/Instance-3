@@ -4,30 +4,48 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     protected Stats stat;
+    protected bool isDead = false;
 
     private void Awake() 
     {
         stat = GetComponent<Stats>();
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
+        if (isDead) return;
+
+        Debug.Log($"{gameObject.name} is taking {damage} damage");
+
         stat.health -= damage;
-        if (stat.health < 0) 
+        if (stat.health <= 0) 
         {
             stat.health = 0;
             Defeat();
         }
     }
 
-    public void Healing(int heal)
+    public virtual void TakeDamage(int damage, Vector3 originPosOfDamage, float power = 3)
     {
+        TakeDamage(damage);
+    }
+
+    public virtual void Healing(int heal)
+    {
+        if (isDead) return;
+
         stat.health += heal;
         if (stat.health > stat.healthMax) stat.health = stat.healthMax;
+    }
+    public virtual void Reset()
+    {
+        stat.health = stat.healthMax;
+        isDead = false;
     }
 
     public virtual void Defeat()
     {
-        Debug.Log("Enemy is dead");
+        isDead = true;
+        Debug.Log($"{gameObject.name} is dead");
     }
 }

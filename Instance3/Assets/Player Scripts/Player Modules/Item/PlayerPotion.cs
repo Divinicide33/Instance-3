@@ -8,7 +8,7 @@ public class PlayerPotion : ItemModule
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
-    private void Awake() 
+    private void Start() 
     {
         nbPotions = nbPotionsMax;
         UpdateUi();
@@ -18,6 +18,7 @@ public class PlayerPotion : ItemModule
         if (stats.health == stats.healthMax)
         {
             Debug.Log("Already full life");
+            UpdateUi();
             return;
         }
 
@@ -30,8 +31,8 @@ public class PlayerPotion : ItemModule
 
     private void UpdateUi()
     {
+        DisplayPotions.onShow?.Invoke();
         DisplayPotions.onPotionDisplay?.Invoke(this);
-        DisplayHealth.onUpdate?.Invoke();
         DisplayPotions.onUpdate?.Invoke();
     }
 
@@ -39,8 +40,10 @@ public class PlayerPotion : ItemModule
     {
         if (stats == null) stats = GetComponent<Stats>();
         if (player == null) player = GetComponent<PlayerController>();
+
         PlayerController.onUsePotion += Use;
         DisplayPotions.onShow?.Invoke();
+
         UpdateUi();
     }
 
