@@ -1230,6 +1230,7 @@ GameObject:
   - component: {fileID: 675689903}
   - component: {fileID: 675689902}
   - component: {fileID: 675689901}
+  - component: {fileID: 675689906}
   m_Layer: 0
   m_Name: WildBoard
   m_TagString: Untagged
@@ -1411,6 +1412,22 @@ Transform:
   - {fileID: 2034762098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &675689906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675689900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  healthMax: 0
+  damage: 0
+  speed: 0
 --- !u!1 &842360744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1462817899}
   - component: {fileID: 1462817898}
+  - component: {fileID: 1462817900}
   m_Layer: 0
   m_Name: CameraConfiner
   m_TagString: Untagged
@@ -1603,6 +1621,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462817900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462817897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9492ec884edaf84da49b1c8b1af461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1464473405
 GameObject:
   m_ObjectHideFlags: 0
