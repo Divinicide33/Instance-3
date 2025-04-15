@@ -115,5 +115,15 @@ public class PlayerInputScript : MonoBehaviour
         else EnableInput();
     }
 
+    public void StartPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PauseMenu.onStartPause?.Invoke();
+    }
 
+    public void HandleCancel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PauseMenu.onCancel?.Invoke();
+    }
 }

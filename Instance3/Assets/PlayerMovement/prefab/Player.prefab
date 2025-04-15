@@ -129,7 +129,7 @@ MonoBehaviour:
   health: 5
   healthMax: 5
   damage: 2
-  speed: 2
+  speed: 4
 --- !u!114 &7568520738813208363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfffcbc6c160cc846afd71cdd904bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
+  jumpForce: 12
 --- !u!114 &1640116097676028478
 MonoBehaviour:
   m_ObjectHideFlags: 0

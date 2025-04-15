@@ -6,30 +6,29 @@ namespace AI.WildBoard
 {
     public class BTBoarTree : BTTree
     {
-        [Header("Param�tres de mouvement")] [SerializeField]
+        [Header("Param�tres de mouvement")]
         public float moveSpeed = 2f;
 
-        [Header("Param�tres de charge")] [SerializeField]
+        [Header("Param�tres de charge")]
         public float chargeDelay = 1f;
         public bool dashStarted = false;
-        [SerializeField] public float dashSpeed = 10f;
-        [SerializeField] public float dashDuration = 0.3f;
+        public float dashSpeed = 10f;
+        public float dashDuration = 0.3f;
 
-        [Header("Param�tres de d�tection")] [SerializeField]
+        [Header("Param�tres de d�tection")]
         public Transform fovOrigin;
-        
-        [SerializeField] public LayerMask playerLayer;
-        [SerializeField] public float detectionRadius = 10f;
-        [SerializeField] public float fovAngle = 60f;
-        [SerializeField] public float DurationEnterDash = 2f;
 
-        [Header("D�g�ts et Knockback")] [SerializeField]
+        public LayerMask playerLayer;
+        public float detectionRadius = 10f;
+        public float fovAngle = 60f;
+        public float DurationEnterDash = 2f;
+
+        [Header("D�g�ts et Knockback")]
         public float damage = 10f;
 
-        [SerializeField] public float knockbackForce = 5f;
+        public float knockbackForce = 5f;
 
-        [SerializeField] public LayerMask obstacleLayer;
-
+        public LayerMask obstacleLayer;
 
         public Vector2 lastDashDirection = Vector2.right;
         protected override BTNode SetupTree()
@@ -42,7 +41,7 @@ namespace AI.WildBoard
                     new BTCondition_IsPlayerInFOV(this),
                     new BTAction_ChargePattern(this),
                 }),
-                
+
                 new BTAction_Patrol(this),
             });
 

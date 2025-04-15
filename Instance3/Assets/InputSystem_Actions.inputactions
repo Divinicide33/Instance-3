@@ -60,9 +60,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Potion",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "d9a4723b-9e62-4038-9534-3e7e97d27eef",
+                    "id": "17887dbe-104e-4b7d-98e1-d323f5db421f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "4eb7edb4-8476-47d9-b2fe-15622410a20d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -413,34 +422,34 @@
                 },
                 {
                     "name": "",
-                    "id": "bc51e463-1833-4955-af63-38e74dadc6c3",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "2db444cd-c2cc-4f5f-9455-5890f321b3c2",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Potion",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "243fc884-fb6b-4424-8d24-565c2a69d19c",
-                    "path": "<Keyboard>/e",
+                    "id": "2bc913a6-0a47-49c0-8b22-5549757d70cc",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button5",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Potion",
+                    "groups": ";Joystick",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d5e74092-533c-4273-8f5e-d260e6399143",
-                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button4",
+                    "id": "bcd17db3-37c7-4b8b-91ec-90c35eea5951",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Potion",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -842,10 +851,10 @@
                 {
                     "name": "",
                     "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
