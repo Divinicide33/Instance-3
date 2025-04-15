@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public abstract class BTTree : MonoBehaviour
+    public abstract class BTTree : Enemy
     {
         private BTNode root = null; // The root node of the behavior tree
         public BTNode Root { get { return root; } } // Public property to access the root node
