@@ -1,76 +1,75 @@
-using AI.WildBoard;
 using BehaviorTree;
 using UnityEngine;
 
-public class BTAction_ChargePattern : BTNode
+namespace AI.WildBoard
 {
-    private BTBoarTree tree;
-
-    private bool charging = false;
-    private float dashTimer;
-    private float delayTimer;
-
-    public BTAction_ChargePattern(BTBoarTree tree)
+    public class BTAction_ChargePattern : BTNode
     {
-        this.tree = tree;
-        delayTimer = tree.chargeDelay;
-        dashTimer = tree.dashDuration;
-    }
+        private BTBoarTree tree;
 
-    public override BTNodeState Evaluate()
-    {
-        // Phase 1 : Charge Delay
-        if (!charging)
+        private bool charging = false;
+        private float dashTimer;
+        private float delayTimer;
+
+        public BTAction_ChargePattern(BTBoarTree tree)
         {
-            delayTimer -= Time.deltaTime;
-            if (delayTimer > 0)
+            this.tree = tree;
+            delayTimer = tree.chargeDelay;
+            dashTimer = tree.dashDuration;
+        }
+
+        public override BTNodeState Evaluate()
+        {
+            // Phase 1 : Charge Delay
+            if (!charging)
+            {
+                delayTimer -= Time.deltaTime;
+                if (delayTimer > 0)
+                {
+                    return BTNodeState.RUNNING;
+                }
+
+                charging = true;
+                dashTimer = tree.dashDuration;
+            }
+
+            dashTimer -= Time.deltaTime;
+
+            Vector2 dashDirection = new Vector2(tree.dashSpeed * Time.deltaTime, 0); 
+            tree.gameObject.transform.Translate(dashDirection);
+
+            tree.lastDashDirection = dashDirection.normalized;
+
+            Collider2D hitPlayer = Physics2D.OverlapCircle(tree.gameObject.transform.position, 0.7f, tree.playerLayer);
+            if (hitPlayer != null)
+            {
+                Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+/*                    Vector2 knockbackDir = ((Vector2)hitPlayer.transform.position - (Vector2)tree.gameObject.transform.position);
+                    knockbackDir.y = 0;
+                    knockbackDir.Normalize();
+                    knockbackDir.y = knockbackDir.magnitude;
+                    rb.linearVelocity = knockbackDir * tree.knockbackForce;*/
+                    //invincibilter.invoke() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+            }
+
+            if (dashTimer > 0)
             {
                 return BTNodeState.RUNNING;
             }
 
-            charging = true;
+            ResetCharge();
+            return BTNodeState.SUCCESS;
+        }
+
+        private void ResetCharge()
+        {
+            tree.dashStarted = false;
+            charging = false;
+            delayTimer = tree.chargeDelay;
             dashTimer = tree.dashDuration;
         }
-
-        // Phase 2 : Dash
-        dashTimer -= Time.deltaTime;
-
-        Vector2 dashDirection = new Vector2(tree.dashSpeed * Time.deltaTime, 0); // On suppose ici une direction horizontale
-        tree.gameObject.transform.Translate(dashDirection);
-
-        // Enregistrer la direction du dash
-        tree.lastDashDirection = dashDirection.normalized;
-
-        // Détection de collision avec le joueur et knockback
-        Collider2D hitPlayer = Physics2D.OverlapCircle(tree.gameObject.transform.position, 0.7f, tree.playerLayer);
-        if (hitPlayer != null)
-        {
-            Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Vector2 knockbackDir = ((Vector2)hitPlayer.transform.position - (Vector2)tree.gameObject.transform.position);
-                knockbackDir.y = 0;
-                knockbackDir.Normalize();
-                knockbackDir.y = knockbackDir.magnitude;
-                rb.linearVelocity = knockbackDir * tree.knockbackForce;
-                //invincibilter.invoke() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            }
-        }
-
-        if (dashTimer > 0)
-        {
-            return BTNodeState.RUNNING;
-        }
-
-        ResetCharge();
-        return BTNodeState.SUCCESS;
-    }
-
-    private void ResetCharge()
-    {
-        tree.dashStarted = false;
-        charging = false;
-        delayTimer = tree.chargeDelay;
-        dashTimer = tree.dashDuration;
     }
 }
