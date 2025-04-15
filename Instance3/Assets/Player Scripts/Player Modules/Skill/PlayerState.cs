@@ -6,7 +6,6 @@ public class PlayerState : SkillModule
     Stats stats;
     Rigidbody2D rb;
     public static Action onInvincible { get; set; }
-    public static Action<int> onTakeDamage { get; set; }
     public static Action<Vector3, float> onKnockBack { get; set; }
 
     [SerializeField] private float invincibilityDuration = 1f;
@@ -19,32 +18,34 @@ public class PlayerState : SkillModule
     private void Invincible()
     {
         if (isInvincible) return;
-        //Debug.Log("onInvincible is called");
 
         isInvincible = true;
         invincibilityTimer = 0;
 
     }
 
-    private void TakeDamage(int damage)
+    private void KnockBack(Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible) return;
-        //Debug.Log("onTakeDamage is called");
-
-        stats.health -= damage;
-        if (stats.health < 0) stats.health = 0;
-        DisplayHealth.onUpdate?.Invoke();
-    }
-
-    private void KnockBack(Vector3 direction, float power)
-    {
-        //Debug.Log("onKnockBack is called");
 
         isKnockedBack = true;
         knockBackTimer = 0;
 
+        Vector2 direction =  transform.position - originPosOfDamage;
+
+        if (direction.x > 0)
+        {
+            direction.x = 1;
+        }
+        else if (direction.x < 0)
+        {
+            direction.x = -1;
+        }
+
+        direction.y = 1;
+
         PlayerInputScript.onDisableInput?.Invoke();
         
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction * power, ForceMode2D.Impulse);
 
     }
@@ -53,23 +54,19 @@ public class PlayerState : SkillModule
     {
         if (stats == null) stats = GetComponent<Stats>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
+
         onInvincible += Invincible;
-        onTakeDamage += TakeDamage;
         onKnockBack += KnockBack;
     }
 
     private void OnDisable()
     {
         onInvincible -= Invincible;
-        onTakeDamage -= TakeDamage;
         onKnockBack -= KnockBack;
     }
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.J)) onInvincible?.Invoke();
-        // if (Input.GetKeyDown(KeyCode.K)) onTakeDamage?.Invoke(2);
-        // if (Input.GetKeyDown(KeyCode.L)) onKnockBack?.Invoke();
 
         if (isInvincible) 
         {
@@ -77,7 +74,7 @@ public class PlayerState : SkillModule
             if (invincibilityDuration <= invincibilityTimer)
             {
                 isInvincible = false;
-                //Debug.Log("End of Invincibility");
+                PlayerController.onEndOfInvincibility?.Invoke();
             }
         }
 
@@ -87,8 +84,8 @@ public class PlayerState : SkillModule
             if (knockBackDuration <= knockBackTimer)
             {
                 isKnockedBack = false;
+                rb.linearVelocityX = 0;
                 PlayerInputScript.onEnableInput?.Invoke();
-                //Debug.Log("End of KnockBack");
             }
         }
     }

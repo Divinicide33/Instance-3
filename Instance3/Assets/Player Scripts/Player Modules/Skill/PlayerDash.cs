@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerDash : SkillModule
@@ -17,6 +18,12 @@ public class PlayerDash : SkillModule
     private int direction;
     private float height;
     private bool isGrounded = false;
+
+    public static Action onStopDash { get; set; }
+    public static Action<bool> onSetIsDashing { get; set; }
+
+    private bool isAttacking = false;
+
     void Awake()
     {
         player = GetComponent<PlayerController>();
@@ -27,17 +34,25 @@ public class PlayerDash : SkillModule
     void OnEnable()
     {
         PlayerController.onDash += Dash;
+        PlayerAttack.onIsAttacking += SetIsAttacking;
         GroundCheck.onGrounded += ChangeBool;
+        onStopDash += StopDash;
     }
     void OnDisable()
     {
         PlayerController.onDash -= Dash;
+        PlayerAttack.onIsAttacking -= SetIsAttacking;
         GroundCheck.onGrounded -= ChangeBool;
+        onStopDash -= StopDash;
     }
-
+    
+    private void SetIsAttacking(bool value)
+    {
+        isAttacking = value;
+    }
     void Update() 
     {
-        if (canDash == false) CheckIfCanDash();
+        if (!canDash) CheckIfCanDash();
         else timerCooldown = 0;
 
         if (isDashing) Dashing();
@@ -51,9 +66,9 @@ public class PlayerDash : SkillModule
 
     public void Dash()
     {
-        if (!isDashing && canDash)
+        if (!isDashing && !isAttacking && canDash)
         {
-            PlayerMove.onSetMove?.Invoke(false);
+            onSetIsDashing?.Invoke(true);
             height = transform.position.y;
             rb.linearVelocityY = 0;
 
@@ -87,7 +102,7 @@ public class PlayerDash : SkillModule
     public void StopDash()
     {
         isDashing = false;
-        PlayerMove.onSetMove?.Invoke(true);
+        onSetIsDashing?.Invoke(false);
         rb.linearVelocityX = 0;
     }
 
