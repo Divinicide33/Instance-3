@@ -3,27 +3,15 @@ using System.Collections;
 
 public class Door : MonoBehaviour
 {
-    // Salle de destination pour cette porte
-    [SerializeField] private RoomId nextRoom;
+    
+    [SerializeField] private RoomId nextRoom; // Salle de destination pour cette porte
     public RoomId NextRoom => nextRoom;
-
-    // Nom de la porte sélectionnée dans la scène cible (renseigné via l'éditeur personnalisé)
-    [SerializeField] private string selectedDoorName;
-    public string SelectedDoorName => selectedDoorName;
-
-    // Position cible de la porte (renseignée par le DoorEditor)
-    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private string selectedDoorName; // Nom de la porte sélectionnée dans la scène cible (renseigné via l'éditeur personnalisé)
+    [SerializeField] private Vector3 targetPosition; // Position cible de la porte (renseignée par le DoorEditor)
     public Vector3 TargetPosition
     {
         get { return targetPosition; }
         set { targetPosition = value; }
-    }
-
-    [SerializeField] private Transform spawnPoint;
-    public Transform SpawnPoint
-    {
-        get { return spawnPoint; }
-        set { spawnPoint = value; }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
