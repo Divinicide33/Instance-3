@@ -22,8 +22,9 @@ public class PlayerPotion : ItemModule
             return;
         }
 
+        if (nbPotions <= 0) return;
+
         nbPotions--;
-        if (nbPotions < 0) nbPotions = 0;
 
         player.Healing(healValue);
         UpdateUi();
