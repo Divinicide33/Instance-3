@@ -26,15 +26,14 @@ public class DoorEditor : Editor
     {
         serializedObject.Update();
 
-        // Affiche le champ nextRoom normalement dans l'inspecteur.
+        // Afficher le champ nextRoom dans l'inspecteur
         SerializedProperty nextRoomProp = serializedObject.FindProperty("nextRoom");
         EditorGUILayout.PropertyField(nextRoomProp);
 
-        // Récupérer le composant Door et la salle cible sélectionnée.
         Door doorComponent = (Door)target;
         RoomId currentRoom = doorComponent.NextRoom;
 
-        // Si la salle a changé ou aucun scan n'a encore été effectué, rechargez la liste.
+        // Si la salle a changé ou qu'aucun scan n'a encore été fait, recharge la liste.
         if (retrievedDoorInfos == null || currentRoom != lastScannedRoom)
         {
             retrievedDoorInfos = RetrieveDoorInfosForRoom(currentRoom);
@@ -42,7 +41,7 @@ public class DoorEditor : Editor
             selectedIndex = -1;
         }
 
-        // Bouton pour forcer une nouvelle récupération de la liste.
+        // Bouton pour recharger manuellement la liste.
         if (GUILayout.Button("Recharger la liste pour " + currentRoom.ToString()))
         {
             retrievedDoorInfos = RetrieveDoorInfosForRoom(currentRoom);
@@ -52,16 +51,15 @@ public class DoorEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Portes trouvées dans la scène " + currentRoom + " :", EditorStyles.boldLabel);
 
-        // Confectionne un tableau de chaînes pour le popup.
+        // Construire un tableau de chaînes pour le popup (affichage du nom de la porte)
         string[] doorNames = retrievedDoorInfos.Select(info => info.doorName + " @ " + info.position.ToString("F2")).ToArray();
 
         if (retrievedDoorInfos.Count > 0)
         {
-            // Récupère les propriétés sérialisées pour selectedDoorName et targetPosition.
             SerializedProperty selectedDoorNameProp = serializedObject.FindProperty("selectedDoorName");
             SerializedProperty targetPositionProp = serializedObject.FindProperty("targetPosition");
-
-            // Si aucune sélection n'est faite, essayer de pré-sélectionner si une valeur est déjà stockée.
+            
+            // Pré-sélection : si aucune sélection n'est faite et qu'une valeur est déjà présente
             if (selectedIndex == -1 && !string.IsNullOrEmpty(selectedDoorNameProp.stringValue))
             {
                 for (int i = 0; i < doorNames.Length; i++)
@@ -74,16 +72,22 @@ public class DoorEditor : Editor
                 }
             }
 
-            // Affiche un popup pour sélectionner la porte cible.
+            // Afficher le popup pour sélectionner la porte cible
             int newSelectedIndex = EditorGUILayout.Popup("Porte cible", selectedIndex, doorNames);
             if (newSelectedIndex != selectedIndex)
             {
                 selectedIndex = newSelectedIndex;
                 if (selectedIndex >= 0 && selectedIndex < retrievedDoorInfos.Count)
                 {
-                    // Met à jour le champ selectedDoorName et targetPosition selon la porte choisie.
+                    // Mise à jour du champ selectedDoorName
                     selectedDoorNameProp.stringValue = retrievedDoorInfos[selectedIndex].doorName;
-                    targetPositionProp.vector3Value = retrievedDoorInfos[selectedIndex].position;
+                    
+                    // Utilisation de l'accesseur TargetPosition dans le script Door
+                    Door door = (Door)target;
+                    door.TargetPosition = retrievedDoorInfos[selectedIndex].position;
+                    
+                    // Synchronisation avec la SerializedProperty pour conserver les modifications dans l'inspecteur
+                    targetPositionProp.vector3Value = door.TargetPosition;
                 }
             }
         }
@@ -93,6 +97,7 @@ public class DoorEditor : Editor
         }
 
         serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(target);
     }
 
     /// <summary>
@@ -104,7 +109,7 @@ public class DoorEditor : Editor
         List<DoorInfo> doorInfos = new List<DoorInfo>();
         string sceneName = roomId.ToString();
 
-        // Recherche de la scène en se basant sur son nom (Assurez-vous que celui-ci correspond à roomId.ToString())
+        // Recherche de la scène par son nom (assurez-vous que le nom correspond à roomId.ToString())
         string[] guids = AssetDatabase.FindAssets("t:Scene " + sceneName);
         if (guids == null || guids.Length == 0)
         {
@@ -115,12 +120,12 @@ public class DoorEditor : Editor
 
         // Ouvrir la scène en mode additif (temporaire)
         Scene openedScene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
-
-        // Recherche des objets Door dans la scène ouverte (y compris les objets inactifs)
+        
+        // Recherche de tous les objets Door dans la scène ouverte
         Door[] doors = Resources.FindObjectsOfTypeAll<Door>();
-
         foreach (Door d in doors)
         {
+            // Vérifier que l'objet se trouve bien dans la scène temporairement chargée
             if (d.gameObject.scene.name == openedScene.name)
             {
                 DoorInfo info = new DoorInfo
@@ -132,7 +137,7 @@ public class DoorEditor : Editor
             }
         }
 
-        // Fermer la scène temporaire pour ne pas encombrer l'éditeur
+        // Fermer la scène temporaire pour éviter de surcharger l'éditeur
         EditorSceneManager.CloseScene(openedScene, true);
 
         return doorInfos;

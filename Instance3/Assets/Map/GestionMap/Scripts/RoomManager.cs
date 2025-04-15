@@ -37,7 +37,7 @@ public class RoomManager : MonoBehaviour
     {
         if (loadedRooms.ContainsKey(newRoom))
         {
-            Debug.Log("Room déjà chargée : " + newRoom);
+            Debug.Log("Room dï¿½jï¿½ chargï¿½e : " + newRoom);
             return;
         }
 
@@ -59,7 +59,7 @@ public class RoomManager : MonoBehaviour
         UnloadRoom(currentRoom);
 
 
-        Debug.Log("Salle déchargée : " + currentRoom);
+        //Debug.Log("Salle dï¿½chargï¿½e : " + currentRoom);
         rooms = newRoom;
         currentRoom = newRoom;
         await LoadRoom(newRoom);
@@ -90,7 +90,7 @@ public class RoomManager : MonoBehaviour
             GiveColliderForCinemachine giver = root.GetComponentInChildren<GiveColliderForCinemachine>();
             if (giver != null)
             {
-                // Déplace dans la scène active si nécessaire
+                // Dï¿½place dans la scï¿½ne active si nï¿½cessaire
                 //SceneManager.MoveGameObjectToScene(giver.gameObject, SceneManager.GetActiveScene());
                 giver.SendCollider(confiner.gameObject);
                 StartCoroutine(giver.ReloadCollider(confiner.gameObject));
@@ -98,6 +98,6 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("Aucun GiveColliderForCinemachine trouvé dans : " + roomScene.name);
+        Debug.LogWarning("Aucun GiveColliderForCinemachine trouvï¿½ dans : " + roomScene.name);
     }
 }
