@@ -95,7 +95,7 @@ MonoBehaviour:
   health: 4
   healthMax: 5
   damage: 2
-  speed: 2
+  speed: 4
 --- !u!114 &7568520738813208363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfffcbc6c160cc846afd71cdd904bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
+  jumpForce: 12
 --- !u!114 &1640116097676028478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +345,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e6043eab-dbf4-4d4b-9a0b-207928d8cba5
     m_ActionName: 'Player/Dash[/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17887dbe-104e-4b7d-98e1-d323f5db421f
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4eb7edb4-8476-47d9-b2fe-15622410a20d
+    m_ActionName: 'Player/Cancel[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -433,6 +441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Sword
+  damagePos: {fileID: 0}
+  size: {x: 0, y: 0}
+  radius: 0
 --- !u!1 &7157970686025683427
 GameObject:
   m_ObjectHideFlags: 0
