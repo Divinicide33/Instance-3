@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2392396235173834592}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visuels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +32,37 @@ Transform:
   - {fileID: 4688805518569591202}
   m_Father: {fileID: 2024590223544603750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1345564883992790586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8009710677205411921}
+  m_Layer: 3
+  m_Name: DamagePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8009710677205411921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345564883992790586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8353215431733260646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5249059981422526792
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,14 +80,17 @@ GameObject:
   - component: {fileID: 8245985858131250423}
   - component: {fileID: 1640116097676028478}
   - component: {fileID: 4491546608162255470}
+  - component: {fileID: 194301721331538098}
   - component: {fileID: 6103533508610122396}
   - component: {fileID: 5223180371587998291}
   - component: {fileID: 4748789451198910664}
   - component: {fileID: 564035682160163730}
-  - component: {fileID: 194301721331538098}
   - component: {fileID: 7421083053208338391}
+  - component: {fileID: 4530792423523707861}
   - component: {fileID: 640623758850949485}
-  m_Layer: 0
+  - component: {fileID: 1955489207471349775}
+  - component: {fileID: 6601844717623684650}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 4
+  health: 5
   healthMax: 5
   damage: 2
   speed: 4
@@ -109,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 1
+  isFacingUp: 1
 --- !u!114 &8448164904437001605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +184,7 @@ MonoBehaviour:
   ModuleName: Dash
   dashForce: 25
   dashDuration: 0.1
-  dashCooldown: 0.5
+  dashCooldown: 0.35
 --- !u!114 &8245985858131250423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +226,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModuleName: Glide
   maxVelocityY: 1
+--- !u!114 &194301721331538098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d256ea9aebd890644a2901e7a311b3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModuleName: Potion
+  nbPotions: 0
+  nbPotionsMax: 4
+  healValue: 4
 --- !u!114 &6103533508610122396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +258,7 @@ MonoBehaviour:
   size: {x: 0.78, y: 0.31}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 64
 --- !u!114 &5223180371587998291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,12 +307,12 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4748789451198910664}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -346,13 +397,21 @@ MonoBehaviour:
     m_ActionId: e6043eab-dbf4-4d4b-9a0b-207928d8cba5
     m_ActionName: 'Player/Dash[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 17887dbe-104e-4b7d-98e1-d323f5db421f
-    m_ActionName: 'Player/Pause[/Keyboard/escape]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4eb7edb4-8476-47d9-b2fe-15622410a20d
-    m_ActionName: 'Player/Cancel[/Keyboard/escape]'
+      m_Calls:
+      - m_Target: {fileID: 4748789451198910664}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnUsePotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d9a4723b-9e62-4038-9534-3e7e97d27eef
+    m_ActionName: Player/Potion
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -397,22 +456,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &194301721331538098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5249059981422526792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d256ea9aebd890644a2901e7a311b3c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ModuleName: Potion
-  nbPotions: 0
-  nbPotionsMax: 4
-  healValue: 4
 --- !u!114 &7421083053208338391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,8 +469,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: PlayerState
-  invincibilityDuration: 1
+  invincibilityDuration: 2
   knockBackDuration: 0.5
+--- !u!114 &4530792423523707861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315f24bfa0ee65647b1934a7fae1509c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &640623758850949485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,9 +496,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Sword
-  damagePos: {fileID: 0}
-  size: {x: 0, y: 0}
+  damagePos: {fileID: 8009710677205411921}
+  size: {x: 0.5, y: 0.5}
   radius: 0
+--- !u!95 &1955489207471349775
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f99be61d08bccbc42bc5725fe0d7b035, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6601844717623684650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249059981422526792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c730006f8ca134893b9062656de375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorUpBody: {fileID: 1955489207471349775}
 --- !u!1 &7157970686025683427
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4688805518569591202}
   - component: {fileID: 8421717946042715829}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MainBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8353215431733260646}
   - component: {fileID: 9045502853191977469}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +650,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8009710677205411921}
   m_Father: {fileID: 2024590223544603750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &9045502853191977469
