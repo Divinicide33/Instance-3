@@ -77,6 +77,8 @@ public class PlayerDash : SkillModule
 
             canDash = false;
             isDashing = true;
+
+            DashFX.onDash?.Invoke();
         }
     }
 

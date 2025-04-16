@@ -1,12 +1,13 @@
-using System.Collections;
-using UnityEditor.Build;
+using System;
 using UnityEngine;
 
 public class DashFX : FX<DashFX>
 {
     public new ParticleSystem particleSystem;
 
-    private PlayerController player;
+    PlayerController player;
+
+    public static Action onDash { get; set; }
 
     private void Awake()
     {
@@ -20,12 +21,12 @@ public class DashFX : FX<DashFX>
     }
     protected override void OnEnable()
     {
-        //PlayerController.onDash += DashVFX;
+        onDash += DashVFX;
     }
 
     protected override void OnDisable()
     {
-        //PlayerController.onDash -= DashVFX;
+        onDash -= DashVFX;
     }
 
     protected override void EnableFX()
@@ -37,14 +38,11 @@ public class DashFX : FX<DashFX>
 
     }
 
-    private void DashVFX(bool dash) // add in OnEnable and OnDisable when the action in dash exists
+    private void DashVFX()
     {
-        if (dash)
-        {
-            int direction = player.isFacingRight ? 1 : -1;
-            var shape = particleSystem.shape;
-            shape.rotation = new Vector3(0, 0, direction * 90);
-            particleSystem.Play();
-        }
+        int direction = player.isFacingRight ? 1 : -1;
+        var shape = particleSystem.shape;
+        shape.rotation = new Vector3(0, 0, direction * 90);
+        particleSystem.Play();
     }
 }

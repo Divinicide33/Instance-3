@@ -59,6 +59,8 @@ public class PlayerController : Entity
         PlayerState.onInvincible?.Invoke();
 
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
+
+        PlayerHurtFX.onHit?.Invoke();
     }
     
 

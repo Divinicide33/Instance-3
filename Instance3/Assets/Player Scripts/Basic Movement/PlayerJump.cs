@@ -58,6 +58,8 @@ public class PlayerJump : MonoBehaviour
             rb.linearVelocityY = 0;
             isGrounded = false;
             rb.AddForce(jumpDirection, ForceMode2D.Impulse);
+
+            JumpFX.onJump?.Invoke();
         }
         else
         {
