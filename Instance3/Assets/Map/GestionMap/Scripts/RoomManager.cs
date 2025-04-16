@@ -56,22 +56,21 @@ public class RoomManager : MonoBehaviour
     public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
         Debug.Log("Changement de salle : " + newRoom);
-        UnloadRoom(currentRoom);
+        await UnloadRoom(currentRoom);
 
+        playerTransform.position = newPosition;
 
         //Debug.Log("Salle d�charg�e : " + currentRoom);
         rooms = newRoom;
         currentRoom = newRoom;
         await LoadRoom(newRoom);
-
-        playerTransform.position = newPosition;
     }
 
-    private void UnloadRoom(RoomId room)
+    private async Task UnloadRoom(RoomId room)
     {
         if (loadedRooms.TryGetValue(room, out Scene scene))
         {
-            SceneManager.UnloadSceneAsync(scene);
+            await SceneManager.UnloadSceneAsync(scene);
             loadedRooms.Remove(room);
         }
     }
