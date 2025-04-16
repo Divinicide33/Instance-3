@@ -5,20 +5,18 @@ using UnityEngine;
 public class ArrowForHermesFX : FX<ArrowForHermesFX>
 {
     [SerializeField] Transform player;
-
-    [SerializeField] int directions = 1;
     [SerializeField] GameObject arrow;
     public SpriteRenderer arrowDown;
     public SpriteRenderer arrowUp;
     public bool isActivate = false;
     public static Action<bool> onLockArrow { get; set; }
 
-    public void OnEnable()
+    protected override void OnEnable()
     {
         onLockArrow += LockOn;
     }
 
-    public void OnDisable()
+    protected override void OnDisable()
     {
         onLockArrow -= LockOn;
     }
