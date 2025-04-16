@@ -1,8 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 
 public class MenuManager : MonoBehaviour
@@ -35,7 +35,7 @@ public class MenuManager : MonoBehaviour
     private void OnControlsChanged(PlayerInput input)
     {
         // detect if using gamepad
-        if (input.currentControlScheme == "Joystick")
+        if (input.currentControlScheme == ControlScheme.Joystick.ToString())
         {
             SelectFirstButton();
         }
@@ -88,7 +88,7 @@ public class MenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
 
-        if (playerInput.currentControlScheme == "Joystick")
+        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
             SetSelected(settingsMenuFirstButton);
     }
 
@@ -97,7 +97,7 @@ public class MenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
 
-        if (playerInput.currentControlScheme == "Joystick")
+        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
             SetSelected(creditsMenuFirstButton);
     }
 
@@ -107,7 +107,7 @@ public class MenuManager : MonoBehaviour
         creditsMenu.SetActive(false);
         mainMenu.SetActive(true);
 
-        if (playerInput.currentControlScheme == "Joystick")
+        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
             SetSelected(mainMenuFirstButton);
     }
 
