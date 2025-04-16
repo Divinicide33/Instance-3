@@ -94,7 +94,7 @@ public class PlayerInputScript : MonoBehaviour
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        //Debug.Log("Input enabled");
+        Debug.Log("Input enabled");
     }
 
     private void DisableInput()
@@ -104,7 +104,7 @@ public class PlayerInputScript : MonoBehaviour
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
-        //Debug.Log("Input disabled");
+        Debug.Log("Input disabled");
     }
 
     private void IsPlayerDead(bool value)
