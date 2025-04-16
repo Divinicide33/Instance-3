@@ -34,5 +34,6 @@ public enum RoomId
     TutorialRoom,
     UpgradeRoomLeft,
     YesRoom,
-    ZeusRoom
+    ZeusRoom,
+    FountainTestRoom
 }

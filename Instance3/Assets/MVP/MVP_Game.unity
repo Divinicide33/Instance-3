@@ -1473,8 +1473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffe0c2d683b583418a8fba41753e8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms: 31
-  startingRoom: 31
+  rooms: 35
+  startingRoom: 35
   confiner: {fileID: 85694393}
 --- !u!1 &1227435665
 GameObject:
@@ -2243,6 +2243,10 @@ PrefabInstance:
     - target: {fileID: 6467716109358984024, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014232247200298542, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
+      propertyPath: health
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7157970686025683427, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       propertyPath: m_Layer

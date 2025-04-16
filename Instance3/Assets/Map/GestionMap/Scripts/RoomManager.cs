@@ -47,6 +47,7 @@ public class RoomManager : MonoBehaviour
             await Task.Yield();
 
         Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+        
         loadedRooms.Add(newRoom, loadedScene);
         currentRoom = newRoom;
 
@@ -56,14 +57,16 @@ public class RoomManager : MonoBehaviour
     public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
         Debug.Log("Changement de salle : " + newRoom);
+        
+        PlayerInputScript.onDisableInput?.Invoke();
+        
         await UnloadRoom(currentRoom);
-
         playerTransform.position = newPosition;
-
-        //Debug.Log("Salle d�charg�e : " + currentRoom);
+        
         rooms = newRoom;
         currentRoom = newRoom;
         await LoadRoom(newRoom);
+        PlayerInputScript.onEnableInput?.Invoke();
     }
 
     private async Task UnloadRoom(RoomId room)
