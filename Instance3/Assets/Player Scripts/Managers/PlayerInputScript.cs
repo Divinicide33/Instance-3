@@ -6,19 +6,23 @@ public class PlayerInputScript : MonoBehaviour
 {
     private bool isMoving = false;
     private bool isEnable = true;
+    private bool isDead = false;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
+    public static Action<bool> onIsPlayerDead { get; set; }
 
     private void OnEnable()
     {
         onEnableInput += EnableInput;
         onDisableInput += DisableInput;
+        onIsPlayerDead += IsPlayerDead;
     }
 
     private void OnDisable()
     {
         onEnableInput -= EnableInput;
         onDisableInput -= DisableInput;
+        onIsPlayerDead -= IsPlayerDead;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -43,16 +47,17 @@ public class PlayerInputScript : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!isEnable) return;
         if (context.started)
         {
-            PlayerController.onJump?.Invoke(true);
             PlayerController.onGlide?.Invoke(true);
+            if (!isEnable) return;
+            PlayerController.onJump?.Invoke(true);
         }
         else if (context.canceled)
         {
-            PlayerController.onJump?.Invoke(false);
             PlayerController.onGlide?.Invoke(false);
+            if (!isEnable) return;
+            PlayerController.onJump?.Invoke(false);
         }
     }
     public void OnDash(InputAction.CallbackContext context)
@@ -84,16 +89,30 @@ public class PlayerInputScript : MonoBehaviour
 
     private void EnableInput()
     {
+        if (isDead) return;
+
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
-        Debug.Log("Input enabled");
+        PlayerGlide.onCanGlide?.Invoke(true);
+        //Debug.Log("Input enabled");
     }
 
     private void DisableInput()
     {
         isEnable = false;
+        PlayerDash.onStopDash?.Invoke();
+        PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
-        Debug.Log("Input disabled");
+        PlayerGlide.onCanGlide?.Invoke(false);
+        //Debug.Log("Input disabled");
+    }
+
+    private void IsPlayerDead(bool value)
+    {
+        isDead = value;
+
+        if (isDead) DisableInput();
+        else EnableInput();
     }
 
     public void StartPause(InputAction.CallbackContext context)

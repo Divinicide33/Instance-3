@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ModuleManager<T> where T : PlayerModule 
 {
-    [SerializeField] private List<T> playerModules;
+    public List<T> playerModules;
 
     public ModuleManager(List<T> Modules)
     {
@@ -53,7 +53,7 @@ public class ModuleManager<T> where T : PlayerModule
     public void UnlockModule(string moduleName)
     {
         T module = playerModules.Find(module => module.ModuleName == moduleName);
-        
+
         if (module != null && !module.enabled) 
         {
             module.enabled = true;

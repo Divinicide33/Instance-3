@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float offSetInput = 0.5f;
     public static Action<bool> onSetMove { get; set; }
     private bool canMove = true;
+    private bool isDashing = false;
     private void Awake() 
     {
         stats = GetComponent<Stats>();
@@ -21,23 +22,30 @@ public class PlayerMove : MonoBehaviour
     {
         PlayerController.onMove += Move;
         onSetMove += SetCanMove;
+        PlayerDash.onSetIsDashing += SetIsDashing;
     }
     void OnDisable()
     {
         PlayerController.onMove -= Move;
         onSetMove -= SetCanMove;
+        PlayerDash.onSetIsDashing -= SetIsDashing;
     }
 
     private void SetCanMove(bool value)
     {
         canMove = value;
-        Debug.Log($"canMove = {canMove}");
+        //rb.linearVelocityX = 0;
+    }
+
+    private void SetIsDashing(bool value)
+    {
+        isDashing = value;
         rb.linearVelocityX = 0;
     }
 
     private void Update() 
     {
-        if (canMove)
+        if (canMove && !isDashing)
         {
             rb.linearVelocityX = direction.x * stats.speed;
         }
@@ -46,15 +54,29 @@ public class PlayerMove : MonoBehaviour
     public void Move(Vector2 inputDirection)
     {
         direction = inputDirection;
+
         if (direction.x > offSetInput) 
         {
             player.isFacingRight = true;
+            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
             direction.x = 1;
         }
         else if (direction.x < -offSetInput) 
         {
             player.isFacingRight = false;
+            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
             direction.x = -1;
+        }
+
+        if (direction.y > offSetInput)
+        {
+            player.isFacingUp = true;
+            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
+        }
+        else
+        {
+            player.isFacingUp = false;
+            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
         }
     }
 }
