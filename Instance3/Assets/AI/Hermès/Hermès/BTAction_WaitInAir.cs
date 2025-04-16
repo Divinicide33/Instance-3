@@ -29,12 +29,16 @@ namespace AI.Hermes
 
             delayTimer -= Time.deltaTime;
 
-            if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
+            if (!hasTarget && tree.timeInAir - targetTime < delayTimer)
             {
+                tree.transform.GetChild(1).GetComponent<ArrowForHermesFX>().RotateArrow();
+            }
+            else if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
+            {
+                ArrowForHermesFX.onLockArrow?.Invoke(true);
                 hasTarget = true;
                 tree.target = tree.player.position;
             }
-
             if (delayTimer > 0)
             {
                 rb.linearVelocity = Vector2.zero;
@@ -46,7 +50,7 @@ namespace AI.Hermes
             {
                 tree.target = tree.player.position;
             }
-
+            ArrowForHermesFX.onLockArrow?.Invoke(false);
             tree.waited = true;
             hasTarget = false;
             rb.simulated = true;

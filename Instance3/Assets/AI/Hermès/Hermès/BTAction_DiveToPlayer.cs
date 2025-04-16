@@ -8,6 +8,9 @@ namespace AI.Hermes
         private BTHermesTree tree;
         private float diveSpeed;
         private int platformMask;
+        private Vector3 direction = Vector3.zero;
+        private bool hasDirection = false;
+
         public BTAction_DiveToPlayer(BTHermesTree btParent)
         {
             tree = btParent;
@@ -19,7 +22,12 @@ namespace AI.Hermes
         {
             if (tree.player == null) return BTNodeState.FAILURE;
 
-            Vector2 direction = ((Vector2)tree.target - (Vector2)tree.tree.position).normalized;
+            if (!hasDirection)
+            {
+                direction = ((Vector2)tree.target - (Vector2)tree.tree.position).normalized;
+                hasDirection = true;
+            }
+
             tree.gameObject.transform.Translate(direction * diveSpeed * Time.deltaTime);
 
             RaycastHit2D hitGround = Physics2D.Raycast(tree.tree.position, direction, 2f, platformMask);
@@ -34,6 +42,7 @@ namespace AI.Hermes
                 tree.action = Action.None;
                 tree.charged = false;
                 tree.hasJumped = false;
+                hasDirection = false;
                 return BTNodeState.SUCCESS;
             }
 
