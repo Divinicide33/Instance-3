@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] private float offSetInput = 0.5f;
     private PlayerController player;
     private Rigidbody2D rb;
     private Stats stats;
     private Vector2 direction;
-    [SerializeField] private float offSetInput = 0.5f;
-    public static Action<bool> onSetMove { get; set; }
     private bool canMove = true;
     private bool isDashing = false;
+    public static Action<bool> onSetMove { get; set; }
+    public static Action onResetVelocity { get; set; }
+
     private void Awake() 
     {
         stats = GetComponent<Stats>();
@@ -23,18 +25,28 @@ public class PlayerMove : MonoBehaviour
         PlayerController.onMove += Move;
         onSetMove += SetCanMove;
         PlayerDash.onSetIsDashing += SetIsDashing;
+        onResetVelocity += ResetVelocity;
     }
+    
     void OnDisable()
     {
         PlayerController.onMove -= Move;
         onSetMove -= SetCanMove;
         PlayerDash.onSetIsDashing -= SetIsDashing;
+        onResetVelocity -= ResetVelocity;
+    }
+
+    private void ResetVelocity()
+    {
+        canMove = false; 
+        rb.linearVelocity = Vector2.zero;
+        Debug.Log(rb.linearVelocity);
     }
 
     private void SetCanMove(bool value)
     {
-        canMove = value;
-        //rb.linearVelocityX = 0;
+        canMove = value; 
+        rb.linearVelocityX = 0;
     }
 
     private void SetIsDashing(bool value)

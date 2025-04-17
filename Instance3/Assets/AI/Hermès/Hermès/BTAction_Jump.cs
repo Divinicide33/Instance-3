@@ -27,11 +27,12 @@ namespace AI.Hermes
 
             if (direction.magnitude > 0.1f)
             {
-                tree.tree.position += (Vector3)(direction.normalized * jumpSpeed * Time.deltaTime);
+                tree.rb.simulated = false;
+                tree.transform.position = Vector3.MoveTowards(tree.tree.position, targetTransform.position, jumpSpeed * Time.deltaTime);
+                //tree.tree.position += (Vector3)(direction.normalized * jumpSpeed * Time.deltaTime);
                 return BTNodeState.RUNNING;
             }
 
-            tree.reachedTarget = true;
             tree.hasJumped = true;
             return BTNodeState.SUCCESS;
         }

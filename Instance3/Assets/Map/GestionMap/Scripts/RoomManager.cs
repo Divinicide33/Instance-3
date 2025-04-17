@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -22,10 +23,10 @@ public class RoomManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private async void Start()
+    private void Start()
     {
         GiveColliderForCinemachine.onColliderChange += UpdateConfinerWithRoom;
-        await LoadRoom(startingRoom);
+        StartCoroutine(LoadRoomCoroutine(startingRoom));
     }
 
     private void OnDestroy()
@@ -33,53 +34,65 @@ public class RoomManager : MonoBehaviour
         GiveColliderForCinemachine.onColliderChange -= UpdateConfinerWithRoom;
     }
 
-    public async Task LoadRoom(RoomId newRoom)
+    public void ChangeRoomWithFade(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
+    {
+        StartCoroutine(ChangeRoomCoroutine(newRoom, playerTransform, newPosition));
+    }
+
+    private IEnumerator ChangeRoomCoroutine(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
+    {
+        //Debug.Log("Changement de salle avec fondu : " + newRoom);
+        
+        bool fadeInComplete = false;
+        FadeInOut.Instance.FadeIn(() => fadeInComplete = true);
+        yield return new WaitUntil(() => fadeInComplete);
+        
+        yield return UnloadRoomCoroutine(currentRoom);
+        
+        playerTransform.position = newPosition;
+        
+        rooms = newRoom;
+        currentRoom = newRoom;
+        yield return LoadRoomCoroutine(newRoom);
+        
+        FadeInOut.Instance.FadeOut();
+    }
+
+    private IEnumerator LoadRoomCoroutine(RoomId newRoom)
     {
         if (loadedRooms.ContainsKey(newRoom))
-        {
-            Debug.Log("Room d�j� charg�e : " + newRoom);
-            return;
-        }
+            yield break;
 
         string sceneName = newRoom.ToString();
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadOp.isDone)
-            await Task.Yield();
+            yield return null;
 
         Scene loadedScene = SceneManager.GetSceneByName(sceneName);
         loadedRooms.Add(newRoom, loadedScene);
         currentRoom = newRoom;
 
         NotifyConfiner(loadedScene);
+        NotifyEnemies(loadedScene);
     }
 
-    public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
-    {
-        Debug.Log("Changement de salle : " + newRoom);
-        await UnloadRoom(currentRoom);
-
-        playerTransform.position = newPosition;
-
-        //Debug.Log("Salle d�charg�e : " + currentRoom);
-        rooms = newRoom;
-        currentRoom = newRoom;
-        await LoadRoom(newRoom);
-    }
-
-    private async Task UnloadRoom(RoomId room)
+    private IEnumerator UnloadRoomCoroutine(RoomId room)
     {
         if (loadedRooms.TryGetValue(room, out Scene scene))
         {
-            await SceneManager.UnloadSceneAsync(scene);
+            AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(scene);
+            while (!unloadOp.isDone)
+                yield return null;
+
             loadedRooms.Remove(room);
         }
     }
 
+    #region Notify
     private void UpdateConfinerWithRoom(PolygonCollider2D poly)
     {
         confiner.BoundingShape2D = poly;
         confiner.InvalidateBoundingShapeCache();
-
     }
 
     private void NotifyConfiner(Scene roomScene)
@@ -99,4 +112,21 @@ public class RoomManager : MonoBehaviour
 
         Debug.LogWarning("Aucun GiveColliderForCinemachine trouv� dans : " + roomScene.name);
     }
+    
+    private void NotifyEnemies(Scene roomScene)
+    {
+        foreach (GameObject root in roomScene.GetRootGameObjects())
+        {
+            GivePlayerForEnnemy giver = root.GetComponentInChildren<GivePlayerForEnnemy>();
+            if (giver != null)
+            {
+                giver.TryFindAndSendPlayer();
+                return;
+            }
+        }
+
+        Debug.LogWarning("Aucun GivePlayerForEnnemy trouvé dans : " + roomScene.name);
+    }  
+    #endregion
+    
 }

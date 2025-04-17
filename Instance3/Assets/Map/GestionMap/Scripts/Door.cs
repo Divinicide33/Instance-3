@@ -18,18 +18,19 @@ public class Door : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
+            
         if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out _))
             return;
         
-        StartCoroutine(EnterDoor(other.transform.parent));
+        EnterDoor(other.transform.parent);
     }
 
-    private IEnumerator EnterDoor(Transform player)
+    private void EnterDoor(Transform player)
     {
         Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
 
-        yield return RoomManager.Instance.ChangeRoom(nextRoom, player, targetPosition);
-
+        RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
+        
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
         // MiniMapRoomManager.instance.RevealRoom();
     }
