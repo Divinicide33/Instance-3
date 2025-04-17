@@ -29,6 +29,7 @@ public class PlayerController : Entity
     void Start()
     {
         stats = GetComponent<Stats>();
+        PlayerInputScript.onDisableInput?.Invoke();
 
         UpdatePlayerUi();
         LoadSavedFountain();
@@ -91,7 +92,7 @@ public class PlayerController : Entity
         PlayerPotion.onRecharge?.Invoke();
         stats.SetHpToHpMax();
         
-        RoomManager.Instance.ChangeRoom(lastFountainSaved.room, transform,lastFountainSaved.position);
+        RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform,lastFountainSaved.position);
     }
 
     #region Fountain

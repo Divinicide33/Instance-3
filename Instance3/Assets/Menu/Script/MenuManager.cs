@@ -64,10 +64,9 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator _ChangeScene()
     {
-        fade.FadeIn();
-        yield return new WaitForSeconds(1f);
+        yield return fade.FadeIn();
         SceneManager.LoadScene(1);
-
+        fade.FadeOut();
     }
 
     private void SetSelected(GameObject button)
