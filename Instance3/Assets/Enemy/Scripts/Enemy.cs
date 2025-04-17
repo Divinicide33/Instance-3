@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyTest))]
 public class Enemy : Entity
 {
-    protected Stats stats;
+    public Stats stats;
     private void Start()
     {
         stats = GetComponent<Stats>();
