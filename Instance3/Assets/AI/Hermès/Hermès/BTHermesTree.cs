@@ -20,12 +20,11 @@ namespace AI.Hermes
         [HideInInspector] public Transform player;
 
         [Header("Movement")]
-        public float speed = 4f;
         public Transform raycast;
         public Transform targetTransform;
 
         [Header("Dash")]
-        public float dashSpeed = 20f;
+        public float dashSpeed = 20f; // modifier par un multiplicateur
         public float dashDuration = 0.3f;
         public float dashChance = 10;
         public float chargeDelay = 1f;
@@ -74,7 +73,8 @@ namespace AI.Hermes
         private void Init()
         {
             tree = transform;
-            TryGetComponent<Rigidbody2D>(out rb);
+
+            rb = GetComponent<Rigidbody2D>();
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
         }
         

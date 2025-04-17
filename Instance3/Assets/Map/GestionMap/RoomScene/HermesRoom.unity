@@ -1318,6 +1318,14 @@ PrefabInstance:
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 313177156}
+    - target: {fileID: 6360911668327473573, guid: f10655b8ca3157e4ba8e09f08e3b70bd, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360911668327473573, guid: f10655b8ca3157e4ba8e09f08e3b70bd, type: 3}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7686333355331128391, guid: f10655b8ca3157e4ba8e09f08e3b70bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.27

@@ -36,7 +36,7 @@ namespace AI.Hermes
             }
 
             // Mouvement
-            tree.tree.position += (Vector3)(direction.normalized * tree.speed * Time.deltaTime);
+            tree.tree.position += (Vector3)(direction.normalized * tree.stats.speed * Time.deltaTime);
 
             return BTNodeState.RUNNING;
         }
