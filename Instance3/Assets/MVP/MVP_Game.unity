@@ -156,11 +156,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 541842326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -250, y: 150}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 400, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &54293951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1473,8 +1473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffe0c2d683b583418a8fba41753e8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms: 35
-  startingRoom: 35
+  rooms: 31
+  startingRoom: 31
   confiner: {fileID: 85694393}
 --- !u!1 &1227435665
 GameObject:
@@ -2064,6 +2064,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 194301721331538098, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
+      propertyPath: healValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 626691758965018218, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -2246,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014232247200298542, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       propertyPath: health
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7157970686025683427, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       propertyPath: m_Layer

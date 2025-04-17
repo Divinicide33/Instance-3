@@ -63,8 +63,8 @@ public class PlayerController : Entity
         base.TakeDamage(damage, originPosOfDamage, power); // to make him take damage et do the defeat if he die
 
         DisplayHealth.onUpdate?.Invoke(); // update the Ui
+        
         PlayerState.onInvincible?.Invoke();
-
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
     }
     

@@ -43,10 +43,11 @@ namespace AI.Hermes
                 tree.charged = false;
                 tree.hasJumped = false;
                 hasDirection = false;
+                tree.rb.simulated = true;
                 return BTNodeState.SUCCESS;
             }
 
-            return BTNodeState.RUNNING; // Le boss continue de se déplacer vers le joueur
+            return BTNodeState.RUNNING; // Le boss continue de se dï¿½placer vers le joueur
         }
     }
 }

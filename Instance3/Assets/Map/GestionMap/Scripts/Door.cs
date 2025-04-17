@@ -16,6 +16,9 @@ public class Door : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.TryGetComponent<Enemy>(out _))
+            return;
+            
         if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out _))
             return;
         

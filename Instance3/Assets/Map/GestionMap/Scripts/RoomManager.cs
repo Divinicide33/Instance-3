@@ -52,6 +52,7 @@ public class RoomManager : MonoBehaviour
         currentRoom = newRoom;
 
         NotifyConfiner(loadedScene);
+        NotifyEnemies(loadedScene);
     }
 
     public async Task ChangeRoom(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
@@ -66,6 +67,7 @@ public class RoomManager : MonoBehaviour
         rooms = newRoom;
         currentRoom = newRoom;
         await LoadRoom(newRoom);
+        PlayerInputScript.onIsPlayerDead?.Invoke(false);
         PlayerInputScript.onEnableInput?.Invoke();
     }
 
@@ -102,4 +104,21 @@ public class RoomManager : MonoBehaviour
 
         Debug.LogWarning("Aucun GiveColliderForCinemachine trouv� dans : " + roomScene.name);
     }
+    
+    private void NotifyEnemies(Scene roomScene)
+    {
+        foreach (GameObject root in roomScene.GetRootGameObjects())
+        {
+            GivePlayerForEnnemy giver = root.GetComponentInChildren<GivePlayerForEnnemy>();
+            if (giver != null)
+            {
+                giver.TryFindAndSendPlayer();
+                return;
+            }
+        }
+
+        Debug.LogWarning("Aucun GivePlayerForEnnemy trouvé dans : " + roomScene.name);
+    }
+
+    
 }

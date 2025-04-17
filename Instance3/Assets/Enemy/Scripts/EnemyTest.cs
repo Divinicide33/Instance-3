@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyTest : Enemy
 {
+    [SerializeField] private int damage = 1;
     [SerializeField] private Vector2 size;
     [SerializeField] private float knockBackPower;
     void Update()
@@ -16,7 +17,7 @@ public class EnemyTest : Enemy
             if (collider.gameObject.transform.parent != null && 
             collider.gameObject.transform.parent.TryGetComponent(out PlayerController player))
             {
-                player.TakeDamage(1, transform.position ,knockBackPower);
+                player.TakeDamage(damage, transform.position ,knockBackPower);
             }
         }
     }
