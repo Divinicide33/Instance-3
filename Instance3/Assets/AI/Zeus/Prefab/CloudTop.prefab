@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8273598467709798125}
+  - {fileID: 7497984369552320272}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &751751964678831441
@@ -102,12 +102,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloudType: 0
-  lightningDelay: 2
+  lightningDelay: 1
+  despawnDelay: 4
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
-  spawnPoint: {fileID: 8273598467709798125}
-  numberOfLightnings: 10
+  spawnPoint: {fileID: 7497984369552320272}
+  numberOfLightnings: 30
   lightningSpacing: 1
---- !u!1 &8385427510222979859
+  spawnedLightnings: []
+  spawnInterrupted: 0
+  tree: {fileID: 0}
+--- !u!1 &8492466546150958408
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +119,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8273598467709798125}
+  - component: {fileID: 7497984369552320272}
   m_Layer: 0
   m_Name: Spawn
   m_TagString: Untagged
@@ -123,16 +127,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8273598467709798125
+--- !u!4 &7497984369552320272
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8385427510222979859}
+  m_GameObject: {fileID: 8492466546150958408}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.492, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.977, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

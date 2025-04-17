@@ -1,69 +1,146 @@
+using AI.Zeus;
 using BehaviorTree;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace AI.Zeus
+public class BTAction_SpawnClouds : BTNode
 {
-    public class BTAction_SpawnClouds : BTNode
-    {
-        private BTZeusTree tree;
+    private BTZeusTree tree;
+    private int currentSpawnIndex = 0;
+    private float spawnTimer = 0f;
+    private float cleanupTimer = 0f;
+    private bool waitingToCleanup = false;
+    private bool initialized = false;
 
-        public BTAction_SpawnClouds(BTZeusTree btParent)
+    private List<GameObject> currentCloudsAndLightnings = new List<GameObject>(); 
+
+    public BTAction_SpawnClouds(BTZeusTree btParent)
+    {
+        tree = btParent;
+    }
+
+    public override BTNodeState Evaluate()
+    {
+        if (tree.currentPattern == null || tree.currentPattern.cloudSpawnsWithDurations.Count == 0)
+            return BTNodeState.FAILURE;
+
+        if (!tree.isPatternRunning)
         {
-            tree = btParent;
+            Debug.Log("Spawning clouds...");
+            currentSpawnIndex = 0;
+            spawnTimer = Time.time + tree.currentPattern.cloudSpawnsWithDurations[0].duration;
+            //cleanupTimer = 0f;
+            //waitingToCleanup = false;
+            //currentCloudsAndLightnings.Clear();
+
+            //tree.patternStartTime = Time.time;
+            tree.isPatternRunning = true;
         }
 
-        public override BTNodeState Evaluate()
+        if (currentSpawnIndex >= tree.currentPattern.cloudSpawnsWithDurations.Count)
         {
-            if (tree.currentPattern == null || tree.currentPattern.patterns == null)
+            // Nettoyage des nuages et éclairs spécifiques au pattern actuel
+            //CleanupCurrentPatternObjects();
+
+            // Nettoyer les objets de l'activeClouds pour le pattern actuel seulement
+            //tree.activeClouds.RemoveAll(cloud => cloud == null || currentCloudsAndLightnings.Contains(cloud));
+
+            // Passer au pattern suivant après nettoyage
+            tree.isPatternRunning = false;
+            tree.currentPatternIndex++; // Incrémentation ici
+
+            Debug.Log("1 Attack finished.");
+            return BTNodeState.SUCCESS;
+        }
+        
+        if (currentSpawnIndex < tree.currentPattern.cloudSpawnsWithDurations.Count)
+        {
+            if (Time.time >= spawnTimer)
             {
-                return BTNodeState.FAILURE;
-            }
-
-            float elapsedTime = Time.time - tree.patternStartTime;
-
-            if (!tree.isPatternRunning)
-            {
-                Debug.Log("Spawning clouds...");
-
-                foreach (var attackPattern in tree.currentPattern.patterns[tree.currentPatternIndex].cloudSpawns)
-                {
-                    foreach (var column in attackPattern.colum)
-                    {
-                        foreach (var line in attackPattern.line)
-                        {
-                            Vector3 spawnPosition = ConvertGridToWorldPosition(line, column);
-                            GameObject prefab = attackPattern.type == CloudType.Top ? tree.topCloudPrefab : tree.sideCloudPrefab;
-                            GameObject cloudInstance = GameObject.Instantiate(prefab, spawnPosition, Quaternion.identity);
-                        }
-                    }
-                }
-
-                tree.isPatternRunning = true;
-                tree.patternStartTime = Time.time;
-                return BTNodeState.RUNNING;
-            }
-
-            if (elapsedTime >= tree.currentPattern.patterns[tree.currentPatternIndex].duration)
-            {
-                Debug.Log("Pattern ended, starting new one");
-                tree.currentPatternIndex++;
-
-                tree.isPatternRunning = false;
-
-                return BTNodeState.SUCCESS;
+                Debug.Log("Spawn");
+                SpawnCloudGroup(tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex]);
+                spawnTimer = Time.time + tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex].duration;
+                currentSpawnIndex++;
             }
 
             return BTNodeState.RUNNING;
         }
-        private Vector3 ConvertGridToWorldPosition(int row, int column)
-        {
-            float cellSize = 1f;
-            float xPosition = column * cellSize;
-            float yPosition = row * cellSize;
-            float zPosition = 0;
 
-            return new Vector3(xPosition, yPosition, zPosition);
+        /*
+        if (!waitingToCleanup)
+        {
+            waitingToCleanup = true;
+            float totalDuration = tree.currentPattern.cloudSpawnsWithDurations[^1].duration;
+            float elapsedTime = Time.time - tree.patternStartTime;
+            float remainingTime = totalDuration - elapsedTime;
+            cleanupTimer = Time.time + Mathf.Max(remainingTime, 0f);
+            return BTNodeState.RUNNING;
+        }*/
+        
+        
+
+        return BTNodeState.RUNNING;
+    }
+
+    private void CleanupCurrentPatternObjects()
+    {
+        foreach (GameObject obj in currentCloudsAndLightnings)
+        {
+            // Ne pas essayer de détruire un objet null
+            if (obj != null)
+            {
+                GameObject.Destroy(obj);  // Supprime tous les nuages et éclairs du pattern actuel
+            }
         }
+
+        currentCloudsAndLightnings.Clear();  // Vide la liste pour ce pattern
+    }
+
+    private void SpawnCloudGroup(ZeusCloudSpawnWithDuration spawnData)
+    {
+        //List<GameObject> groupObjects = new List<GameObject>();
+
+        foreach (var cloud in spawnData.cloudSpawns)
+        {
+            Vector3 spawnPosition = ConvertGridToWorldPosition(cloud.line, cloud.colum, tree.gridSize);
+            GameObject prefab = cloud.type == CloudType.Top ? tree.topCloudPrefab : tree.sideCloudPrefab;
+
+            GameObject cloudInstance = GameObject.Instantiate(prefab, spawnPosition, Quaternion.identity);
+
+            // Vérifier si l'instance est bien instanciée
+            if (cloudInstance != null)
+            {
+                cloudInstance.transform.parent = tree.cloudContainer;
+
+                ZeusCloudBehavior zcb = cloudInstance.GetComponent<ZeusCloudBehavior>();
+                if (zcb != null)
+                {
+                    zcb.tree = tree;
+                    zcb.despawnDelay = tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex].duration;
+                    //zcb.spawnedGroup = groupObjects;
+                }
+
+                //groupObjects.Add(cloudInstance);
+            }
+            else
+            {
+                Debug.LogError("Cloud instance failed to instantiate.");
+            }
+        }
+        //currentCloudsAndLightnings.AddRange(groupObjects);
+    }
+
+    private Vector3 ConvertGridToWorldPosition(int row, int column, Vector2 gridSize)
+    {
+        float cellWidth = gridSize.x / tree.columns;
+        float cellHeight = gridSize.y / tree.rows;
+        float xOffset = -gridSize.x / 2f + (cellWidth / 2f);
+        float yOffset = -gridSize.y / 2f + (cellHeight / 2f);
+
+        float xPosition = tree.roomTransform.position.x + (column * cellWidth) + xOffset;
+        float yPosition = tree.roomTransform.position.y + (row * cellHeight) + yOffset;
+        float zPosition = tree.roomTransform.position.z;
+
+        return new Vector3(xPosition, yPosition, zPosition);
     }
 }

@@ -14,7 +14,7 @@ namespace AI.Zeus
 
         public override BTNodeState Evaluate()
         {
-            if(tree.currentPattern == null || tree.currentPatternIndex >= tree.currentPattern.patterns.Count)
+            if(tree.currentPattern == null || tree.currentPatternIndex >= tree.currentPattern.cloudSpawnsWithDurations.Count)
             {
                 tree.currentPatternIndex = 0;
                 return BTNodeState.FAILURE;

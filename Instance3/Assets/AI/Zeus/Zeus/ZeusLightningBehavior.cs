@@ -7,28 +7,24 @@ namespace AI.Zeus
         public float speed = 10f;
         public int damage = 1;
 
-        private Vector2 direction;
-        private float lifetime = 2f; // Durée de vie de l'éclair avant suppression
+        private ZeusCloudBehavior cloudParent;
+        private BTZeusTree zeusTree;
 
-        public void StartLightning(Vector2 lightningDirection)
+        public void StartLightning(Vector2 lightningDirection, ZeusCloudBehavior parent)
         {
-            direction = lightningDirection;
-            Destroy(gameObject, lifetime); // Détruit l'éclair après sa durée de vie
+            cloudParent = parent;
         }
 
-        void Update()
+        void OnTriggerEnter2D(Collider2D other)
         {
-            // Se déplace si l'éclair n'est pas encore détruit
-            if (gameObject != null)
+            if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
             {
-                transform.Translate(direction * speed * Time.deltaTime);
+                if (cloudParent != null && cloudParent.gameObject != null)
+                {
+                    cloudParent.StopLightningSpawning(gameObject);
+                }
+                Destroy(gameObject);
             }
-        }
-
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            // Détruire l'éclair si il entre en collision avec un objet
-            Destroy(gameObject);
         }
     }
 }

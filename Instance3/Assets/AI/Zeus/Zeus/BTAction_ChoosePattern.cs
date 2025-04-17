@@ -15,14 +15,11 @@ namespace AI.Zeus
         public override BTNodeState Evaluate()
         {
             tree.currentPattern = tree.attackPatterns[Random.Range(0, tree.attackPatterns.Count)];
-            tree.currentPatternIndex = 0;
-            //tree.isPatternRunning = false;
             tree.nextAttackTime = Time.time + Random.Range(tree.minCooldown, tree.maxCooldown);
 
-            Debug.Log("Chosen pattern: " + tree.currentPattern.patterns[tree.currentPatternIndex].name + ", Duration: " + tree.currentPattern.patterns[tree.currentPatternIndex].duration);
+            Debug.Log("Chosen pattern: " + tree.currentPattern.name + ", Duration: " + tree.currentPattern.cloudSpawnsWithDurations[tree.currentPattern.cloudSpawnsWithDurations.Count - 1].duration);
 
             return BTNodeState.SUCCESS;
         }
-
     }
 }
