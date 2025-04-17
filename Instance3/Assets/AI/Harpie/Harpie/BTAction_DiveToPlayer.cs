@@ -18,11 +18,15 @@ namespace AI.Harpie
 
         public override BTNodeState Evaluate()
         {
+            tree.fxDetectPlayer?.ShowFX();
+            //EnemyDetectPlayerFX.onShow?.Invoke();
             tree.transform.position = Vector3.MoveTowards(tree.transform.position, tree.lastPlayerPosition,tree.diveSpeed * Time.deltaTime);
             rb.gravityScale = 0f;
 
             if (harpie.transform.position == tree.lastPlayerPosition)
             {
+                tree.fxDetectPlayer?.HideFX();
+                //EnemyDetectPlayerFX.onHide?.Invoke();
                 tree.detectedPlayer = false;   
                 rb.gravityScale = 0f;
                 tree.target = tree.lastPlayerPosition;

@@ -1,7 +1,7 @@
-using System.Collections;
+/*using System.Collections;
 using UnityEngine;
 
-public class MoveFX : FX<MoveFX>
+public class MoveFX : FxElement<MoveFX>
 {
     public new ParticleSystem particleSystem;
 
@@ -30,11 +30,11 @@ public class MoveFX : FX<MoveFX>
         GroundCheck.onGrounded -= checkGround;
     }
 
-    protected override void EnableFX()
+    protected override void Enable()
     {
     }
 
-    protected override void DisableFX()
+    protected override void Disable()
     {
 
     }
@@ -70,3 +70,4 @@ public class MoveFX : FX<MoveFX>
         MoveVFX(isMoving);
     }
 }
+*/

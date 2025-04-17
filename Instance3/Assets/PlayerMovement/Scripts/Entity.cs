@@ -17,8 +17,6 @@ public abstract class Entity : MonoBehaviour
 
         Debug.Log($"{gameObject.name} is taking {damage} damage");
 
-        EnemyHurtFX.onHit?.Invoke();
-
         stat.health -= damage;
         if (stat.health <= 0) 
         {

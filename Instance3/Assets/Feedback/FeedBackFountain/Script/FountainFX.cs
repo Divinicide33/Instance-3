@@ -1,13 +1,13 @@
-using UnityEngine;
+/*using UnityEngine;
 
-public class FountainFX : FX<FountainFX>
+public class FountainFX : FxElement<FountainFX>
 {
-    protected override void EnableFX()
+    protected override void Enable()
     {
         
     }
 
-    protected override void DisableFX()
+    protected override void Disable()
     {
 
     }
@@ -22,3 +22,4 @@ public class FountainFX : FX<FountainFX>
         AudioManager.OnPlaySFX?.Invoke(songName);
     }
 }
+*/

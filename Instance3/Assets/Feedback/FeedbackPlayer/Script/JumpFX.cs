@@ -1,7 +1,7 @@
-using System;
+/*using System;
 using UnityEngine;
 
-public class JumpFX : FX<JumpFX>
+public class JumpFX : FxElement<JumpFX>
 {
     private new ParticleSystem particleSystem;
 
@@ -27,11 +27,11 @@ public class JumpFX : FX<JumpFX>
         onJump -= JumpVFX;
     }
 
-    protected override void EnableFX()
+    protected override void Enable()
     {
     }
 
-    protected override void DisableFX()
+    protected override void Disable()
     {
 
     }
@@ -41,3 +41,4 @@ public class JumpFX : FX<JumpFX>
           particleSystem.Play();
     }
 }
+*/

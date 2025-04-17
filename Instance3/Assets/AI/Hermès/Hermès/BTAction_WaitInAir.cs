@@ -31,11 +31,11 @@ namespace AI.Hermes
 
             if (!hasTarget && tree.timeInAir - targetTime < delayTimer)
             {
-                tree.transform.GetChild(1).GetComponent<ArrowForHermesFX>().RotateArrow();
+                //tree.transform.GetChild(1).GetComponent<ArrowForHermesFX>().RotateArrow();
             }
             else if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
             {
-                ArrowForHermesFX.onLockArrow?.Invoke(true);
+                //ArrowForHermesFX.onLockArrow?.Invoke(true);
                 hasTarget = true;
                 tree.target = tree.player.position;
             }
@@ -50,7 +50,7 @@ namespace AI.Hermes
             {
                 tree.target = tree.player.position;
             }
-            ArrowForHermesFX.onLockArrow?.Invoke(false);
+            //ArrowForHermesFX.onLockArrow?.Invoke(false);
             tree.waited = true;
             hasTarget = false;
             rb.simulated = true;

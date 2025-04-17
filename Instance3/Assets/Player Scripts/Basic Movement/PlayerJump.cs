@@ -59,7 +59,7 @@ public class PlayerJump : MonoBehaviour
             isGrounded = false;
             rb.AddForce(jumpDirection, ForceMode2D.Impulse);
 
-            JumpFX.onJump?.Invoke();
+            //JumpFX.onJump?.Invoke();
         }
         else
         {

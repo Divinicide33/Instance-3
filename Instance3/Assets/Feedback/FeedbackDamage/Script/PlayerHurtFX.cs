@@ -1,7 +1,7 @@
-using System.Collections;
+/*using System.Collections;
 using UnityEngine;
 
-public class PlayerHurtFX : FX<PlayerHurtFX>
+public class PlayerHurtFX : FxElement<PlayerHurtFX>
 {
 
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -11,7 +11,7 @@ public class PlayerHurtFX : FX<PlayerHurtFX>
 
     private void Start()
     {
-        spriteRenderer.enabled = true;
+        //spriteRenderer.enabled = true;
         particleSystem = GetComponent<ParticleSystem>();
     }
 
@@ -25,12 +25,12 @@ public class PlayerHurtFX : FX<PlayerHurtFX>
         onHit -= HitVFX;
     }
 
-    protected override void EnableFX()
+    protected override void Enable()
     {
         spriteRenderer.enabled = true;
     }
 
-    protected override void DisableFX()
+    protected override void Disable()
     {
         spriteRenderer.enabled = false;
     }
@@ -38,7 +38,7 @@ public class PlayerHurtFX : FX<PlayerHurtFX>
     private void HitVFX()
     {
         particleSystem.Play();
-        StartCoroutine(HitAnim());
+        //StartCoroutine(HitAnim());
     }
 
     IEnumerator HitAnim()
@@ -53,3 +53,4 @@ public class PlayerHurtFX : FX<PlayerHurtFX>
         }
     }
 }
+*/

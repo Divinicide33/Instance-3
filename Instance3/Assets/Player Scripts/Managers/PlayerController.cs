@@ -60,7 +60,7 @@ public class PlayerController : Entity
 
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
-        PlayerHurtFX.onHit?.Invoke();
+        //PlayerHurtFX.onHit?.Invoke();
     }
     
 

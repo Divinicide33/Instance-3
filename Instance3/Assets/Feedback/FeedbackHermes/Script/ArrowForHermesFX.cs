@@ -1,8 +1,8 @@
-using AI.Hermes;
+/*using AI.Hermes;
 using System;
 using UnityEngine;
 
-public class ArrowForHermesFX : FX<ArrowForHermesFX>
+public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
 {
     [SerializeField] Transform player;
     [SerializeField] GameObject arrow;
@@ -58,12 +58,13 @@ public class ArrowForHermesFX : FX<ArrowForHermesFX>
         }
     }
 
-    protected override void EnableFX()
+    protected override void Enable()
     {
     }
 
-    protected override void DisableFX()
+    protected override void Disable()
     {
 
     }
 }
+*/
