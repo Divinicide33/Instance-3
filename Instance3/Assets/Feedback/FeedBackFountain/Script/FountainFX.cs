@@ -1,16 +1,7 @@
-/*using UnityEngine;
+using UnityEngine;
 
 public class FountainFX : FxElement<FountainFX>
 {
-    protected override void Enable()
-    {
-        
-    }
-
-    protected override void Disable()
-    {
-
-    }
 
     private void Start()
     {
@@ -21,5 +12,16 @@ public class FountainFX : FxElement<FountainFX>
     {
         AudioManager.OnPlaySFX?.Invoke(songName);
     }
+
+    protected override void Show()
+    {
+    }
+
+    protected override void Hide()
+    {
+    }
+
+    protected override void UpdateFX()
+    {
+    }
 }
-*/

@@ -19,8 +19,13 @@ public class PlayerController : Entity
 
     private bool isInvincible = false;
 
+    [Header("FX")]
+    private PlayerHurtFX playerHurtFX;
+
     void Start()
     {
+        playerHurtFX = GetComponentInChildren<PlayerHurtFX>();
+
         stats = GetComponent<Stats>();
 
         UpdatePlayerUi();
@@ -60,7 +65,7 @@ public class PlayerController : Entity
 
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
-        //PlayerHurtFX.onHit?.Invoke();
+        playerHurtFX.ShowFX();
     }
     
 

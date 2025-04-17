@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyHurtFX : FxElement<EnemyHurtFX>
@@ -14,33 +14,10 @@ public class EnemyHurtFX : FxElement<EnemyHurtFX>
         spriteRenderer = GetComponentInParent<SpriteRenderer>();
     }
 
-    protected override void OnEnable()
+    private void PlayParticuleFX()
     {
-        onHit += PlayParticuleFX;
-    }
-
-    protected override void OnDisable()
-    {
-        onHit -= PlayParticuleFX;
-    }
-
-    protected override void Enable()
-    {
-        spriteRenderer.enabled = true;
-    }
-
-    protected override void Disable()
-    {
-        spriteRenderer.enabled = false;
-    }
-
-    private void PlayParticuleFX(GameObject enemy)
-    {
-        if (enemy.transform == gameObject.transform.parent)
-        {
-            particleSystem?.Play();
-            StartCoroutine(HitAnim());
-        }
+        particleSystem?.Play();
+        StartCoroutine(HitAnim());
     }
 
     IEnumerator HitAnim()
@@ -55,5 +32,17 @@ public class EnemyHurtFX : FxElement<EnemyHurtFX>
             yield return new WaitForSeconds(0.05f);
         }
     }
+
+    protected override void Show()
+    {
+        PlayParticuleFX();
+    }
+
+    protected override void Hide()
+    {
+    }
+
+    protected override void UpdateFX()
+    {
+    }
 }
-*/

@@ -1,11 +1,9 @@
-/*using System;
+using System;
 using UnityEngine;
 
 public class JumpFX : FxElement<JumpFX>
 {
     private new ParticleSystem particleSystem;
-
-    public static Action onJump { get; set; }
 
     bool resetJump;
     private void Awake()
@@ -17,28 +15,17 @@ public class JumpFX : FxElement<JumpFX>
     {
         particleSystem.Stop();
     }
-    protected override void OnEnable()
+
+    protected override void Show()
     {
-        onJump += JumpVFX;
+        particleSystem.Play();
     }
 
-    protected override void OnDisable()
-    {
-        onJump -= JumpVFX;
-    }
-
-    protected override void Enable()
+    protected override void Hide()
     {
     }
 
-    protected override void Disable()
+    protected override void UpdateFX()
     {
-
-    }
-
-    private void JumpVFX()
-    {
-          particleSystem.Play();
     }
 }
-*/

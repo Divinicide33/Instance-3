@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class MoveFX : FxElement<MoveFX>
@@ -18,28 +18,23 @@ public class MoveFX : FxElement<MoveFX>
     {
         particleSystem.Stop();
     }
-    protected override void OnEnable()
-    {
-        PlayerController.onMove += checkMove;
-        GroundCheck.onGrounded += checkGround;
-    }
 
-    protected override void OnDisable()
-    {
-        PlayerController.onMove -= checkMove;
-        GroundCheck.onGrounded -= checkGround;
-    }
-
-    protected override void Enable()
-    {
-    }
-
-    protected override void Disable()
+    protected override void Show()
     {
 
     }
 
-    private void checkGround(bool playerOnGround)
+    protected override void Hide()
+    {
+
+    }
+
+    protected override void UpdateFX()
+    {
+
+    }
+
+    public void checkGround(bool playerOnGround)
     {
         isGrounded = playerOnGround;
     }
@@ -70,4 +65,3 @@ public class MoveFX : FxElement<MoveFX>
         MoveVFX(isMoving);
     }
 }
-*/

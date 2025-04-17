@@ -1,4 +1,4 @@
-/*using AI.Hermes;
+using AI.Hermes;
 using System;
 using UnityEngine;
 
@@ -11,15 +11,6 @@ public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
     public bool isActivate = false;
     public static Action<bool> onLockArrow { get; set; }
 
-    protected override void OnEnable()
-    {
-        onLockArrow += LockOn;
-    }
-
-    protected override void OnDisable()
-    {
-        onLockArrow -= LockOn;
-    }
     void Update()
     {
         //if (isActivate)
@@ -58,13 +49,17 @@ public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
         }
     }
 
-    protected override void Enable()
+    protected override void Show()
     {
+        RotateArrow();
     }
 
-    protected override void Disable()
+    protected override void Hide()
     {
+        LockOn(false);
+    }
 
+    protected override void UpdateFX()
+    {
     }
 }
-*/

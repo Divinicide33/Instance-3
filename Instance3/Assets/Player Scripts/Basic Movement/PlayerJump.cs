@@ -10,11 +10,16 @@ public class PlayerJump : MonoBehaviour
     private bool isGrounded = false;
 
     public static Action<bool> onChangeJump { get; set; }
+
+    [Header("FX")]
+    private JumpFX jumpFx;
+
+
     private void Awake() 
     {
         nbJump = nbJumpMax;
         rb = GetComponent<Rigidbody2D>();
-
+        jumpFx = GetComponentInChildren<JumpFX>();
     }
 
     private void ChangeJump(bool value)
@@ -59,7 +64,7 @@ public class PlayerJump : MonoBehaviour
             isGrounded = false;
             rb.AddForce(jumpDirection, ForceMode2D.Impulse);
 
-            //JumpFX.onJump?.Invoke();
+            jumpFx?.ShowFX();
         }
         else
         {
