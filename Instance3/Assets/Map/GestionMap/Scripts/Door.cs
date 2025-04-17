@@ -40,6 +40,5 @@ public class Door : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(targetPosition, 0.2f);
         Gizmos.DrawLine(transform.position, targetPosition);
-        Debug.Log($"target position : {targetPosition}");
     }
 }
