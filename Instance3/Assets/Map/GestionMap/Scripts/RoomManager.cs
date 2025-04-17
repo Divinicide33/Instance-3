@@ -60,14 +60,13 @@ public class RoomManager : MonoBehaviour
         Debug.Log("Changement de salle : " + newRoom);
         
         PlayerInputScript.onDisableInput?.Invoke();
-        
         await UnloadRoom(currentRoom);
-        playerTransform.position = newPosition;
         
+        playerTransform.position = newPosition;
         rooms = newRoom;
         currentRoom = newRoom;
+        
         await LoadRoom(newRoom);
-        PlayerInputScript.onIsPlayerDead?.Invoke(false);
         PlayerInputScript.onEnableInput?.Invoke();
     }
 
@@ -84,7 +83,6 @@ public class RoomManager : MonoBehaviour
     {
         confiner.BoundingShape2D = poly;
         confiner.InvalidateBoundingShapeCache();
-
     }
 
     private void NotifyConfiner(Scene roomScene)

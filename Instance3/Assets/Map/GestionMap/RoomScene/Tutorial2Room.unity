@@ -1528,8 +1528,8 @@ GameObject:
   - component: {fileID: 675689903}
   - component: {fileID: 675689902}
   - component: {fileID: 675689907}
-  - component: {fileID: 675689901}
   - component: {fileID: 675689906}
+  - component: {fileID: 675689901}
   m_Layer: 8
   m_Name: WildBoard
   m_TagString: Untagged
@@ -1549,6 +1549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04bb7bef2c46244b11ebcff2aee4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   moveSpeed: 5
   chargeDelay: 1
   dashStarted: 0
@@ -1724,8 +1725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  healthMax: 0
-  damage: 0
+  healthMax: 4
+  damage: 10
   speed: 0
 --- !u!114 &675689907
 MonoBehaviour:
@@ -1739,6 +1740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   size: {x: 1, y: 1}
   knockBackPower: 12
 --- !u!1 &842360744

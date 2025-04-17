@@ -10,4 +10,10 @@ public class Enemy : Entity
     {
         stats = GetComponent<Stats>();
     }
+
+    public override void Defeat()
+    {
+        base.Defeat();
+        Destroy(gameObject);
+    }
 }

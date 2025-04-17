@@ -2,27 +2,24 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputScript : MonoBehaviour
+[RequireComponent(typeof(PlayerController))]
+public class PlayerInputScript : PlayerController
 {
     private bool isMoving = false;
     private bool isEnable = true;
-    private bool isDead = false;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
-    public static Action<bool> onIsPlayerDead { get; set; }
-
+    
     private void OnEnable()
     {
         onEnableInput += EnableInput;
         onDisableInput += DisableInput;
-        onIsPlayerDead += IsPlayerDead;
     }
 
     private void OnDisable()
     {
         onEnableInput -= EnableInput;
         onDisableInput -= DisableInput;
-        onIsPlayerDead -= IsPlayerDead;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -105,14 +102,6 @@ public class PlayerInputScript : MonoBehaviour
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
         Debug.Log("Input disabled");
-    }
-
-    private void IsPlayerDead(bool value)
-    {
-        isDead = value;
-
-        if (isDead) DisableInput();
-        else EnableInput();
     }
 
     public void StartPause(InputAction.CallbackContext context)

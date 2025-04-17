@@ -3,6 +3,7 @@ using UnityEngine;
 using Fountain;
 
 [RequireComponent(typeof(Stats))]
+[RequireComponent(typeof(PlayerInputScript))]
 public class PlayerController : Entity
 {
     [HideInInspector] public Stats stats;
@@ -15,7 +16,8 @@ public class PlayerController : Entity
     public static Action onUsePotion { get; set; }
     public static Action onEndOfInvincibility { get; set; }
     public static Action<FountainData> onSavefountain { get; set; }
-    
+    public static Action<bool> onIsDead { get; set; }
+
 
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
@@ -36,14 +38,16 @@ public class PlayerController : Entity
     {
         onEndOfInvincibility += EndOfInvincibility;
         onSavefountain += SaveFountain;
+        onIsDead += IsDead;
     }
 
     private void OnDisable() 
     {
         onEndOfInvincibility -= EndOfInvincibility;
         onSavefountain -= SaveFountain;
+        onIsDead -= IsDead;
     }
-
+    
     void EndOfInvincibility()
     {
         isInvincible = false;
@@ -64,6 +68,7 @@ public class PlayerController : Entity
 
         DisplayHealth.onUpdate?.Invoke(); // update the Ui
         
+        // invoke ();
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
     }
@@ -78,17 +83,18 @@ public class PlayerController : Entity
     public override void Defeat()
     {
         base.Defeat();
-        PlayerInputScript.onIsPlayerDead?.Invoke(true);
 
         if (lastFountainSaved == null)
             return;
         
-        PlayerMove.onResetVelocity?.Invoke();
+        PlayerMove.onResetVelocity?.Invoke(); // ne fonctionne pas
         PlayerPotion.onRecharge?.Invoke();
         stats.SetHpToHpMax();
+        
         RoomManager.Instance.ChangeRoom(lastFountainSaved.room, transform,lastFountainSaved.position);
     }
 
+    #region Fountain
     private void SaveFountain(FountainData newValue)
     {
         lastFountainSaved = newValue;
@@ -120,5 +126,14 @@ public class PlayerController : Entity
             lastFountainSaved = new FountainData(room, new Vector3(x, y, z));
         }
     }
+    #endregion
+    
+    
+    private void IsDead(bool value)
+    {
+        isDead = value;
 
+        if (isDead) PlayerInputScript.onDisableInput?.Invoke();
+        else PlayerInputScript.onEnableInput?.Invoke();
+    }
 }

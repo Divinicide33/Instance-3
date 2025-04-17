@@ -16,6 +16,7 @@ public class Stats : MonoBehaviour
     {
         health = healthMax;
         DisplayHealth.onUpdate?.Invoke();
+        PlayerController.onIsDead?.Invoke(false);
     }
 
     public void AddHp(int value)
