@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Fountain;
-using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Stats))]
 [RequireComponent(typeof(PlayerInputScript))]
@@ -27,6 +26,7 @@ public class PlayerController : Entity
 
     private FountainData lastFountainSaved;
     private DoorData lastDoorUsed;
+    public DoorData GetLastDoorUsed => lastDoorUsed;
 
     [Header("FX")]
     private PlayerHurtFX playerHurtFX;
@@ -154,6 +154,7 @@ public class PlayerController : Entity
         PlayerPrefs.SetFloat("DoorPosX", newValue.position.x);
         PlayerPrefs.SetFloat("DoorPosY", newValue.position.y);
         PlayerPrefs.SetFloat("DoorPosZ", newValue.position.z);
+        Debug.Log($"Room Name : {newValue.room.ToString()} -- Position : {newValue.position}");
         PlayerPrefs.Save();
     }
     

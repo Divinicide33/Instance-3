@@ -22,5 +22,6 @@ public class Stats : MonoBehaviour
     public void AddHp(int value)
     {
         health += value;
+        DisplayHealth.onUpdate?.Invoke();
     }
 }

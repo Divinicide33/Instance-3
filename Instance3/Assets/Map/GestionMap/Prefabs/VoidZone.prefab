@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4721131691426979806}
   - component: {fileID: 2009647668351617522}
+  - component: {fileID: -2449026319271800603}
   m_Layer: 0
-  m_Name: Void
+  m_Name: VoidZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,3 +79,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 100, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-2449026319271800603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885030756201109646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd17db99ce91c54c81f84f59aa59204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voidZoneData:
+    room: 0
+    position: {x: 0, y: 0, z: 0}

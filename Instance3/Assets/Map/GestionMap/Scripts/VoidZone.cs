@@ -3,34 +3,38 @@ using UnityEngine;
 
 public class VoidZone : MonoBehaviour
 {
-    [Header("Destination")]
-    [SerializeField] private DoorData voidZoneData;
-    
     public static Action onUse { get; set; }
+    
+    private PlayerController playerControllerInZone = null;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
+        
+        other.gameObject.transform.parent.TryGetComponent<PlayerController>(out PlayerController player);
+        if (!player)
+            return;
 
-        if (other.transform.parent.TryGetComponent<PlayerController>(out PlayerController player))
-        {
-            UseVoidZone(player);
-        }
+        playerControllerInZone = player;
+        UseVoidZone();
     }
 
-    private void UseVoidZone(PlayerController player)
+    private void UseVoidZone()
     {
         PlayerInputScript.onDisableInput?.Invoke();
 
-        voidZoneData.position = transform.position;
-        PlayerController.onSaveDoor?.Invoke(voidZoneData);
-
-        player.stats.SetHpToHpMax(); // si besoin
-        PlayerPotion.onRecharge?.Invoke(); // si besoin
-
-        onUse.Invoke(); // FX / son / UI
-
-        Debug.Log("✅ VoidZone utilisée. Sauvegarde et reset du joueur.");
+        playerControllerInZone.stats.AddHp(-1);
+        onUse?.Invoke(); // FX / son / UI
+        if (playerControllerInZone.stats.health > 0)
+        {
+            RoomManager.Instance.ChangeRoomWithFade(
+                playerControllerInZone.GetLastDoorUsed.room,
+                playerControllerInZone.transform,
+                playerControllerInZone.GetLastDoorUsed.position);
+            Debug.Log("✅ VoidZone utilisée. Sauvegarde et reset du joueur.");
+        }
+        else
+            playerControllerInZone.Defeat();
     }
 }

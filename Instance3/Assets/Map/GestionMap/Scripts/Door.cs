@@ -28,7 +28,7 @@ public class Door : MonoBehaviour
     private void EnterDoor(Transform player)
     {
         Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
-
+        PlayerController.onSaveDoor?.Invoke(new DoorData(nextRoom, targetPosition));
         RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
         
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
