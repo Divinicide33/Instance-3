@@ -12,6 +12,7 @@ namespace BehaviorTree
         {
             root = SetupTree(); // Setup the behavior tree and assign the root node
             stats = GetComponent<Stats>();
+            enemyHurtFX = GetComponentInChildren<EnemyHurtFX>();
         }
 
         // Called once per frame

@@ -47,6 +47,8 @@ namespace AI.Hermes
 
         [HideInInspector] public Vector2 lastDashDirection = Vector2.right;
 
+        [Header("FX")]
+        public ArrowForHermesFX arrowForHermesFX;
 
         public void FlipDirection(ref Vector2 direction)
         {
@@ -76,6 +78,7 @@ namespace AI.Hermes
         {
             tree = transform;
 
+            arrowForHermesFX = GetComponentInChildren<ArrowForHermesFX>();
             rb = GetComponent<Rigidbody2D>();
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
         }

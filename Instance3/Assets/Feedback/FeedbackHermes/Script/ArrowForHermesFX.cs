@@ -9,7 +9,6 @@ public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
     public SpriteRenderer arrowDown;
     public SpriteRenderer arrowUp;
     public bool isActivate = false;
-    public static Action<bool> onLockArrow { get; set; }
 
     void Update()
     {
@@ -40,12 +39,14 @@ public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
             arrowDown.color = Color.red;
             arrowUp.color = Color.red;
             arrow.gameObject.SetActive(true);
+            isActivate = true;
         }
         else
         {
             arrowDown.color = Color.white;
             arrowUp.color = Color.white;
             arrow.gameObject.SetActive(false);
+            isActivate = false;
         }
     }
 
@@ -56,7 +57,14 @@ public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
 
     protected override void Hide()
     {
-        LockOn(false);
+        if (!isActivate)
+        {
+            LockOn(true);
+        }
+        else
+        {
+            LockOn(false);
+        }
     }
 
     protected override void UpdateFX()
