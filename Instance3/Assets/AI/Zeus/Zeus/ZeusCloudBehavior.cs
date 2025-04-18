@@ -5,26 +5,33 @@ namespace AI.Zeus
 {
     public class ZeusCloudBehavior : MonoBehaviour
     {
+        [Header("Cloud")]
         public CloudType cloudType;
-        public float lightningDelay = 2.5f;
         public float despawnDelay = 5f;
+
+        [Header("Lightning")]
+        public float lightningDelay = 2.5f;
+        public float lightningDespawnDelay = 3f;
+        public float lightningSpacing = 20f;
+        public int numberOfLightnings = 3;
         public GameObject lightningPrefab;
+
+        [Header("Spawn")]
         public Transform spawnPoint;
 
-        public int numberOfLightnings = 3;
-        public float lightningSpacing = 20f;
+        [Header("Bool")]
+        private bool isSpawningLightnings = true;
+        private bool isDestroyingLightning = false;
 
-        private float timeElapsed = 0f;
-        private bool isSpawningLightnings = false;
         [HideInInspector] public List<GameObject> spawnedLightnings = new List<GameObject>();
         [HideInInspector] public bool spawnInterrupted = false;
-
+        [HideInInspector] private float timeElapsed = 0f;
         [HideInInspector] public List<GameObject> spawnedGroup;
         [HideInInspector] public BTZeusTree tree;
 
         private void Start()
         {
-            isSpawningLightnings = true;
+            SpawnLightnings();
         }
 
         void Update()
@@ -34,20 +41,26 @@ namespace AI.Zeus
             {
                 if (timeElapsed >= lightningDelay)
                 {
-                    SpawnLightnings();
+                    ActivateLightning();
+                }
+            }
+            else if (isDestroyingLightning)
+            {
+                if (timeElapsed >= lightningDespawnDelay)
+                {
+                    DestroyLightnings();
                 }
             }
             else if (timeElapsed >= despawnDelay)
             {
-                DestroyCloudAndLightnings();
+
+                Destroy(gameObject);
             }
             
         }
 
         void SpawnLightnings()
         {
-            isSpawningLightnings = false;
-
             for (int i = 0; i < numberOfLightnings; i++)
             {
                 Vector2 offset = cloudType == CloudType.Top
@@ -56,15 +69,23 @@ namespace AI.Zeus
 
                 Vector2 finalPosition = (Vector2)spawnPoint.position + offset;
                 GameObject lightning = Instantiate(lightningPrefab, finalPosition, Quaternion.identity, tree.lightningContainer);
-
-                if (!tree.activeLightnings.Contains(lightning))
-                    tree.activeLightnings.Add(lightning);
-
+                lightning.SetActive(false);
                 spawnedLightnings.Add(lightning);
                 spawnedGroup?.Add(lightning);
 
                 ZeusLightningBehavior zlb = lightning.GetComponent<ZeusLightningBehavior>();
                 zlb?.StartLightning(cloudType == CloudType.Top ? Vector2.down : Vector2.right, this);
+            }
+        }
+
+        private void ActivateLightning()
+        {
+            isSpawningLightnings = false;
+            isDestroyingLightning = true;
+            for (int i = 0; i < spawnedLightnings.Count; i++)
+            {
+                if (!spawnedLightnings[i]) continue;
+                spawnedLightnings[i].SetActive(true);
             }
         }
 
@@ -89,8 +110,6 @@ namespace AI.Zeus
                         zcb.tree = tree;
                         zcb.spawnedGroup = spawnedGroup;
                     }
-
-                    tree.activeClouds.Add(sideCloud);
                     spawnedGroup?.Add(sideCloud);
 
                     Destroy(previousLightning);
@@ -101,14 +120,14 @@ namespace AI.Zeus
             {
                 if (spawnedLightnings[i] != null)
                 {
-                    Destroy(spawnedLightnings[i]);
+                    GameObject lightning = spawnedLightnings[i];
+                    spawnedLightnings.RemoveAt(i);
+                    Destroy(lightning);
                 }
             }
-
-            spawnedLightnings.Clear();
         }
 
-        private void DestroyCloudAndLightnings()
+        private void DestroyLightnings()
         {
             if (spawnedLightnings.Count > 0)
             {
@@ -116,13 +135,11 @@ namespace AI.Zeus
                 {
                     if (lightning != null)
                     {
-                        tree.activeLightnings.Remove(lightning);
                         Destroy(lightning);
                     }
                 }
             }
-            //tree.activeClouds.Remove(gameObject);
-            Destroy(gameObject);
+            isDestroyingLightning = false;
         }
     }
 }

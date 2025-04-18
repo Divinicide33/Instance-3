@@ -121,29 +121,311 @@ MonoBehaviour:
   topCloudPrefab: {fileID: 4972384301000787284, guid: 4da509f10dc2a554e9bde3b30fb52f95, type: 3}
   sideCloudPrefab: {fileID: 8839231129186560736, guid: a436d979bb7c42441beaf23b91b76734, type: 3}
   attackPatterns:
-  - patterns:
-    - name: Eliot 2
-      duration: 3
-      cloudSpawns:
-      - colum: 06000000
-        line: 03000000
+  - name: "C\xF4t\xE9, centre, c\xF4t\xE9 "
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 0
+      - colum: 8
+        line: 5
+        type: 0
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      duration: 4
+    - cloudSpawns:
+      - colum: 3
+        line: 5
+        type: 0
+      - colum: 4
+        line: 5
+        type: 0
+      - colum: 5
+        line: 5
+        type: 0
+      duration: 4
+    - cloudSpawns:
+      - colum: 0
+        line: 3
+        type: 0
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      - colum: 8
+        line: 5
+        type: 0
+      duration: 4
+  - name: Pair, Impair, Pair
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 0
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 4
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      - colum: 8
+        line: 5
+        type: 0
+      duration: 4
+    - cloudSpawns:
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 3
+        line: 5
+        type: 0
+      - colum: 5
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      duration: 4
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 0
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 4
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      - colum: 8
+        line: 5
+        type: 0
+      duration: 4
+  - name: Vague
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 0
+      - colum: 3
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 4
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 5
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 0
+      - colum: 3
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 4
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      duration: 2.5
+  - name: Jump
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 0
+        line: 0
         type: 1
-      - colum: 00000000
-        line: 00000000
+      - colum: 0
+        line: 1
         type: 1
+      - colum: 0
+        line: 4
+        type: 1
+      - colum: 0
+        line: 5
+        type: 1
+      duration: 4
+    - cloudSpawns:
+      - colum: 0
+        line: 0
+        type: 1
+      - colum: 0
+        line: 3
+        type: 1
+      - colum: 0
+        line: 4
+        type: 1
+      - colum: 0
+        line: 5
+        type: 1
+      duration: 4
+    - cloudSpawns:
+      - colum: 0
+        line: 2
+        type: 1
+      - colum: 0
+        line: 3
+        type: 1
+      - colum: 0
+        line: 4
+        type: 1
+      - colum: 0
+        line: 5
+        type: 1
+      duration: 4
+    - cloudSpawns:
+      - colum: 0
+        line: 0
+        type: 1
+      - colum: 0
+        line: 1
+        type: 1
+      - colum: 0
+        line: 4
+        type: 1
+      - colum: 0
+        line: 5
+        type: 1
+      duration: 4
+  - name: Vague bas, Vague haut
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 0
+        line: 5
+        type: 1
+      duration: 1.75
+    - cloudSpawns:
+      - colum: 0
+        line: 4
+        type: 1
+      duration: 1.75
+    - cloudSpawns:
+      - colum: 0
+        line: 3
+        type: 1
+      duration: 1.75
+    - cloudSpawns:
+      - colum: 0
+        line: 2
+        type: 1
+      duration: 1.75
+    - cloudSpawns:
+      - colum: 0
+        line: 0
+        type: 1
+      - colum: 0
+        line: 1
+        type: 1
+      duration: 2.5
+  - name: "Vague de c\xF4t\xE9, vague du centre"
+    cloudSpawnsWithDurations:
+    - cloudSpawns:
+      - colum: 8
+        line: 5
+        type: 0
+      - colum: 0
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 1
+        line: 5
+        type: 0
+      - colum: 7
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 6
+        line: 5
+        type: 0
+      - colum: 2
+        line: 5
+        type: 0
+      duration: 5
+    - cloudSpawns:
+      - colum: 4
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 3
+        line: 5
+        type: 0
+      - colum: 5
+        line: 5
+        type: 0
+      duration: 2.5
+    - cloudSpawns:
+      - colum: 2
+        line: 5
+        type: 0
+      - colum: 6
+        line: 5
+        type: 0
+      duration: 2.5
   minCooldown: 3
   maxCooldown: 5
   roomTransform: {fileID: 0}
-  gridSize: {x: 17, y: 9}
+  gridSize: {x: 17.5, y: 9}
   columns: 9
-  rows: 4
+  rows: 6
   cloudContainer: {fileID: 0}
   lightningContainer: {fileID: 0}
   currentPattern:
-    patterns: []
+    name: 
+    cloudSpawnsWithDurations: []
   currentPatternIndex: 0
   patternStartTime: 0
   lastPatternEndTime: -Infinity
   isPatternRunning: 0
   nextAttackTime: 1
-  activeClouds: []

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace AI.Zeus
 {
     public enum CloudType { Top, Side }
 
-    // Classe modifiée pour ajouter la duration à chaque spawn de nuage
     [System.Serializable]
     public class ZeusCloud
     {
@@ -14,19 +12,18 @@ namespace AI.Zeus
         public CloudType type;
     }
 
-    // Nouvelle classe qui lie un ZeusCloudSpawn avec une duration
     [System.Serializable]
     public class ZeusCloudSpawnWithDuration
     {
-        public List<ZeusCloud> cloudSpawns;    // Contient le spawn du nuage
-        public float duration;                 // Durée du nuage
+        public List<ZeusCloud> cloudSpawns;   
+        public float duration;                 
     }
 
     [System.Serializable]
     public class ZeusPattern
     {
-        public string name;                                                // Nom du pattern                    
-        public List<ZeusCloudSpawnWithDuration> cloudSpawnsWithDurations;  // Liste des nuages avec leur durée
+        public string name;                                                                  
+        public List<ZeusCloudSpawnWithDuration> cloudSpawnsWithDurations;  
 
         public ZeusPattern(string patternName, float attackDuration, List<ZeusCloudSpawnWithDuration> spawnsWithDurations)
         {
@@ -36,10 +33,9 @@ namespace AI.Zeus
         }
     }
 
-    // Classe Pattern qui contient des ZeusPattern
     [System.Serializable]
     public class Pattern
     {
-        public List<ZeusPattern> patterns; // Liste des patterns
+        public List<ZeusPattern> patterns;
     }
 }

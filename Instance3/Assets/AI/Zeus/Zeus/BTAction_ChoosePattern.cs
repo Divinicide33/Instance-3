@@ -16,9 +16,6 @@ namespace AI.Zeus
         {
             tree.currentPattern = tree.attackPatterns[Random.Range(0, tree.attackPatterns.Count)];
             tree.nextAttackTime = Time.time + Random.Range(tree.minCooldown, tree.maxCooldown);
-
-            Debug.Log("Chosen pattern: " + tree.currentPattern.name + ", Duration: " + tree.currentPattern.cloudSpawnsWithDurations[tree.currentPattern.cloudSpawnsWithDurations.Count - 1].duration);
-
             return BTNodeState.SUCCESS;
         }
     }

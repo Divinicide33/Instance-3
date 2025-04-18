@@ -26,17 +26,16 @@ namespace AI.Zeus
         public int columns = 10;
         public int rows = 5;
 
+        [Header("Parent")]
         public Transform cloudContainer;      
         public Transform lightningContainer;  
 
         [HideInInspector] public ZeusPattern currentPattern;
-         public int currentPatternIndex = 0;
+        [HideInInspector] public int currentPatternIndex = 0;
         [HideInInspector] public float patternStartTime;
         [HideInInspector] public float lastPatternEndTime = Mathf.NegativeInfinity;
         [HideInInspector] public bool isPatternRunning = false;
         [HideInInspector] public float nextAttackTime;
-        public List<GameObject> activeClouds = new List<GameObject>();
-        public List<GameObject> activeLightnings = new List<GameObject>();
 
         protected override BTNode SetupTree()
         {

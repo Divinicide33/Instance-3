@@ -8,11 +8,7 @@ public class BTAction_SpawnClouds : BTNode
     private BTZeusTree tree;
     private int currentSpawnIndex = 0;
     private float spawnTimer = 0f;
-    private float cleanupTimer = 0f;
-    private bool waitingToCleanup = false;
-    private bool initialized = false;
-
-    private List<GameObject> currentCloudsAndLightnings = new List<GameObject>(); 
+    private List<GameObject> currentCloudsAndLightnings = new List<GameObject>();
 
     public BTAction_SpawnClouds(BTZeusTree btParent)
     {
@@ -21,93 +17,64 @@ public class BTAction_SpawnClouds : BTNode
 
     public override BTNodeState Evaluate()
     {
-        if (tree.currentPattern == null || tree.currentPattern.cloudSpawnsWithDurations.Count == 0)
+        if (tree.currentPattern == null)
+        {
+            Debug.LogWarning("BTAction_SpawnClouds: currentPattern is null.");
             return BTNodeState.FAILURE;
+        }
+
+        if (tree.currentPattern.cloudSpawnsWithDurations == null || tree.currentPattern.cloudSpawnsWithDurations.Count == 0)
+        {
+            Debug.LogWarning("BTAction_SpawnClouds: No cloud spawns defined in currentPattern.");
+            return BTNodeState.FAILURE;
+        }
 
         if (!tree.isPatternRunning)
         {
-            Debug.Log("Spawning clouds...");
             currentSpawnIndex = 0;
             spawnTimer = Time.time + tree.currentPattern.cloudSpawnsWithDurations[0].duration;
-            //cleanupTimer = 0f;
-            //waitingToCleanup = false;
-            //currentCloudsAndLightnings.Clear();
-
-            //tree.patternStartTime = Time.time;
             tree.isPatternRunning = true;
         }
 
-        if (currentSpawnIndex >= tree.currentPattern.cloudSpawnsWithDurations.Count)
+        if (Time.time >= spawnTimer && currentSpawnIndex <= tree.currentPattern.cloudSpawnsWithDurations.Count)
         {
-            // Nettoyage des nuages et éclairs spécifiques au pattern actuel
-            //CleanupCurrentPatternObjects();
-
-            // Nettoyer les objets de l'activeClouds pour le pattern actuel seulement
-            //tree.activeClouds.RemoveAll(cloud => cloud == null || currentCloudsAndLightnings.Contains(cloud));
-
-            // Passer au pattern suivant après nettoyage
-            tree.isPatternRunning = false;
-            tree.currentPatternIndex++; // Incrémentation ici
-
-            Debug.Log("1 Attack finished.");
-            return BTNodeState.SUCCESS;
-        }
-        
-        if (currentSpawnIndex < tree.currentPattern.cloudSpawnsWithDurations.Count)
-        {
-            if (Time.time >= spawnTimer)
+            if (currentSpawnIndex == tree.currentPattern.cloudSpawnsWithDurations.Count)
             {
-                Debug.Log("Spawn");
-                SpawnCloudGroup(tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex]);
-                spawnTimer = Time.time + tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex].duration;
-                currentSpawnIndex++;
+                tree.isPatternRunning = false;
+                tree.currentPattern = null;
+                tree.currentPatternIndex++;
+                return BTNodeState.FAILURE;
             }
-
-            return BTNodeState.RUNNING;
+            SpawnCloudGroup(tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex]);
+            spawnTimer = Time.time + tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex].duration;
+            currentSpawnIndex++;
         }
-
-        /*
-        if (!waitingToCleanup)
-        {
-            waitingToCleanup = true;
-            float totalDuration = tree.currentPattern.cloudSpawnsWithDurations[^1].duration;
-            float elapsedTime = Time.time - tree.patternStartTime;
-            float remainingTime = totalDuration - elapsedTime;
-            cleanupTimer = Time.time + Mathf.Max(remainingTime, 0f);
-            return BTNodeState.RUNNING;
-        }*/
-        
-        
 
         return BTNodeState.RUNNING;
     }
 
-    private void CleanupCurrentPatternObjects()
-    {
-        foreach (GameObject obj in currentCloudsAndLightnings)
-        {
-            // Ne pas essayer de détruire un objet null
-            if (obj != null)
-            {
-                GameObject.Destroy(obj);  // Supprime tous les nuages et éclairs du pattern actuel
-            }
-        }
-
-        currentCloudsAndLightnings.Clear();  // Vide la liste pour ce pattern
-    }
-
     private void SpawnCloudGroup(ZeusCloudSpawnWithDuration spawnData)
     {
-        //List<GameObject> groupObjects = new List<GameObject>();
+        if (spawnData == null || spawnData.cloudSpawns == null || spawnData.cloudSpawns.Count == 0)
+        {
+            Debug.LogWarning("BTAction_SpawnClouds: Empty cloud group.");
+            return;
+        }
 
         foreach (var cloud in spawnData.cloudSpawns)
         {
             Vector3 spawnPosition = ConvertGridToWorldPosition(cloud.line, cloud.colum, tree.gridSize);
+
             GameObject prefab = cloud.type == CloudType.Top ? tree.topCloudPrefab : tree.sideCloudPrefab;
+
+            if (prefab == null)
+            {
+                Debug.LogError($"BTAction_SpawnClouds: Prefab is null for CloudType {cloud.type}. Assign it in BTZeusTree.");
+                continue;
+            }
 
             GameObject cloudInstance = GameObject.Instantiate(prefab, spawnPosition, Quaternion.identity);
 
-            // Vérifier si l'instance est bien instanciée
             if (cloudInstance != null)
             {
                 cloudInstance.transform.parent = tree.cloudContainer;
@@ -116,18 +83,15 @@ public class BTAction_SpawnClouds : BTNode
                 if (zcb != null)
                 {
                     zcb.tree = tree;
-                    zcb.despawnDelay = tree.currentPattern.cloudSpawnsWithDurations[currentSpawnIndex].duration;
-                    //zcb.spawnedGroup = groupObjects;
                 }
 
-                //groupObjects.Add(cloudInstance);
+                currentCloudsAndLightnings.Add(cloudInstance);
             }
             else
             {
-                Debug.LogError("Cloud instance failed to instantiate.");
+                Debug.LogError("BTAction_SpawnClouds: Cloud instance failed to instantiate.");
             }
         }
-        //currentCloudsAndLightnings.AddRange(groupObjects);
     }
 
     private Vector3 ConvertGridToWorldPosition(int row, int column, Vector2 gridSize)

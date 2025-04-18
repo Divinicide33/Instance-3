@@ -102,14 +102,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloudType: 0
-  lightningDelay: 1
-  despawnDelay: 4
+  lightningDelay: 2.5
+  despawnDelay: 5
+  lightningDespawnDelay: 5
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
   spawnPoint: {fileID: 7497984369552320272}
   numberOfLightnings: 30
   lightningSpacing: 1
   spawnedLightnings: []
   spawnInterrupted: 0
+  spawnedGroup: []
   tree: {fileID: 0}
 --- !u!1 &8492466546150958408
 GameObject:
