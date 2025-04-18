@@ -6,6 +6,9 @@ using UnityEngine;
 public class Enemy : Entity
 {
     public Stats stats;
+
+    protected EnemyHurtFX enemyHurtFX;
+
     private void Start()
     {
         stats = GetComponent<Stats>();
@@ -15,5 +18,11 @@ public class Enemy : Entity
     {
         base.Defeat();
         Destroy(gameObject);
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        enemyHurtFX?.ShowFX();
     }
 }
