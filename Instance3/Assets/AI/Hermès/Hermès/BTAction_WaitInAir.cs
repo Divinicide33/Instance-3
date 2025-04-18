@@ -1,4 +1,5 @@
 using BehaviorTree;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AI.Hermes
@@ -10,6 +11,8 @@ namespace AI.Hermes
         private float targetTime;
         private bool hasTarget;
         //private Rigidbody2D rb;
+
+
 
         public BTAction_WaitInAir(BTHermesTree btParent)
         {
@@ -35,7 +38,7 @@ namespace AI.Hermes
             }
             else if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
             {
-                ArrowForHermesFX.onLockArrow?.Invoke(true);
+                //ArrowForHermesFX.onLockArrow?.Invoke(true);
                 hasTarget = true;
                 tree.target = tree.player.position;
             }
@@ -50,7 +53,7 @@ namespace AI.Hermes
             {
                 tree.target = tree.player.position;
             }
-            ArrowForHermesFX.onLockArrow?.Invoke(false);
+            //ArrowForHermesFX.onLockArrow?.Invoke(false);
             tree.waited = true;
             hasTarget = false;
             tree.rb.simulated = true;

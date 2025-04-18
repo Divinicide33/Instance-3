@@ -1,16 +1,7 @@
 using UnityEngine;
 
-public class FountainFX : FX<FountainFX>
+public class FountainFX : FxElement<FountainFX>
 {
-    protected override void EnableFX()
-    {
-        
-    }
-
-    protected override void DisableFX()
-    {
-
-    }
 
     private void Start()
     {
@@ -20,5 +11,17 @@ public class FountainFX : FX<FountainFX>
     private void FountainSFX(string songName)
     {
         AudioManager.OnPlaySFX?.Invoke(songName);
+    }
+
+    protected override void Show()
+    {
+    }
+
+    protected override void Hide()
+    {
+    }
+
+    protected override void UpdateFX()
+    {
     }
 }
