@@ -17,6 +17,7 @@ public class PlayerController : Entity
     public static Action onUsePotion { get; set; }
     public static Action onEndOfInvincibility { get; set; }
     public static Action<FountainData> onSavefountain { get; set; }
+    public static Action<DoorData> onSaveDoor { get; set; }
     public static Action<bool> onIsDead { get; set; }
 
 
@@ -25,6 +26,7 @@ public class PlayerController : Entity
     private bool isInvincible = false;
 
     private FountainData lastFountainSaved;
+    private DoorData lastDoorUsed;
 
     [Header("FX")]
     private PlayerHurtFX playerHurtFX;
@@ -38,12 +40,14 @@ public class PlayerController : Entity
 
         UpdatePlayerUi();
         LoadSavedFountain();
+        LoadSavedDoor();
     }
 
     private void OnEnable() 
     {
         onEndOfInvincibility += EndOfInvincibility;
         onSavefountain += SaveFountain;
+        onSaveDoor += SaveDoor;
         onIsDead += IsDead;
     }
 
@@ -51,6 +55,7 @@ public class PlayerController : Entity
     {
         onEndOfInvincibility -= EndOfInvincibility;
         onSavefountain -= SaveFountain;
+        onSaveDoor -= SaveDoor;
         onIsDead -= IsDead;
     }
     
@@ -102,7 +107,7 @@ public class PlayerController : Entity
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform,lastFountainSaved.position);
     }
 
-    #region Fountain
+    #region FountainSave
     private void SaveFountain(FountainData newValue)
     {
         lastFountainSaved = newValue;
@@ -121,8 +126,7 @@ public class PlayerController : Entity
             FountainData loaded = JsonUtility.FromJson<FountainData>(json);
             lastFountainSaved = loaded;
         }
-        
-        if (PlayerPrefs.HasKey("FountainRoom"))
+        else if (PlayerPrefs.HasKey("FountainRoom"))
         {
             string roomStr = PlayerPrefs.GetString("FountainRoom");
             RoomId room = (RoomId)Enum.Parse(typeof(RoomId), roomStr);
@@ -141,6 +145,39 @@ public class PlayerController : Entity
     }
     #endregion
     
+    #region DoorSave
+    private void SaveDoor(DoorData newValue)
+    {
+        lastDoorUsed = newValue;
+
+        PlayerPrefs.SetString("LastDoor", newValue.room.ToString());
+        PlayerPrefs.SetFloat("DoorPosX", newValue.position.x);
+        PlayerPrefs.SetFloat("DoorPosY", newValue.position.y);
+        PlayerPrefs.SetFloat("DoorPosZ", newValue.position.z);
+        PlayerPrefs.Save();
+    }
+    
+    private void LoadSavedDoor()
+    {
+        if (PlayerPrefs.HasKey("LastDoor"))
+        {
+            string roomStr = PlayerPrefs.GetString("LastDoor");
+            RoomId room = (RoomId)System.Enum.Parse(typeof(RoomId), roomStr);
+
+            float x = PlayerPrefs.GetFloat("DoorPosX");
+            float y = PlayerPrefs.GetFloat("DoorPosY");
+            float z = PlayerPrefs.GetFloat("DoorPosZ");
+
+            lastDoorUsed = new DoorData(room, new Vector3(x, y, z));
+            Debug.Log("✅ Dernière porte chargée depuis les PlayerPrefs.");
+        }
+        else
+        {
+            lastDoorUsed = new DoorData(RoomManager.Instance.rooms, transform.position);
+            Debug.LogWarning("🟡 Aucune porte sauvegardée trouvée. Utilisation de la position actuelle.");
+        }
+    }
+    #endregion
     
     private void IsDead(bool value)
     {
