@@ -32,16 +32,21 @@ namespace AI.Harpie
         [Header("Bool")]
         public bool detectedPlayer = false;
 
-        private void Start()
+        [Header("FX")]
+        [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+        
+        private void Init()
         {
             tree.GetComponent<Rigidbody2D>().simulated = false;
             origin = tree.position;
             idleRotation = tree.rotation;
-            base.Start();
+            fxDetectPlayer = GetComponentInChildren<EnemyDetectPlayerFX>();
         }
 
         protected override BTNode SetupTree()
         {
+            Init();
+            
             BTNode root = new BTSelector(new List<BTNode>
             {
                  new BTSequence(new List<BTNode>

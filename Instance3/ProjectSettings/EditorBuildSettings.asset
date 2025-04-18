@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Menu/Scenes/Menu.unity
     guid: 0f5541dc62c07934c98dff239ff7b492
+  - enabled: 1
+    path: Assets/Menu/Scenes/Menu fix player Pref.unity
+    guid: ac1190120f9da5246b2a5e163dee6b56
   - enabled: 1
     path: Assets/MVP/MVP_Game.unity
     guid: 5bbc5f9e17874be4d98831a16befa7ef
@@ -30,14 +33,101 @@ EditorBuildSettings:
     path: Assets/Map/GestionMap/RoomScene/UpgradeRoomLeft.unity
     guid: be8194036c83d7a4e8c3cf3150195352
   - enabled: 1
-    path: Assets/PlayerMovement/PlayerMovement.unity
-    guid: 30cf419b9af3c2747ad29ea5d038ccaf
+    path: Assets/Map/GestionMap/RoomScene/AetolianRoom.unity
+    guid: 75b6512c983a1ce418f3b5896c528955
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/AfterBossAccessSaveRoom.unity
+    guid: af032267941248e40a4ffe9cb2e53cf1
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/AfterDFSaveRoom.unity
+    guid: 8dcfab4ea0faa864bbecec5c6164ca0c
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/AfterHermesSaveRoom.unity
+    guid: a77f499e1687a0a418b97e4b43fd88ad
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/AmbrosiaUpRoom.unity
+    guid: a960187098319e44dbb67afd1b665d74
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/ArenaHHIcarusRoom.unity
+    guid: 5c9dd310ee4a338428ed91eee4c530ef
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/ArenaHHSRoom.unity
+    guid: de4025be9e7ae3348ae245f4f5f6a208
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/BoethianRoom.unity
+    guid: ed084eeb838a91c4ab99acdb9d636b86
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/CapacitiesTrialRoom.unity
+    guid: 14592da393f0bc74fa668322f66523eb
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/DashCapacityRoom.unity
+    guid: 76c7c22cbfb0f494d910b95f922123e4
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/DashFallRoom.unity
+    guid: 491288461a90e9d459662a3349bde0c2
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/DashLearnRoom.unity
+    guid: b68b7af0b9c378540a66ea7f0313254d
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/HarpyFallRoom.unity
+    guid: 79b4d8b745eff3f4e970dcea38345deb
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/HarpyPitRoom.unity
+    guid: b6f20c131802260438d6f6ac6e33a0e4
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/HarpyRoom.unity
+    guid: 1416a5c1fa41eb34786381d969cc5300
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/Hell.unity
+    guid: 6a0ed329f45f5d443b2fa551b4212b88
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/HighDashRoom.unity
+    guid: c4b3aa0625621434ab08c81e9a5a2976
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/IcarusWingsRoom.unity
+    guid: c9729e49f8628c54faf9b7373a2e4c14
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/LifeUpRoom.unity
+    guid: 4677ea77358180f4ba185dc016ed8c5a
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/LongSnakeRoom.unity
+    guid: cfa9721099be96f469edf95f3e7adede
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/LowCeilingRoom.unity
+    guid: 8ec6f7ddca2096d4faef2f9d3b804a02
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/NonRoom.unity
+    guid: 842c5f6aa5323b04abb7467b144d710a
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/PillarsRoom.unity
+    guid: d48726c145f6a904f84461c2c2230942
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/PreHermesSaveRoom.unity
+    guid: 71b307091289f5b44857be84161261a3
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/PreZeusSaveRoom 1.unity
+    guid: fa319203d31923c46ba7334e4635f0ea
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/SpinosaurusRoom.unity
+    guid: dffe8224898400c46b6eab9cfd1944c7
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/TinyUpRoom.unity
+    guid: a37f2a64dd3bd814496d4daaa77484b5
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/YesRoom.unity
+    guid: 23b22074d3bfbe24998d9f9d7e73c66f
+  - enabled: 1
+    path: Assets/Map/GestionMap/RoomScene/ZeusRoom.unity
+    guid: 1ca8fcb209ac67b43b69e8e36cf17a56
   - enabled: 1
     path: Assets/MenuInGame/Scene/PauseScene.unity
     guid: 01781b2c17a57f64a882c5f62ef61f60
   - enabled: 1
     path: Assets/MenuInGame/Scene/VictoryScene.unity
     guid: 0d77b21f73f737b4c8a909261c876891
+  - enabled: 0
+    path: Assets/Fountain/Scenes/FountainTestRoom.unity
+    guid: c60b25885982f204aaa29de69a7fa964
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -7,8 +7,20 @@ public class Stats : MonoBehaviour
     public int damage;
     public float speed;
 
-    void Start()
+    private void Start()
+    {
+        SetHpToHpMax();
+    }
+
+    public void SetHpToHpMax()
     {
         health = healthMax;
+        DisplayHealth.onUpdate?.Invoke();
+        PlayerController.onIsDead?.Invoke(false);
+    }
+
+    public void AddHp(int value)
+    {
+        health += value;
     }
 }

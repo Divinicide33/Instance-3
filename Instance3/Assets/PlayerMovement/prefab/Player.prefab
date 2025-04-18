@@ -126,10 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 4
   healthMax: 5
   damage: 2
-  speed: 4
+  speed: 5
 --- !u!114 &7568520738813208363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03070ac776404784f80e19aa9aea698e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   isFacingRight: 1
   isFacingUp: 1
 --- !u!114 &8448164904437001605
@@ -183,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModuleName: Dash
   dashForce: 25
-  dashDuration: 0.1
+  dashDuration: 0.18
   dashCooldown: 0.35
 --- !u!114 &8245985858131250423
 MonoBehaviour:
@@ -241,7 +242,7 @@ MonoBehaviour:
   ModuleName: Potion
   nbPotions: 0
   nbPotionsMax: 4
-  healValue: 4
+  healValue: 2
 --- !u!114 &6103533508610122396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9e4ab3af7521f41ade96a57c3e42f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetY: -0.5
+  offsetY: -0.92
   size: {x: 0.78, y: 0.31}
   groundLayer:
     serializedVersion: 2
@@ -429,6 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9394ff526c767c4e81be5094ca36e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  isFacingRight: 1
+  isFacingUp: 1
 --- !u!50 &564035682160163730
 Rigidbody2D:
   serializedVersion: 5

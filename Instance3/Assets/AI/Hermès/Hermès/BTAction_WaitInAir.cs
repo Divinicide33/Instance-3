@@ -1,4 +1,5 @@
 using BehaviorTree;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AI.Hermes
@@ -9,7 +10,9 @@ namespace AI.Hermes
         private float delayTimer;
         private float targetTime;
         private bool hasTarget;
-        private Rigidbody2D rb;
+        //private Rigidbody2D rb;
+
+
 
         public BTAction_WaitInAir(BTHermesTree btParent)
         {
@@ -17,7 +20,7 @@ namespace AI.Hermes
             targetTime = btParent.targetTime;
             tree = btParent;
             delayTimer = btParent.timeInAir;
-            rb = tree.tree.GetComponent<Rigidbody2D>();
+            //rb = tree.tree.GetComponent<Rigidbody2D>();
         }
 
         public override BTNodeState Evaluate()
@@ -29,16 +32,20 @@ namespace AI.Hermes
 
             delayTimer -= Time.deltaTime;
 
-            if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
+            if (!hasTarget && tree.timeInAir - targetTime < delayTimer)
             {
+                tree.arrowForHermesFX?.ShowFX();
+            }
+            else if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
+            {
+                tree.arrowForHermesFX?.HideFX();
                 hasTarget = true;
                 tree.target = tree.player.position;
             }
-
             if (delayTimer > 0)
             {
-                rb.linearVelocity = Vector2.zero;
-                rb.simulated = false;
+                tree.rb.linearVelocity = Vector2.zero;
+                tree.rb.simulated = false;
                 return BTNodeState.RUNNING;
             }
 
@@ -46,10 +53,10 @@ namespace AI.Hermes
             {
                 tree.target = tree.player.position;
             }
-
+            tree.arrowForHermesFX?.HideFX();
             tree.waited = true;
             hasTarget = false;
-            rb.simulated = true;
+            tree.rb.simulated = true;
             delayTimer = tree.timeInAir;
             return BTNodeState.SUCCESS;
         }

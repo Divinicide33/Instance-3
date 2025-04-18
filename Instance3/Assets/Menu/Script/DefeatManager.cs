@@ -114,11 +114,11 @@ public class DefeatMenu : MonoBehaviour
         Application.Quit();
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
             ShowDefeatPanel();
         }
-    }
+    }*/
 }
