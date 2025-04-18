@@ -25,9 +25,13 @@ public class PlayerController : Entity
 
     private FountainData lastFountainSaved;
 
+    [Header("FX")]
+    private PlayerHurtFX playerHurtFX;
 
     void Start()
     {
+        playerHurtFX = GetComponentInChildren<PlayerHurtFX>();
+
         stats = GetComponent<Stats>();
         PlayerInputScript.onDisableInput?.Invoke();
 
@@ -72,6 +76,8 @@ public class PlayerController : Entity
         // invoke ();
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
+
+        playerHurtFX.ShowFX();
     }
     
 

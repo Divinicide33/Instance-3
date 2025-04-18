@@ -46,6 +46,8 @@ namespace AI.Hermes
         [HideInInspector] public float targetTime;
 
         [HideInInspector] public Vector2 lastDashDirection = Vector2.right;
+
+
         public void FlipDirection(ref Vector2 direction)
         {
             direction *= -1;
