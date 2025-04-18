@@ -178,11 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04bb7bef2c46244b11ebcff2aee4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  moveSpeed: 5
+  stats: {fileID: 149278985928202130}
+  moveSpeed: 0
   chargeDelay: 1
   dashStarted: 0
-  dashSpeed: 10
+  dashSpeed: 0
   dashDuration: 1
   fovOrigin: {fileID: 7561518742036466359}
   playerLayer:
@@ -210,10 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  healthMax: 4
+  health: 3
+  healthMax: 3
   damage: 1
-  speed: 0
+  speed: 5
 --- !u!114 &1431109938666343583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 149278985928202130}
   size: {x: 1, y: 1}
   knockBackPower: 10
 --- !u!1 &4498794438152171834

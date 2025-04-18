@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8550819852088692065}
   - component: {fileID: 5787599870495853518}
   - component: {fileID: 3270351248157257258}
+  - component: {fileID: 3807277634004378041}
   m_Layer: 0
   m_Name: Harpie
   m_TagString: Untagged
@@ -103,10 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  healthMax: 0
-  damage: 0
-  speed: 0
+  health: 3
+  healthMax: 3
+  damage: 1
+  speed: 5
 --- !u!114 &8550819852088692065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ca10e971f88e2409541c6cb8595afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 2802104024798480415}
   tree: {fileID: 1178104325979846904}
   player: {fileID: 0}
   returnSpeed: 5
@@ -137,6 +139,7 @@ MonoBehaviour:
   attackRange: 1.5
   knockbackForce: 5
   detectedPlayer: 0
+  fxDetectPlayer: {fileID: 0}
 --- !u!50 &5787599870495853518
 Rigidbody2D:
   serializedVersion: 5
@@ -200,3 +203,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &3807277634004378041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222979873381657464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 2802104024798480415}
+  size: {x: 1, y: 1}
+  knockBackPower: 3

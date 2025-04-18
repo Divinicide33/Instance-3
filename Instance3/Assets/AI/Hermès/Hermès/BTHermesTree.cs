@@ -77,7 +77,9 @@ namespace AI.Hermes
         private void Init()
         {
             tree = transform;
-
+            dashSpeed = stats.speed;
+            diveSpeed = stats.speed * 1.5f;
+            jumpSpeed = stats.speed;
             arrowForHermesFX = GetComponentInChildren<ArrowForHermesFX>();
             rb = GetComponent<Rigidbody2D>();
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
