@@ -17,7 +17,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerItems = new ModuleManager<ItemModule>(GetComponents<ItemModule>().ToList());
     }
 
-    private void Start() 
+    private void Start()
     {
         foreach (var skill in playerSkills.playerModules)
         {

@@ -7,8 +7,8 @@ public class SkillToUnlock : MonoBehaviour
     void Start()
     {
         // For debug
-        PlayerPrefs.SetInt(skillName.ToString(), 0);
-        PlayerPrefs.Save();
+        /*PlayerPrefs.SetInt(skillName.ToString(), 0);
+        PlayerPrefs.Save();*/
 
         if (PlayerPrefs.HasKey(skillName.ToString()) && PlayerPrefs.GetInt(skillName.ToString()) == 1) 
         gameObject.SetActive(false);

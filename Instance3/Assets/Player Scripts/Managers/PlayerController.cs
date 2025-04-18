@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Fountain;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Stats))]
 [RequireComponent(typeof(PlayerInputScript))]
@@ -131,6 +132,11 @@ public class PlayerController : Entity
             float z = PlayerPrefs.GetFloat("FountainPosZ");
 
             lastFountainSaved = new FountainData(room, new Vector3(x, y, z));
+        }
+        else
+        {
+            lastFountainSaved = new FountainData(RoomManager.Instance.rooms, transform.position);
+            Debug.LogWarning("🟡 Aucune fontaine sauvegardée trouvée. Position actuelle utilisée comme point de réapparition.");
         }
     }
     #endregion
