@@ -117,9 +117,6 @@ EditorBuildSettings:
     path: Assets/Map/GestionMap/RoomScene/ZeusRoom.unity
     guid: 1ca8fcb209ac67b43b69e8e36cf17a56
   - enabled: 1
-    path: Assets/PlayerMovement/PlayerMovement.unity
-    guid: 30cf419b9af3c2747ad29ea5d038ccaf
-  - enabled: 1
     path: Assets/MenuInGame/Scene/PauseScene.unity
     guid: 01781b2c17a57f64a882c5f62ef61f60
   - enabled: 1

@@ -7,8 +7,8 @@ public class ItemToUnlock : MonoBehaviour
     void Start()
     {
         // For debug
-        /*PlayerPrefs.SetInt(itemName.ToString(), 0);
-        PlayerPrefs.Save();*/
+        PlayerPrefs.SetInt(itemName.ToString(), 0);
+        PlayerPrefs.Save();
 
         if (PlayerPrefs.HasKey(itemName.ToString()) && PlayerPrefs.GetInt(itemName.ToString()) == 1) 
         gameObject.SetActive(false);
