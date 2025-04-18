@@ -23,6 +23,7 @@ namespace AI.WildBoard
             // Phase 1 : Charge Delay
             if (!charging)
             {
+                tree.fxDetectPlayer?.ShowFX();
                 delayTimer -= Time.deltaTime;
                 if (delayTimer > 0)
                 {
@@ -57,6 +58,7 @@ namespace AI.WildBoard
 
             if (dashTimer > 0)
             {
+                tree.fxDetectPlayer?.HideFX();
                 return BTNodeState.RUNNING;
             }
 

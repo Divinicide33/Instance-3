@@ -31,8 +31,19 @@ namespace AI.WildBoard
         public LayerMask obstacleLayer;
 
         public Vector2 lastDashDirection = Vector2.right;
+
+        [Header("FX")]
+        [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+
+        private void Init()
+        {
+            fxDetectPlayer = GetComponentInChildren<EnemyDetectPlayerFX>();
+        }
+
         protected override BTNode SetupTree()
         {
+            Init();
+
             BTNode root = new BTSelector(new List<BTNode>
             {
                 new BTSequence(new List<BTNode> // sequence Charge

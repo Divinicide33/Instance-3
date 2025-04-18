@@ -91,7 +91,7 @@ public class PlayerInputScript : PlayerController
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        Debug.Log("Input enabled");
+        //Debug.Log("Input enabled");
     }
 
     private void DisableInput()
@@ -101,7 +101,7 @@ public class PlayerInputScript : PlayerController
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
-        Debug.Log("Input disabled");
+        //Debug.Log("Input disabled");
     }
 
     public void StartPause(InputAction.CallbackContext context)

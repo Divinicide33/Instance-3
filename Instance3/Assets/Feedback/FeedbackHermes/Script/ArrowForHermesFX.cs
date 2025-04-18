@@ -2,7 +2,7 @@ using AI.Hermes;
 using System;
 using UnityEngine;
 
-public class ArrowForHermesFX : FX<ArrowForHermesFX>
+public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
 {
     [SerializeField] Transform player;
     [SerializeField] GameObject arrow;
@@ -11,15 +11,6 @@ public class ArrowForHermesFX : FX<ArrowForHermesFX>
     public bool isActivate = false;
     public static Action<bool> onLockArrow { get; set; }
 
-    protected override void OnEnable()
-    {
-        onLockArrow += LockOn;
-    }
-
-    protected override void OnDisable()
-    {
-        onLockArrow -= LockOn;
-    }
     void Update()
     {
         //if (isActivate)
@@ -58,12 +49,17 @@ public class ArrowForHermesFX : FX<ArrowForHermesFX>
         }
     }
 
-    protected override void EnableFX()
+    protected override void Show()
     {
+        RotateArrow();
     }
 
-    protected override void DisableFX()
+    protected override void Hide()
     {
+        LockOn(false);
+    }
 
+    protected override void UpdateFX()
+    {
     }
 }
