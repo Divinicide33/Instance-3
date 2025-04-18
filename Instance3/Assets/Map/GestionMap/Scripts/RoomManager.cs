@@ -13,6 +13,7 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private RoomId startingRoom;
     [SerializeField] private CinemachineConfiner2D confiner;
+    [SerializeField] private MiniMapRoomManager miniMapRoomManager;
 
     private RoomId currentRoom;
     private Dictionary<RoomId, Scene> loadedRooms = new();
@@ -56,6 +57,8 @@ public class RoomManager : MonoBehaviour
         yield return LoadRoomCoroutine(newRoom);
         
         FadeInOut.Instance.FadeOut();
+
+        miniMapRoomManager?.RevealRoom();
     }
 
     private IEnumerator LoadRoomCoroutine(RoomId newRoom)

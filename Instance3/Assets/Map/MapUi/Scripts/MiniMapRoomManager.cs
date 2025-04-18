@@ -22,6 +22,11 @@ public class MiniMapRoomManager : MonoBehaviour
         RevealRoom();
     }
 
+    private void Update()
+    {
+        RevealRoom();
+    }
+
     public void RevealRoom()
     {
         for (int i = 0; i < rooms.Length; i++)
