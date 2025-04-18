@@ -17,6 +17,7 @@ public class Enemy : Entity
     public override void Defeat()
     {
         base.Defeat();
+        DoorArene.onRemoveEnemy?.Invoke(this);
         Destroy(gameObject);
     }
 

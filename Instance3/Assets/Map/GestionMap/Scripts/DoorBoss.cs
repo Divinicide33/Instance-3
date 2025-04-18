@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Door : MonoBehaviour
+public class DoorBoss : Door
 {
     
     [SerializeField] private RoomId nextRoom; // Salle de destination pour cette porte
@@ -14,7 +14,15 @@ public class Door : MonoBehaviour
         set { targetPosition = value; }
     }
     
-    protected virtual void OnTriggerEnter2D(Collider2D other)
+    
+    
+    //private bool isActive
+    
+    
+    
+    
+    
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
@@ -25,7 +33,7 @@ public class Door : MonoBehaviour
         EnterDoor(other.transform.parent);
     }
 
-    protected virtual void EnterDoor(Transform player)
+    private void EnterDoor(Transform player)
     {
         //Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
         PlayerController.onSaveDoor?.Invoke(new DoorData(nextRoom, targetPosition));
@@ -35,7 +43,7 @@ public class Door : MonoBehaviour
         // MiniMapRoomManager.instance.RevealRoom();
     }
     
-    protected virtual void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(targetPosition, 0.2f);

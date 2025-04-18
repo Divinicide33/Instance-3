@@ -154,7 +154,7 @@ public class PlayerController : Entity
         PlayerPrefs.SetFloat("DoorPosX", newValue.position.x);
         PlayerPrefs.SetFloat("DoorPosY", newValue.position.y);
         PlayerPrefs.SetFloat("DoorPosZ", newValue.position.z);
-        Debug.Log($"Room Name : {newValue.room.ToString()} -- Position : {newValue.position}");
+        //Debug.Log($"Room Name : {newValue.room.ToString()} -- Position : {newValue.position}");
         PlayerPrefs.Save();
     }
     

@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class Door : MonoBehaviour
+public class DoorArene : Door
 {
     
     [SerializeField] private RoomId nextRoom; // Salle de destination pour cette porte
@@ -13,9 +14,40 @@ public class Door : MonoBehaviour
         get { return targetPosition; }
         set { targetPosition = value; }
     }
-    
-    protected virtual void OnTriggerEnter2D(Collider2D other)
+
+    private List<Enemy> remainingEnemies;
+    public static Action<Enemy> onAddEnemy;
+    public static Action<Enemy> onRemoveEnemy;
+
+    private void OnEnable()
     {
+        onAddEnemy += AddEnemy;
+        onRemoveEnemy += RemoveEnemy;
+    }
+
+    private void OnDisable()
+    {
+        onAddEnemy -= AddEnemy;
+        onRemoveEnemy -= RemoveEnemy;
+    }
+
+    private void AddEnemy(Enemy enemy)
+    {
+        remainingEnemies.Add(enemy);
+    }
+
+    private void RemoveEnemy(Enemy enemy) // remove ref enemy
+    {
+        remainingEnemies.Remove(enemy);
+    }
+    
+    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (remainingEnemies is null) 
+            return;
+        
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
             
@@ -25,7 +57,7 @@ public class Door : MonoBehaviour
         EnterDoor(other.transform.parent);
     }
 
-    protected virtual void EnterDoor(Transform player)
+    private void EnterDoor(Transform player)
     {
         //Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
         PlayerController.onSaveDoor?.Invoke(new DoorData(nextRoom, targetPosition));
@@ -35,7 +67,7 @@ public class Door : MonoBehaviour
         // MiniMapRoomManager.instance.RevealRoom();
     }
     
-    protected virtual void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(targetPosition, 0.2f);
