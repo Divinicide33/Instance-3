@@ -3131,6 +3131,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6798376478531734949, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: fountain.room
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
