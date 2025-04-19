@@ -37,7 +37,7 @@ public class FadeInOut : MonoBehaviour
 
     public Coroutine FadeOut(Action onComplete = null)
     {
-        Debug.Log("💡 FadeOut appelé !");
+        //Debug.Log("💡 FadeOut appelé !");
         canvasgroup.alpha = 1f; // force à démarrer du noir si jamais il est à 0
         if (currentFade != null) StopCoroutine(currentFade);
 

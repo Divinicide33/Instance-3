@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Fountain;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Cinemachine;
@@ -26,9 +27,31 @@ public class RoomManager : MonoBehaviour
     private void Start()
     {
         GiveColliderForCinemachine.onColliderChange += UpdateConfinerWithRoom;
-        StartCoroutine(LoadRoomCoroutine(startingRoom));
+        
+        //StartCoroutine(LoadRoomCoroutine(startingRoom));
+        //StartCoroutine(ChangeRoomWithFade(lastFountainSaved.room, Transform playerTransform, Vector3 newPosition));
     }
+    private RoomId LoadSavedFountain()
+    {
+        if (PlayerPrefs.HasKey("FountainRoom"))
+        {
+            string roomStr = PlayerPrefs.GetString("FountainRoom");
+            RoomId room = (RoomId)Enum.Parse(typeof(RoomId), roomStr);
 
+            float x = PlayerPrefs.GetFloat("FountainPosX");
+            float y = PlayerPrefs.GetFloat("FountainPosY");
+            float z = PlayerPrefs.GetFloat("FountainPosZ");
+
+            FountainData lastFountainSaved = new FountainData(room, new Vector3(x, y, z));
+            
+            transform.position = lastFountainSaved.position;
+            return room;
+        }
+
+        return startingRoom;
+        //Debug.LogWarning("🟡 Aucune fontaine sauvegardée trouvée. Position actuelle utilisée comme point de réapparition.");
+
+    }
     private void OnDestroy()
     {
         GiveColliderForCinemachine.onColliderChange -= UpdateConfinerWithRoom;
@@ -125,7 +148,7 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("Aucun GivePlayerForEnnemy trouvé dans : " + roomScene.name);
+        //Debug.LogWarning("Aucun GivePlayerForEnnemy trouvé dans : " + roomScene.name);
     }  
     #endregion
     

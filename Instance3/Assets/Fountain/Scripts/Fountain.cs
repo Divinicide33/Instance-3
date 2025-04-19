@@ -15,7 +15,7 @@ namespace Fountain
         
         private PlayerController playerControllerInZone = null;
         private bool isWaitingToActivateInput = false;
-        private float timer;
+        private float timer = 0f;
 
         private void OnEnable()
         {
@@ -55,7 +55,7 @@ namespace Fountain
         {
             if (playerControllerInZone == null) return;
 
-            if (direction.y > 0.5f)
+            if (direction.y > 0.5f && !isWaitingToActivateInput)
             {
                 UseFountain();
             }
@@ -63,6 +63,7 @@ namespace Fountain
         
         private void UseFountain() 
         {
+            Debug.Log("Utilisation de la fontaine");
             PlayerInputScript.onDisableInput?.Invoke();
 
             fountain.position = fountain.transform.position;
@@ -90,6 +91,7 @@ namespace Fountain
 
             if (timer <= 0f)
             {
+                //Debug.Log("Input reactivated");
                 PlayerInputScript.onEnableInput?.Invoke();
                 isWaitingToActivateInput = false;
             }

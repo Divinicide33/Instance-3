@@ -37,6 +37,8 @@ namespace AI.WildBoard
 
         private void Init()
         {
+            moveSpeed = stats.speed;
+            dashSpeed = stat.speed * 2;
             fxDetectPlayer = GetComponentInChildren<EnemyDetectPlayerFX>();
         }
 

@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerInputScript : PlayerController
@@ -91,7 +93,12 @@ public class PlayerInputScript : PlayerController
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        //Debug.Log("Input enabled");
+        
+        /*// Obtenir la méthode appelante
+        StackTrace stackTrace = new StackTrace();
+        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
+
+        Debug.Log($"Input enabled (called from: {caller})");*/
     }
 
     private void DisableInput()
@@ -101,7 +108,12 @@ public class PlayerInputScript : PlayerController
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
-        //Debug.Log("Input disabled");
+        
+        /*// Obtenir la méthode appelante
+        StackTrace stackTrace = new StackTrace();
+        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
+
+        Debug.Log($"Input disabled (called from: {caller})");*/
     }
 
     public void StartPause(InputAction.CallbackContext context)

@@ -8,7 +8,7 @@ namespace Save
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
-            //Debug.Log("✅ Reset PlayerPrefs.");
+            Debug.Log("✅ Reset PlayerPrefs.");
         }
     }
 }

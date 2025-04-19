@@ -4,21 +4,29 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-
 public class MenuManager : MonoBehaviour
 {
     [Header("Menu Panels")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsMenu;
+    [SerializeField] private GameObject optionMenu;
+    [SerializeField] private GameObject bindMenu;
+    [SerializeField] private GameObject soundMenu;
 
     [Header("First Selected Buttons")]
+    [SerializeField] private GameObject selectResetButton;
+    [SerializeField] private GameObject newGameMainMenuFirstButton;
     [SerializeField] private GameObject mainMenuFirstButton;
     [SerializeField] private GameObject settingsMenuFirstButton;
     [SerializeField] private GameObject creditsMenuFirstButton;
+    [SerializeField] private GameObject controlMenuFirstButton;
+    [SerializeField] private GameObject musicMenuFirstButton;
 
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput;
+
+    private FadeInOut fade;
 
     private void OnEnable()
     {
@@ -32,41 +40,40 @@ public class MenuManager : MonoBehaviour
             playerInput.onControlsChanged -= OnControlsChanged;
     }
 
-    private void OnControlsChanged(PlayerInput input)
-    {
-        // detect if using gamepad
-        if (input.currentControlScheme == ControlScheme.Joystick.ToString())
-        {
-            SelectFirstButton();
-        }
-        else
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-        }
-    }
-
-    private void SelectFirstButton()
-    {
-        if (settingsMenu.activeSelf)
-            SetSelected(settingsMenuFirstButton);
-        else if (creditsMenu.activeSelf)
-            SetSelected(creditsMenuFirstButton);
-        else
-            SetSelected(mainMenuFirstButton);
-    }
-
-    private FadeInOut fade;
-
     private void Start()
     {
         fade = FindObjectOfType<FadeInOut>();
     }
 
-    private IEnumerator _ChangeScene()
+    private void OnControlsChanged(PlayerInput input)
     {
-        yield return fade.FadeIn();
-        SceneManager.LoadScene(1);
-        fade.FadeOut();
+        if (IsGamepad(input))
+            SelectFirstButton();
+        else
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private bool IsGamepad(PlayerInput input)
+    {
+        return input.currentControlScheme != null &&
+               (input.currentControlScheme.ToLower().Contains("gamepad") ||
+                input.currentControlScheme.ToLower().Contains("joystick"));
+    }
+
+    private void SelectFirstButton()
+    {
+        if (settingsMenu != null && settingsMenu.activeSelf)
+            SetSelected(settingsMenuFirstButton);
+        else if (creditsMenu != null && creditsMenu.activeSelf)
+            SetSelected(creditsMenuFirstButton);
+        else if (optionMenu != null && optionMenu.activeSelf)
+            SetSelected(controlMenuFirstButton);
+        else if (bindMenu != null && bindMenu.activeSelf)
+            SetSelected(controlMenuFirstButton);
+        else if (soundMenu != null & soundMenu.activeSelf)
+            SetSelected(musicMenuFirstButton);
+        else
+            SetSelected(mainMenuFirstButton);
     }
 
     private void SetSelected(GameObject button)
@@ -79,15 +86,19 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        StartCoroutine(_ChangeScene());
+        StartCoroutine(ChangeScene());
+    }
+
+    private IEnumerator ChangeScene()
+    {
+        yield return fade.FadeIn();
+        SceneManager.LoadScene(1);
+        fade.FadeOut();
     }
 
     public void OpenSettings()
     {
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(true);
-
-        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
+        if (IsGamepad(playerInput))
             SetSelected(settingsMenuFirstButton);
     }
 
@@ -96,7 +107,7 @@ public class MenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
 
-        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
+        if (IsGamepad(playerInput))
             SetSelected(creditsMenuFirstButton);
     }
 
@@ -104,10 +115,35 @@ public class MenuManager : MonoBehaviour
     {
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        optionMenu.SetActive(false);
         mainMenu.SetActive(true);
 
-        if (playerInput.currentControlScheme == ControlScheme.Joystick.ToString())
+        if (IsGamepad(playerInput))
             SetSelected(mainMenuFirstButton);
+    }
+
+    public void NewGameMainMenu()
+    {
+        if (IsGamepad(playerInput))
+            SetSelected(newGameMainMenuFirstButton);
+    }
+
+    public void SelectResetButton()
+    {
+        if (IsGamepad(playerInput))
+            SetSelected(selectResetButton);
+    }
+
+    public void ControlMenuFirstButton()
+    {
+        if (IsGamepad(playerInput))
+            SetSelected(controlMenuFirstButton);
+    }
+
+    public void MusicMenuFirstButton()
+    {
+        if (IsGamepad(playerInput))
+            SetSelected(musicMenuFirstButton);
     }
 
     public void QuitGame()

@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 993954042160877905}
   - component: {fileID: 1875609581773975787}
   - component: {fileID: 9130100575408008711}
-  m_Layer: 0
+  - component: {fileID: 149278985928202130}
+  - component: {fileID: 1431109938666343583}
+  m_Layer: 8
   m_Name: WildBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,8 +82,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -5438099044131615788, guid: 1fec8748d93604b4ca32ae71d11dba9e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -156,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.67, y: 1.055}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -176,10 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04bb7bef2c46244b11ebcff2aee4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  stats: {fileID: 149278985928202130}
+  moveSpeed: 0
   chargeDelay: 1
   dashStarted: 0
-  dashSpeed: 10
+  dashSpeed: 0
   dashDuration: 1
   fovOrigin: {fileID: 7561518742036466359}
   playerLayer:
@@ -188,12 +191,44 @@ MonoBehaviour:
   detectionRadius: 6
   fovAngle: 60
   DurationEnterDash: 1
-  damage: 10
+  damage: 1
   knockbackForce: 15
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
   lastDashDirection: {x: 1, y: 0}
+  fxDetectPlayer: {fileID: 0}
+--- !u!114 &149278985928202130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089835422839776337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  healthMax: 3
+  damage: 1
+  speed: 5
+--- !u!114 &1431109938666343583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089835422839776337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 149278985928202130}
+  size: {x: 1, y: 1}
+  knockBackPower: 5
 --- !u!1 &4498794438152171834
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,13 +239,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7561518742036466359}
   - component: {fileID: 8989346483617363388}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7561518742036466359
 Transform:
   m_ObjectHideFlags: 0

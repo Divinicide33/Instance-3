@@ -37,6 +37,8 @@ namespace AI.Harpie
         
         private void Init()
         {
+            returnSpeed = stats.speed;
+            diveSpeed = stats.speed * 3;
             tree.GetComponent<Rigidbody2D>().simulated = false;
             origin = tree.position;
             idleRotation = tree.rotation;

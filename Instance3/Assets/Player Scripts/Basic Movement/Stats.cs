@@ -14,13 +14,16 @@ public class Stats : MonoBehaviour
 
     public void SetHpToHpMax()
     {
+        if (health <= 0)
+            PlayerController.onIsDead?.Invoke(false);
+        
         health = healthMax;
         DisplayHealth.onUpdate?.Invoke();
-        PlayerController.onIsDead?.Invoke(false);
     }
 
     public void AddHp(int value)
     {
         health += value;
+        DisplayHealth.onUpdate?.Invoke();
     }
 }

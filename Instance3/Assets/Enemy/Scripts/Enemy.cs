@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(EnemyTest))]
+[RequireComponent(typeof(EnemyAttack))]
 public class Enemy : Entity
 {
     public Stats stats;
@@ -17,6 +17,7 @@ public class Enemy : Entity
     public override void Defeat()
     {
         base.Defeat();
+        DoorArene.onRemoveEnemy?.Invoke(this);
         Destroy(gameObject);
     }
 

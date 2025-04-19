@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyTest : Enemy
+public class EnemyAttack : Enemy
 {
     [SerializeField] private Vector2 size;
     [SerializeField] private float knockBackPower;

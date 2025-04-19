@@ -13,6 +13,8 @@ namespace BehaviorTree
             root = SetupTree(); // Setup the behavior tree and assign the root node
             stats = GetComponent<Stats>();
             enemyHurtFX = GetComponentInChildren<EnemyHurtFX>();
+            
+            DoorArene.onAddEnemy?.Invoke(this);
         }
 
         // Called once per frame
