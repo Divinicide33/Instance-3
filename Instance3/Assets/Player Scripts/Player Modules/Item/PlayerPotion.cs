@@ -8,11 +8,13 @@ public class PlayerPotion : ItemModule
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
-    private void Start() 
+    public static Action onRecharge { get; set; }
+
+    private void Start()
     {
-        nbPotions = nbPotionsMax;
-        UpdateUi();
+        Recharge();
     }
+    
     protected override void Use()
     {
         if (stats.health == stats.healthMax)
@@ -37,21 +39,27 @@ public class PlayerPotion : ItemModule
         DisplayPotions.onUpdate?.Invoke();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (stats == null) stats = GetComponent<Stats>();
         if (player == null) player = GetComponent<PlayerController>();
 
+        onRecharge += Recharge;
         PlayerController.onUsePotion += Use;
         DisplayPotions.onShow?.Invoke();
 
         UpdateUi();
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         PlayerController.onUsePotion -= Use;
         DisplayPotions.onHide?.Invoke();
     }
 
+    private void Recharge()
+    {
+        nbPotions = nbPotionsMax;
+        UpdateUi();
+    }
 }

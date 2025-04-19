@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7686333355331128391}
   - component: {fileID: 8616762836600554075}
-  - component: {fileID: 5043463553041402413}
+  - component: {fileID: 6360911668327473573}
+  - component: {fileID: 669234487343989082}
   - component: {fileID: 2039279959265930329}
+  - component: {fileID: 5043463553041402413}
   - component: {fileID: 3139758775723533893}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: hermes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +93,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6360911668327473573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743409610292087615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc2137ca6a36294b9d694daaaf012e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  healthMax: 20
+  damage: 2
+  speed: 10
+--- !u!114 &669234487343989082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743409610292087615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 6360911668327473573}
+  size: {x: 1.5, y: 1.5}
+  knockBackPower: 3
+--- !u!114 &2039279959265930329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743409610292087615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68028dabeb6d5bd47a4215fb378c0639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 6360911668327473573}
+  action: 0
+  tree: {fileID: 7686333355331128391}
+  player: {fileID: 0}
+  raycast: {fileID: 1087196165910372228}
+  targetTransform: {fileID: 0}
+  dashSpeed: 10
+  dashDuration: 1
+  dashChance: 50
+  chargeDelay: 2
+  coolDownEnterDash: 1
+  waited: 0
+  actionStarted: 0
+  charged: 0
+  hasJumped: 0
+  rb: {fileID: 0}
+  jumpSpeed: 10
+  target: {x: 0, y: 0, z: 0}
+  diveSpeed: 15
+  timeInAir: 2
+  percentToTargetTime: 87.5
+  targetTime: 1.75
+  lastDashDirection: {x: 0, y: 0}
+  arrowForHermesFX: {fileID: 0}
 --- !u!61 &5043463553041402413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -125,7 +194,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.022370696}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -135,40 +204,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9552586}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2039279959265930329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743409610292087615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68028dabeb6d5bd47a4215fb378c0639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Action: 0
-  Tree: {fileID: 7686333355331128391}
-  player: {fileID: 0}
-  speed: 5
-  dashSpeed: 10
-  dashDuration: 1
-  DashChance: 50
-  chargeDelay: 2
-  CoolDownEnterDash: 1
-  actionStarted: 0
-  _jumpHeight: 5
-  _jumpDuration: 1
-  knockbackForce: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  lastDashDirection: {x: 0, y: 0}
 --- !u!50 &3139758775723533893
 Rigidbody2D:
   serializedVersion: 5
@@ -194,7 +231,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &3392844499979190987
 GameObject:
@@ -205,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1087196165910372228}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Raycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}

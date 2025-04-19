@@ -23,12 +23,16 @@ public class PlayerDash : SkillModule
     public static Action<bool> onSetIsDashing { get; set; }
 
     private bool isAttacking = false;
-
+    
+    [Header("FX")]
+    private DashFX dashFx;
+    
     void Awake()
     {
         player = GetComponent<PlayerController>();
         playerMove = GetComponent<PlayerMove>();
         rb = GetComponent<Rigidbody2D>();
+        dashFx = GetComponentInChildren<DashFX>();
     }
 
     void OnEnable()
@@ -77,6 +81,8 @@ public class PlayerDash : SkillModule
 
             canDash = false;
             isDashing = true;
+
+            dashFx?.ShowFX();
         }
     }
 

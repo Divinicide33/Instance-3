@@ -1,28 +1,27 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
-public class PlayerInputScript : MonoBehaviour
+[RequireComponent(typeof(PlayerController))]
+public class PlayerInputScript : PlayerController
 {
     private bool isMoving = false;
     private bool isEnable = true;
-    private bool isDead = false;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
-    public static Action<bool> onIsPlayerDead { get; set; }
-
+    
     private void OnEnable()
     {
         onEnableInput += EnableInput;
         onDisableInput += DisableInput;
-        onIsPlayerDead += IsPlayerDead;
     }
 
     private void OnDisable()
     {
         onEnableInput -= EnableInput;
         onDisableInput -= DisableInput;
-        onIsPlayerDead -= IsPlayerDead;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -94,7 +93,12 @@ public class PlayerInputScript : MonoBehaviour
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        //Debug.Log("Input enabled");
+        
+        /*// Obtenir la méthode appelante
+        StackTrace stackTrace = new StackTrace();
+        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
+
+        Debug.Log($"Input enabled (called from: {caller})");*/
     }
 
     private void DisableInput()
@@ -104,15 +108,12 @@ public class PlayerInputScript : MonoBehaviour
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
-        //Debug.Log("Input disabled");
-    }
+        
+        /*// Obtenir la méthode appelante
+        StackTrace stackTrace = new StackTrace();
+        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
 
-    private void IsPlayerDead(bool value)
-    {
-        isDead = value;
-
-        if (isDead) DisableInput();
-        else EnableInput();
+        Debug.Log($"Input disabled (called from: {caller})");*/
     }
 
     public void StartPause(InputAction.CallbackContext context)

@@ -11,6 +11,12 @@ public class GroundCheck : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private Vector3 pos;
     private bool isGrounded = false;
+    //private MoveFX moveFX;
+
+    private void Start()
+    {
+        //moveFX = GetComponentInChildren<MoveFX>();
+    }
 
     void Update()
     {

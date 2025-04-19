@@ -14,29 +14,31 @@ public class Door : MonoBehaviour
         set { targetPosition = value; }
     }
     
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.TryGetComponent<Enemy>(out _))
+            return;
+            
         if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out _))
             return;
         
-        StartCoroutine(EnterDoor(other.transform.parent));
+        EnterDoor(other.transform.parent);
     }
 
-    private IEnumerator EnterDoor(Transform player)
+    protected virtual void EnterDoor(Transform player)
     {
-        Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
-
-        yield return RoomManager.Instance.ChangeRoom(nextRoom, player, targetPosition);
-
+        //Debug.Log($"Position cible définie (targetPosition) : {targetPosition}");
+        PlayerController.onSaveDoor?.Invoke(new DoorData(nextRoom, targetPosition));
+        RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
+        
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
         // MiniMapRoomManager.instance.RevealRoom();
     }
     
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(targetPosition, 0.2f);
         Gizmos.DrawLine(transform.position, targetPosition);
-        Debug.Log($"target position : {targetPosition}");
     }
 }
