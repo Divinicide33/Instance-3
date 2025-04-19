@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 149278985928202130}
   size: {x: 1, y: 1}
-  knockBackPower: 10
+  knockBackPower: 5
 --- !u!1 &4498794438152171834
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public abstract class Entity : MonoBehaviour
     {
         if (isDead) return;
 
-        Debug.Log($"{gameObject.name} is taking {damage} damage");
+        //Debug.Log($"{gameObject.name} is taking {damage} damage");
 
         stat.health -= damage;
         if (stat.health <= 0) 

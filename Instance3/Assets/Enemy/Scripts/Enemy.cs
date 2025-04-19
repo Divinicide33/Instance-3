@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(EnemyTest))]
+[RequireComponent(typeof(EnemyAttack))]
 public class Enemy : Entity
 {
     public Stats stats;

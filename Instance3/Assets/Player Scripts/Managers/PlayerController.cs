@@ -19,7 +19,6 @@ public class PlayerController : Entity
     public static Action<DoorData> onSaveDoor { get; set; }
     public static Action<bool> onIsDead { get; set; }
 
-
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
     private bool isInvincible = false;
@@ -41,6 +40,7 @@ public class PlayerController : Entity
         UpdatePlayerUi();
         LoadSavedFountain();
         LoadSavedDoor();
+        RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
     }
 
     private void OnEnable() 
@@ -83,7 +83,7 @@ public class PlayerController : Entity
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
-        playerHurtFX.ShowFX();
+        playerHurtFX?.ShowFX();
     }
     
 
@@ -120,13 +120,7 @@ public class PlayerController : Entity
     
     private void LoadSavedFountain()
     {
-        if (PlayerPrefs.HasKey("LastFountain"))
-        {
-            string json = PlayerPrefs.GetString("LastFountain");
-            FountainData loaded = JsonUtility.FromJson<FountainData>(json);
-            lastFountainSaved = loaded;
-        }
-        else if (PlayerPrefs.HasKey("FountainRoom"))
+        if (PlayerPrefs.HasKey("FountainRoom"))
         {
             string roomStr = PlayerPrefs.GetString("FountainRoom");
             RoomId room = (RoomId)Enum.Parse(typeof(RoomId), roomStr);
@@ -136,12 +130,12 @@ public class PlayerController : Entity
             float z = PlayerPrefs.GetFloat("FountainPosZ");
 
             lastFountainSaved = new FountainData(room, new Vector3(x, y, z));
+            return;
         }
-        else
-        {
-            lastFountainSaved = new FountainData(RoomManager.Instance.rooms, transform.position);
-            Debug.LogWarning("🟡 Aucune fontaine sauvegardée trouvée. Position actuelle utilisée comme point de réapparition.");
-        }
+        
+        lastFountainSaved = new FountainData(RoomManager.Instance.rooms, transform.position);
+        //Debug.LogWarning("🟡 Aucune fontaine sauvegardée trouvée. Position actuelle utilisée comme point de réapparition.");
+
     }
     #endregion
     
@@ -170,13 +164,13 @@ public class PlayerController : Entity
             float z = PlayerPrefs.GetFloat("DoorPosZ");
 
             lastDoorUsed = new DoorData(room, new Vector3(x, y, z));
-            Debug.Log("✅ Dernière porte chargée depuis les PlayerPrefs.");
+            //Debug.Log("✅ Dernière porte chargée depuis les PlayerPrefs.");
+            return;
         }
-        else
-        {
-            lastDoorUsed = new DoorData(RoomManager.Instance.rooms, transform.position);
-            Debug.LogWarning("🟡 Aucune porte sauvegardée trouvée. Utilisation de la position actuelle.");
-        }
+
+        lastDoorUsed = new DoorData(RoomManager.Instance.rooms, transform.position);
+        //Debug.LogWarning("🟡 Aucune porte sauvegardée trouvée. Utilisation de la position actuelle.");
+
     }
     #endregion
     

@@ -86,10 +86,10 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        StartCoroutine(_ChangeScene());
+        StartCoroutine(ChangeScene());
     }
 
-    private IEnumerator _ChangeScene()
+    private IEnumerator ChangeScene()
     {
         yield return fade.FadeIn();
         SceneManager.LoadScene(1);
