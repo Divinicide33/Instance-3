@@ -18,9 +18,15 @@ public class Door : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
+
+        if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out PlayerController controller))
+        {
+            if (controller.IsDead)
+                return;
             
-        if (!other.gameObject.transform.parent.TryGetComponent<PlayerController>(out _))
+            PlayerState.onInvincible?.Invoke();
             return;
+        }
         
         EnterDoor(other.transform.parent);
     }
