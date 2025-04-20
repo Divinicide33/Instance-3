@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
 
     [SerializeField] private float timeToPause;
+
+    [Header("Scene")]
+    [SerializeField] private string mainMenuScene;
+
 
     private UIPanelManager panelManager;
     private GameObject currentFirstButton;
@@ -175,6 +180,12 @@ public class PauseMenu : MonoBehaviour
         SetSelectedUI(currentFirstButton);
     }
 
+    public void GoToMainMenu()
+    {
+        Debug.Log("Return to the Main Menu.");
+        FadeInOut.onResetCurrentFade?.Invoke();
+        SceneManager.LoadScene(mainMenuScene);
+    }
     public void QuitGame()
     {
         Debug.Log("Quit Game called.");

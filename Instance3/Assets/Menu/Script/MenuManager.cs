@@ -91,7 +91,10 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator ChangeScene()
     {
+        
+        Debug.Log("ChangeScene is called");
         yield return fade.FadeIn();
+        Debug.Log("ChangeScene : yield return fade.FadeIn() has been checked");
         SceneManager.LoadScene(1);
         fade.FadeOut();
     }
