@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2802104024798480415}
   - component: {fileID: 8550819852088692065}
   - component: {fileID: 3807277634004378041}
+  - component: {fileID: 7187505375780715065}
   m_Layer: 0
   m_Name: Harpie
   m_TagString: Untagged
@@ -102,7 +103,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222979873381657464}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -120,7 +121,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &3270351248157257258
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ MonoBehaviour:
   health: 3
   healthMax: 3
   damage: 1
-  speed: 5
+  speed: 2
 --- !u!114 &8550819852088692065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +191,8 @@ MonoBehaviour:
   tree: {fileID: 1178104325979846904}
   player: {fileID: 0}
   returnSpeed: 5
-  diveSpeed: 5
+  diveSpeedMultiplier: 3
+  diveSpeed: 2
   coolDownTime: 5
   GroundMask:
     serializedVersion: 2
@@ -201,7 +203,7 @@ MonoBehaviour:
   origin: {x: 0, y: 0, z: 0}
   idleRotation: {x: 0, y: 0, z: 0, w: 0}
   lastPlayerPosition: {x: 0, y: 0, z: 0}
-  detectionRadius: 6
+  detectionRadius: 3
   attackRange: 1.5
   knockbackForce: 5
   detectedPlayer: 0
@@ -222,6 +224,21 @@ MonoBehaviour:
   enemyHurtFX: {fileID: 0}
   size: {x: 1, y: 1}
   knockBackPower: 3
+--- !u!114 &7187505375780715065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222979873381657464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fd3d5f7ea04af9a28a9df269574263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &4123957349624924259
 GameObject:
   m_ObjectHideFlags: 0

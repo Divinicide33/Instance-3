@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class ArrowForHermesFX : FxElement<ArrowForHermesFX>
 {
-    [SerializeField] Transform player;
-    [SerializeField] GameObject arrow;
-    public SpriteRenderer arrowDown;
-    public SpriteRenderer arrowUp;
-    public bool isActivate = false;
-
-    void Update()
+    [SerializeField] private GameObject arrow;
+    [SerializeField] private SpriteRenderer arrowDown;
+    [SerializeField] private SpriteRenderer arrowUp;
+    private bool isActivate = false;
+    private Transform player;
+    
+    private void OnEnable()
     {
-        //if (isActivate)
-        //{
-        //    RotateArrow();
-        //}
-        //else
-        //{
-        //    arrow.gameObject.SetActive(false);
-        //}
-
-
+        GivePlayerForEnnemy.onSetPlayerTarget += SetTarget;
     }
 
+    private void OnDisable()
+    {
+        GivePlayerForEnnemy.onSetPlayerTarget -= SetTarget;
+    }
+
+    private void SetTarget(Transform playerTransform)
+    {
+        player = playerTransform;
+    }
+    
     public void RotateArrow()
     {
         arrow.gameObject.SetActive(true);

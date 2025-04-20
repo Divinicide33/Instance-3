@@ -48,7 +48,7 @@ namespace AI.Hermes
         [HideInInspector] public Vector2 lastDashDirection = Vector2.right;
 
         [Header("FX")]
-        public ArrowForHermesFX arrowForHermesFX;
+        [HideInInspector] public ArrowForHermesFX arrowForHermesFX;
 
         public void FlipDirection(ref Vector2 direction)
         {

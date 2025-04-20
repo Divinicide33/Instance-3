@@ -57,10 +57,12 @@ public class ModuleManager<T> where T : PlayerModule
         if (module != null && !module.enabled) 
         {
             module.enabled = true;
-            Debug.Log($"HaveUnlocked = {moduleName}");
+            //Debug.Log($"HaveUnlocked = {moduleName}");
         }
-        else if (module != null && module.enabled) Debug.Log($"Have already Unlocked = {moduleName}");
-        else Debug.Log("Name invalid");
+        /*else if (module != null && module.enabled) 
+            Debug.Log($"Have already Unlocked = {moduleName}");
+        else 
+            Debug.Log("Name invalid");*/
     }
     public void LockModule(string moduleName)
     {
@@ -69,9 +71,11 @@ public class ModuleManager<T> where T : PlayerModule
         if (module != null && module.enabled) 
         {
             module.enabled = false;
-            Debug.Log($"HaveLocked = {moduleName}");
+            //Debug.Log($"HaveLocked = {moduleName}");
         }
-        else if (module != null && !module.enabled) Debug.Log($"Have already Locked = {moduleName}");
-        else Debug.Log("Name invalid");
+        /*else if (module != null && !module.enabled) 
+            Debug.Log($"Have already Locked = {moduleName}");
+        else
+            Debug.Log("Name invalid");*/
     }
 }
