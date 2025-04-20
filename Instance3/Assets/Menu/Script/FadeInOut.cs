@@ -41,7 +41,8 @@ public class FadeInOut : MonoBehaviour
             StopCoroutine(currentFade);
         }
 
-        Debug.Log($"FadeIn : onComplete = {onComplete}");
+        //Debug.Log($"FadeIn : onComplete = {onComplete}");
+
         currentFade = StartCoroutine(FadeRoutine(1, onComplete));
 
         //Debug.Log($"FadeIn : currentFade will return {currentFade}");
@@ -61,7 +62,7 @@ public class FadeInOut : MonoBehaviour
             StopCoroutine(currentFade);
         }
         
-        Debug.Log($"FadeIn : onComplete = {onComplete}");
+        //Debug.Log($"FadeIn : onComplete = {onComplete}");
 
         currentFade = StartCoroutine(FadeRoutine(0, () =>
         {
@@ -76,7 +77,8 @@ public class FadeInOut : MonoBehaviour
 
     private IEnumerator FadeRoutine(float targetAlpha, Action onComplete)
     {
-        Debug.Log($"FadeRoutine : onComplete = {onComplete}");
+        Debug.Log("💡 FadeRoutine is called !");
+        //Debug.Log($"FadeRoutine : onComplete = {onComplete}");
 
         if (canvasgroup == null)
         {
@@ -91,8 +93,14 @@ public class FadeInOut : MonoBehaviour
         float duration = fadeDuration; // temps total de transition
         float elapsed = 0f;
 
+        //Debug.Log($"duration = {duration}");
+        //Debug.Log($"elapsed = {elapsed}");
+
         while (elapsed < duration)
         {
+            //Debug.Log($"duration = {duration}");
+            //Debug.Log($"elapsed = {elapsed}");
+    
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
             canvasgroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);

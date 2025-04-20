@@ -182,10 +182,12 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Debug.Log("Return to the Main Menu.");
+        //Debug.Log("Return to the Main Menu.");
+        Time.timeScale = 1;
         FadeInOut.onResetCurrentFade?.Invoke();
         SceneManager.LoadScene(mainMenuScene);
     }
+
     public void QuitGame()
     {
         Debug.Log("Quit Game called.");
