@@ -7117,15 +7117,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: selectedDoorName
-      value: LeftDoor
+      value: Door Left Boss
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.x
-      value: -7.75
+      value: -7.79
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.y
-      value: -3.8243046
+      value: -3.836514
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

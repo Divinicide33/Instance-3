@@ -177,15 +177,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: selectedDoorName
-      value: RightDoor
+      value: Door Right Arena
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.x
-      value: 7.94
+      value: 8.03
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.y
-      value: -3.916514
+      value: -3.77
       objectReference: {fileID: 0}
     - target: {fileID: 8483665484865727478, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: m_LocalPosition.x

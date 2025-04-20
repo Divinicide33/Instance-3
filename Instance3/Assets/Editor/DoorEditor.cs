@@ -12,7 +12,7 @@ public class DoorInfo
     public Vector3 position;
 }
 
-[CustomEditor(typeof(Door))]
+[CustomEditor(typeof(Door), true)]
 public class DoorEditor : Editor
 {
     private List<DoorInfo> retrievedDoorInfos = new List<DoorInfo>();

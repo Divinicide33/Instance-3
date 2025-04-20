@@ -1745,7 +1745,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2985,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6000129257426733103, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: Canvas Audio
       objectReference: {fileID: 0}
     - target: {fileID: 6331381748073198527, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
