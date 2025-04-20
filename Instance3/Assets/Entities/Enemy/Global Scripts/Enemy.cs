@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(EnemyAttack))]
 public class Enemy : Entity
 {
     [HideInInspector] public Stats stats;
