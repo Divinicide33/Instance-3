@@ -105,7 +105,7 @@ EditorBuildSettings:
     path: Assets/Map/Room Scene/PreHermesSaveRoom.unity
     guid: 71b307091289f5b44857be84161261a3
   - enabled: 1
-    path: Assets/Map/Room Scene/PreZeusSaveRoom 1.unity
+    path: Assets/Map/Room Scene/PreZeusSaveRoom.unity
     guid: fa319203d31923c46ba7334e4635f0ea
   - enabled: 1
     path: Assets/Map/Room Scene/SpinosaurusRoom.unity
