@@ -73,7 +73,8 @@ public class PlayerController : Entity
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible || isDead) return;
+        if (isInvincible || isDead) 
+            return;
 
         isInvincible = true; // to only get hit once
 
@@ -181,7 +182,12 @@ public class PlayerController : Entity
     {
         isDead = value;
 
-        if (isDead) PlayerInputScript.onDisableInput?.Invoke();
-        else PlayerInputScript.onEnableInput?.Invoke();
+        if (isDead)
+        {
+            PlayerInputScript.onDisableInput?.Invoke();
+            return;
+        }
+        
+        PlayerInputScript.onEnableInput?.Invoke();
     }
 }

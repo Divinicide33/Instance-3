@@ -4,7 +4,7 @@ public class DashFX : FxElement<DashFX>
 {
     private new ParticleSystem particleSystem;
 
-    PlayerController player;
+    private PlayerController player;
 
     private void Awake()
     {

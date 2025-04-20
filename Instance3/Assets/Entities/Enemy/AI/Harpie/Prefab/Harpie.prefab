@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8550819852088692065}
   - component: {fileID: 3807277634004378041}
   - component: {fileID: 7187505375780715065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Harpie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2518110051464508300}
   - component: {fileID: 8237362244493877544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4599473504269645563}
   - component: {fileID: 9066721421619430575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 3663769735004179969}
   - component: {fileID: 4195308077299420946}
   - component: {fileID: 464728348968942961}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParticleSystemForBeHurt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5276,7 +5276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7742042628844919972}
   - component: {fileID: 7893192575530370009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DetectFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

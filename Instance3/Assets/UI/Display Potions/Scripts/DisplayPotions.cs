@@ -29,7 +29,7 @@ public class DisplayPotions : UIElement<DisplayPotions>
             return;
         }
 
-        nbPotions.text = "X " + playerPotion.nbPotions.ToString();
+        nbPotions.text = playerPotion.nbPotions.ToString() + " / " + playerPotion.GetMaxPotion().ToString();
     }
 
     private void GetPotionScript(PlayerPotion script)

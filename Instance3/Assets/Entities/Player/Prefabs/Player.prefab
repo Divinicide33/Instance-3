@@ -14820,14 +14820,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5249059981422526792}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d256ea9aebd890644a2901e7a311b3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Potion
   nbPotions: 0
-  nbPotionsMax: 4
+  nbPotionsMax: 1
   healValue: 2
 --- !u!114 &6103533508610122396
 MonoBehaviour:
@@ -14986,7 +14986,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 17887dbe-104e-4b7d-98e1-d323f5db421f
-    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+    m_ActionName: 'Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4eb7edb4-8476-47d9-b2fe-15622410a20d
@@ -14994,7 +14994,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f03e0a84-2ff1-4d0a-9406-08260dbbad5d
-    m_ActionName: 'Player/Potion[/Keyboard/e,/DualSenseGamepadHID/buttonSouth]'
+    m_ActionName: 'Player/Potion[/Keyboard/e,/XInputControllerWindows/buttonSouth]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
