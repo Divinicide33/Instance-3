@@ -8,16 +8,16 @@ public abstract class FxElement<T> : MonoBehaviour where T : FxElement<T>
 
     private void OnEnable()
     {
-        OnFxInit();
+        Init();
     }
 
     private void OnDisable()
     {
-        OnFxDestroy();
+        Destroy();
     }
 
-    protected virtual void OnFxInit() { }
-    protected virtual void OnFxDestroy() { }
+    protected virtual void Init() { }
+    protected virtual void Destroy() { }
 
     public void ShowFX() => Show();
     public void HideFX() => Hide();
