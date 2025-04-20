@@ -8,11 +8,12 @@ namespace AI.Harpie
     {
         [Header("Characters")]
         [HideInInspector] public Transform tree;
-        public Transform player;
+        [HideInInspector] public Transform player;
 
         [Header("Movement")]
-        public float returnSpeed = 5f;
-        public float diveSpeed = 15f;
+        [HideInInspector] public float returnSpeed = 5f;
+        [Range(1f, 10f)] public float diveSpeedMultiplier = 3f;
+        [HideInInspector] public float diveSpeed= 1f;
         public  float coolDownTime;
         public LayerMask GroundMask;
         
@@ -31,10 +32,25 @@ namespace AI.Harpie
         public float knockbackForce = 5f;
 
         [Header("Bool")]
-        public bool detectedPlayer = false;
+        [HideInInspector] public bool detectedPlayer = false;
 
         [Header("FX")]
         [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+        
+        private void OnEnable()
+        {
+            GivePlayerForEnnemy.onSetPlayerTarget += SetTarget;
+        }
+
+        private void OnDisable()
+        {
+            GivePlayerForEnnemy.onSetPlayerTarget -= SetTarget;
+        }
+        
+        private void SetTarget(Transform playerTransform)
+        {
+            player = playerTransform;
+        }
         
         private void Init()
         {
@@ -43,7 +59,7 @@ namespace AI.Harpie
             fxDetectPlayer = GetComponentInChildren<EnemyDetectPlayerFX>();
             
             returnSpeed = stats.speed;
-            diveSpeed = stats.speed * 3;
+            diveSpeed = stats.speed * diveSpeedMultiplier;
             
             origin = tree.position;
             idleRotation = tree.rotation;
