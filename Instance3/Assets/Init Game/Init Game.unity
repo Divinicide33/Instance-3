@@ -2723,7 +2723,7 @@ MonoBehaviour:
   soundsFirstButton: {fileID: 518197223}
   playerInput: {fileID: 1405170853}
   timeToPause: 0.2
-  mainMenuScene: FixMenu
+  mainMenuScene: Menu
 --- !u!4 &1930470419
 Transform:
   m_ObjectHideFlags: 0
