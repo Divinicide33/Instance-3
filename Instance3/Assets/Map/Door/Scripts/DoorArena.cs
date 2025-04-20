@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class DoorArene : Door
+public class DoorArena : Door
 {
     private List<Enemy> remainingEnemies = new();
 

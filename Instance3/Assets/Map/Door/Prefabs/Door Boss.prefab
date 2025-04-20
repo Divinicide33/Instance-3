@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1063145483788835377}
   - component: {fileID: 1079916290498343410}
   - component: {fileID: 315653165056308366}
+  - component: {fileID: 6811621803314130215}
   m_Layer: 0
   m_Name: Door Boss
   m_TagString: Untagged
@@ -135,6 +136,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6811621803314130215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934885240211936565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768c2093590640f582440867e4d4ac88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextRoom: 0
+  selectedDoorName: 
+  targetPosition: {x: 0, y: 0, z: 0}
+  bossDefeated: 0
 --- !u!1 &7070490341537828744
 GameObject:
   m_ObjectHideFlags: 0
