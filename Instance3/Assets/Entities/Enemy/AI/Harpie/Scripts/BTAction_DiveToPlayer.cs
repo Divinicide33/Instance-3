@@ -18,7 +18,7 @@ namespace AI.Harpie
 
         public override BTNodeState Evaluate()
         {
-            tree.fxDetectPlayer?.ShowFX();
+            tree.fxDetectPlayer?.ShowVFX();
             tree.transform.position = Vector3.MoveTowards(tree.transform.position, tree.lastPlayerPosition,tree.diveSpeed * Time.deltaTime);
             rb.gravityScale = 0f;
 

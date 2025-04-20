@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class EnemyHurtFX : FxElement<EnemyHurtFX>
 {
-    public static System.Action<GameObject> onHit { get; set; }
-
     private new ParticleSystem particleSystem;
     private SpriteRenderer spriteRenderer;
 

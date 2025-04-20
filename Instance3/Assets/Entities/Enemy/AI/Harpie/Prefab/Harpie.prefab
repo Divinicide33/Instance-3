@@ -188,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 2802104024798480415}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: HarpyHurt
+  sfxDeathName: HarpyDead
+  sfxAttackName: HarpyAttack
   tree: {fileID: 1178104325979846904}
   player: {fileID: 0}
   returnSpeed: 5
@@ -222,6 +225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 2802104024798480415}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: HarpyHurt
+  sfxDeathName: HarpyDead
+  sfxAttackName: HarpyAttack
   size: {x: 1, y: 1}
   knockBackPower: 3
 --- !u!114 &7187505375780715065
