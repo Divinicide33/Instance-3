@@ -30,7 +30,6 @@ public class DashFX : FxElement<DashFX>
     {
         DashVFX();
     }
-
     protected override void Hide()
     {
         particleSystem?.Stop();

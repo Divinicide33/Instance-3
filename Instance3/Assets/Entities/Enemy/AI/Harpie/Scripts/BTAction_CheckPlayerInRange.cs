@@ -6,7 +6,6 @@ namespace AI.Harpie
     public class BTAction_CheckPlayerInRange : BTNode
     {
         private BTHapieTree tree;
-
         public BTAction_CheckPlayerInRange(BTHapieTree btParent)
         {
             tree = btParent;
@@ -26,6 +25,7 @@ namespace AI.Harpie
 
             if (distance <= tree.detectionRadius)
             {
+                tree.fxDetectPlayer?.ShowSFX(tree.sfxAttackName);
                 tree.lastPlayerPosition = tree.player.position; 
                 tree.target = tree.lastPlayerPosition;
                 tree.detectedPlayer = true;

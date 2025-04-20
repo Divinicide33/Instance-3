@@ -450,6 +450,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 149278985928202130}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: WildBoardHurt
+  sfxDeathName: WildBoardDead
+  sfxAttackName: WildBoardAttack
   moveSpeed: 0
   chargeDelay: 1
   dashStarted: 0
@@ -482,6 +485,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 149278985928202130}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: WildBoardHurt
+  sfxDeathName: WildBoardDead
+  sfxAttackName: WildBoardAttack
   size: {x: 1, y: 1}
   knockBackPower: 5
 --- !u!1 &4498794438152171834

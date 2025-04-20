@@ -13,6 +13,8 @@ public class PlayerJump : MonoBehaviour
 
     [Header("FX")]
     private JumpFX jumpFx;
+    private string sfxJumpName = "PlayerJump";
+    private string sfxDoubleJumpName = "PlayerDoubleJump";
 
 
     private void Awake() 
@@ -56,6 +58,12 @@ public class PlayerJump : MonoBehaviour
         if (isJumpPressed)
         {
             if (nbJump <= 0) return;
+
+            if (nbJump == nbJumpMax)
+                jumpFx?.ShowSFX(sfxJumpName);
+            else
+                jumpFx?.ShowSFX(sfxDoubleJumpName);
+
             nbJump--;
             //Debug.Log($"nbJump = {nbJump}");
 
@@ -64,7 +72,7 @@ public class PlayerJump : MonoBehaviour
             isGrounded = false;
             rb.AddForce(jumpDirection, ForceMode2D.Impulse);
 
-            jumpFx?.ShowFX();
+            jumpFx?.ShowVFX();
         }
         else
         {

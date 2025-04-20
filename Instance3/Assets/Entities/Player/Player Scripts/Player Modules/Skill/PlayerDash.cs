@@ -26,7 +26,8 @@ public class PlayerDash : SkillModule
     
     [Header("FX")]
     private DashFX dashFx;
-    
+    private string sfxName = "PlayerDash";
+
     void Awake()
     {
         player = GetComponent<PlayerController>();
@@ -82,7 +83,8 @@ public class PlayerDash : SkillModule
             canDash = false;
             isDashing = true;
 
-            dashFx?.ShowFX();
+            dashFx?.ShowVFX();
+            dashFx?.ShowSFX(sfxName);
         }
     }
 

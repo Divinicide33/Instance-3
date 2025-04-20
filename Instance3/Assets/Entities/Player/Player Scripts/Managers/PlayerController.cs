@@ -29,6 +29,7 @@ public class PlayerController : Entity
 
     [Header("FX")]
     private PlayerHurtFX playerHurtFX;
+    private string sfxHurtName = "PlayerHurt";
 
     void Start()
     {
@@ -85,7 +86,8 @@ public class PlayerController : Entity
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
-        playerHurtFX?.ShowFX();
+        playerHurtFX?.ShowVFX();
+        playerHurtFX?.ShowSFX(sfxHurtName);
     }
     
 

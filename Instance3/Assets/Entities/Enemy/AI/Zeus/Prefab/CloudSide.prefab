@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2848659057163358684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979674562947709602}
+  - component: {fileID: 8003910336385878345}
+  m_Layer: 0
+  m_Name: FX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979674562947709602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848659057163358684}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1857402027398600557}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8003910336385878345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848659057163358684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f4bbe79349f65418a05f635a0d02b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5602673731673720006
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +107,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2640883158037267531}
+  - {fileID: 1979674562947709602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3507152648008400479
@@ -133,14 +178,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloudType: 1
-  lightningDelay: 2.5
   despawnDelay: 5
+  lightningDelay: 2.5
   lightningDespawnDelay: 5
+  lightningSpacing: 1
+  numberOfLightnings: 30
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
   spawnPoint: {fileID: 2640883158037267531}
-  numberOfLightnings: 30
-  lightningSpacing: 1
   spawnedLightnings: []
   spawnInterrupted: 0
   spawnedGroup: []
   tree: {fileID: 0}
+  zeusAttackFX: {fileID: 0}
