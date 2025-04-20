@@ -2723,6 +2723,7 @@ MonoBehaviour:
   soundsFirstButton: {fileID: 518197223}
   playerInput: {fileID: 1405170853}
   timeToPause: 0.2
+  mainMenuScene: FixMenu
 --- !u!4 &1930470419
 Transform:
   m_ObjectHideFlags: 0
@@ -2955,6 +2956,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1930470418}
+    - target: {fileID: 5104636582961435332, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
+      propertyPath: m_Name
+      value: MainMenuBtn
+      objectReference: {fileID: 0}
     - target: {fileID: 5139167548159003893, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2971,6 +2976,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1930470418}
+    - target: {fileID: 5671330877582200340, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
+      propertyPath: m_text
+      value: Main Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 5975649601876635542, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3019,6 +3028,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1930470418}
+    - target: {fileID: 8343566367336123229, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8416728243595563996, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
