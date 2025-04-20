@@ -49,6 +49,10 @@ namespace AI.Hermes
 
         [Header("FX")]
         [HideInInspector] public ArrowForHermesFX arrowForHermesFX;
+        [HideInInspector] public HermesDashFX hermesDashFX;
+        [HideInInspector] public HermesDiveFX hermesDiveFX;
+        [HideInInspector] public string sfxDashName = "HermesDash";
+        [HideInInspector] public string sfxDiveName = "HermesDive";
 
         public void FlipDirection(ref Vector2 direction)
         {
@@ -81,8 +85,12 @@ namespace AI.Hermes
             diveSpeed = stats.speed * 1.5f;
             jumpSpeed = stats.speed;
             arrowForHermesFX = GetComponentInChildren<ArrowForHermesFX>();
+            hermesDashFX = GetComponentInChildren<HermesDashFX>();
+            hermesDiveFX = GetComponentInChildren<HermesDiveFX>();
             rb = GetComponent<Rigidbody2D>();
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
+            sfxDashName = "HermesDash";
+            sfxDiveName = "HermesDive";
         }
         
         protected override BTNode SetupTree()

@@ -29,6 +29,7 @@ public class PlayerController : Entity
 
     [Header("FX")]
     private PlayerHurtFX playerHurtFX;
+    private string sfxHurtName = "PlayerHurt";
 
     void Start()
     {
@@ -72,7 +73,8 @@ public class PlayerController : Entity
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible || isDead) return;
+        if (isInvincible || isDead) 
+            return;
 
         isInvincible = true; // to only get hit once
 
@@ -84,7 +86,8 @@ public class PlayerController : Entity
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
-        playerHurtFX?.ShowFX();
+        playerHurtFX?.ShowVFX();
+        playerHurtFX?.ShowSFX(sfxHurtName);
     }
     
 
@@ -179,7 +182,12 @@ public class PlayerController : Entity
     {
         isDead = value;
 
-        if (isDead) PlayerInputScript.onDisableInput?.Invoke();
-        else PlayerInputScript.onEnableInput?.Invoke();
+        if (isDead)
+        {
+            PlayerInputScript.onDisableInput?.Invoke();
+            return;
+        }
+        
+        PlayerInputScript.onEnableInput?.Invoke();
     }
 }

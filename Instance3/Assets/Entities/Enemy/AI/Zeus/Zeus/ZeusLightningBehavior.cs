@@ -7,9 +7,6 @@ namespace AI.Zeus
 {
     public class ZeusLightningBehavior : MonoBehaviour
     {
-        public float speed = 10f;
-        public int damage = 1;
-
         private ZeusCloudBehavior cloudParent;
 
         public void StartLightning(Vector2 lightningDirection, ZeusCloudBehavior parent)

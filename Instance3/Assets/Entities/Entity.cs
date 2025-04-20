@@ -6,6 +6,7 @@ public abstract class Entity : MonoBehaviour
 {
     protected Stats stat;
     protected bool isDead = false;
+    public bool IsDead => isDead;
 
     private void Awake() 
     {

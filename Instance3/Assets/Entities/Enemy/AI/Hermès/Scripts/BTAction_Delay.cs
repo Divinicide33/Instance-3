@@ -28,7 +28,6 @@ namespace AI.Hermes
             {
                 return BTNodeState.RUNNING;
             }
-
             delayTimer = tree.chargeDelay;
             tree.charged = true;
             return BTNodeState.SUCCESS;

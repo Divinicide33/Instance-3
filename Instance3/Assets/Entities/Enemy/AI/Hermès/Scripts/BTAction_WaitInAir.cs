@@ -34,7 +34,7 @@ namespace AI.Hermes
 
             if (!hasTarget && tree.timeInAir - targetTime < delayTimer)
             {
-                tree.arrowForHermesFX?.ShowFX();
+                tree.arrowForHermesFX?.ShowVFX();
             }
             else if (!hasTarget && tree.timeInAir - targetTime > delayTimer)
             {
@@ -53,6 +53,7 @@ namespace AI.Hermes
             {
                 tree.target = tree.player.position;
             }
+            tree.hermesDiveFX?.ShowSFX(tree.sfxDiveName);
             tree.arrowForHermesFX?.HideFX();
             tree.waited = true;
             hasTarget = false;

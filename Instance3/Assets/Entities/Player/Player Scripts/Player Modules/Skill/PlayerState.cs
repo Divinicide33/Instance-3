@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerState : SkillModule
 {
     public static Action onInvincible { get; set; }
+    public static Action onEndOfInvincibility { get; set; }
     public static Action<Vector3, float> onKnockBack { get; set; }
 
     [SerializeField] private float invincibilityDuration = 1f;
@@ -25,6 +26,11 @@ public class PlayerState : SkillModule
 
         isInvincible = true;
         invincibilityTimer = 0;
+    }
+    
+    private void EndOfInvincibility()
+    {
+        isInvincible = false;
     }
 
     private void KnockBack(Vector3 originPosOfDamage, float power)
@@ -62,12 +68,14 @@ public class PlayerState : SkillModule
             TryGetComponent(out rb);
 
         onInvincible += Invincible;
+        onEndOfInvincibility += EndOfInvincibility;
         onKnockBack += KnockBack;
     }
 
     private void OnDisable()
     {
         onInvincible -= Invincible;
+        onEndOfInvincibility -= EndOfInvincibility;
         onKnockBack -= KnockBack;
     }
 
