@@ -592,9 +592,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
-  m_OutputCamera: {fileID: 1368423951}
-  m_TargetOverride: {fileID: 0}
-  m_LastFrameUpdated: 181
 --- !u!1 &1478405026
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_VcamOwner: {fileID: 1596818045}
   CameraDistance: 10
   DeadZoneDepth: 0
   Composition:
@@ -785,10 +781,6 @@ MonoBehaviour:
     Time: 0
     Smoothing: 0
     IgnoreY: 0
-  m_PreviousCameraPosition: {x: 0, y: 0, z: -10}
-  m_prevRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_InheritingPosition: 0
-  <TrackedPoint>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &1596818045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,25 +797,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 5
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 1512883434}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 1512883434}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField:
-  - {fileID: 1596818047}
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 1512883434}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 1512883434}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
     OrthographicSize: 6
@@ -843,12 +823,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 1
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7777778
-    m_SourceCamera: {fileID: 1368423951}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &1596818046
 Transform:
   m_ObjectHideFlags: 0
@@ -876,7 +851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_VcamOwner: {fileID: 1596818045}
   BoundingShape2D: {fileID: 2036979092}
   Damping: 0.5
   SlowingDistance: 5
@@ -885,6 +859,63 @@ MonoBehaviour:
     MaxWindowSize: 0
     Padding: 0
   m_LegacyMaxWindowSize: -2
+--- !u!1001 &1777834042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6483686507672662567, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_Name
+      value: Fountain
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538599708562719242, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab21a2ea8609e464b9fc66239d6bc7e9, type: 3}
 --- !u!1 &1924442024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,3 +1209,4 @@ SceneRoots:
   - {fileID: 1596818046}
   - {fileID: 625470825}
   - {fileID: 2036979093}
+  - {fileID: 1777834042}

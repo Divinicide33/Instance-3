@@ -40,8 +40,8 @@ public class PlayerController : Entity
         UpdatePlayerUi();
         LoadSavedFountain();
         LoadSavedDoor();
-        //RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
-        PlayerInputScript.onEnableInput?.Invoke(); // ligne a supprimer
+        RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
+        //PlayerInputScript.onEnableInput?.Invoke(); // ligne a supprimer
     }
 
     private void OnEnable() 
