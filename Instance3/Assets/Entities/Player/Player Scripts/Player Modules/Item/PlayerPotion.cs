@@ -59,14 +59,20 @@ public class PlayerPotion : ItemModule
 
     private void Recharge()
     {
-        if (PlayerPrefs.HasKey("MaxPotion")) nbPotionsMax = PlayerPrefs.GetInt("MaxPotion");
+        if (PlayerPrefs.HasKey("Potion")) nbPotionsMax = PlayerPrefs.GetInt("Potion");
         else
         {
-            PlayerPrefs.SetInt("MaxPotion", nbPotionsMax);
+            PlayerPrefs.SetInt("Potion", nbPotionsMax);
             PlayerPrefs.Save();
         }
 
         nbPotions = nbPotionsMax;
         UpdateUi();
+    }
+
+    public int GetMaxPotion()
+    {
+        nbPotionsMax = PlayerPrefs.GetInt("Potion", nbPotionsMax);
+        return nbPotionsMax;
     }
 }

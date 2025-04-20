@@ -37,7 +37,7 @@ public class FadeInOut : MonoBehaviour
 
         if (currentFade != null) 
         {
-            Debug.Log("FadeIn : currentFade != null");
+            //Debug.Log("FadeIn : currentFade != null");
             StopCoroutine(currentFade);
         }
 
@@ -58,7 +58,7 @@ public class FadeInOut : MonoBehaviour
 
         if (currentFade != null) 
         {
-            Debug.Log("FadeOut : currentFade != null");
+            //Debug.Log("FadeOut : currentFade != null");
             StopCoroutine(currentFade);
         }
         
@@ -77,7 +77,7 @@ public class FadeInOut : MonoBehaviour
 
     private IEnumerator FadeRoutine(float targetAlpha, Action onComplete)
     {
-        Debug.Log("💡 FadeRoutine is called !");
+        //Debug.Log("💡 FadeRoutine is called !");
         //Debug.Log($"FadeRoutine : onComplete = {onComplete}");
 
         if (canvasgroup == null)
@@ -122,7 +122,7 @@ public class FadeInOut : MonoBehaviour
     private void ResetCurrentFade()
     {
         currentFade = null;
-        Debug.Log($"currentFade = {currentFade}");
+        //Debug.Log($"currentFade = {currentFade}");
     }
 
     private void OnEnable()
