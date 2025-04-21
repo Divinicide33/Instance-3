@@ -24,9 +24,9 @@ public class VoidZone : MonoBehaviour
     {
         PlayerInputScript.onDisableInput?.Invoke();
 
-        playerControllerInZone.stats.AddHp(-1);
+        playerControllerInZone.stat.AddHp(-1);
         onUse?.Invoke(); // FX / son / UI
-        if (playerControllerInZone.stats.health > 0)
+        if (playerControllerInZone.stat.health > 0)
         {
             RoomManager.Instance.ChangeRoomWithFade(
                 playerControllerInZone.GetLastDoorUsed.room,

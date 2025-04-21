@@ -4,8 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Stats))]
 public abstract class Entity : MonoBehaviour
 {
-    protected Stats stat;
+    public Stats stat;
     protected bool isDead = false;
+
 
     private void Awake() 
     {
@@ -15,8 +16,6 @@ public abstract class Entity : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         if (isDead) return;
-
-        //Debug.Log($"{gameObject.name} is taking {damage} damage");
 
         stat.health -= damage;
         if (stat.health <= 0) 
@@ -35,12 +34,10 @@ public abstract class Entity : MonoBehaviour
     {
         if (isDead) return;
 
-        //stat.health += heal;
         stat.AddHp(heal);
         
         if (stat.health > stat.healthMax)
         {
-            //stat.health = stat.healthMax;
             stat.SetHpToHpMax();
         }
     }
