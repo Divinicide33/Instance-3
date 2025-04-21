@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1888487903055162547}
   - component: {fileID: 5591938142336870180}
   - component: {fileID: 4862462997960560829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParticleSystemForBeHurt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4855,7 +4855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1961037624214325906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4889,9 +4889,11 @@ GameObject:
   - component: {fileID: 4918747011478994414}
   - component: {fileID: 392810335024614696}
   - component: {fileID: 8114887507657382785}
-  - component: {fileID: 1085859530250728570}
   - component: {fileID: 4964761859108212751}
-  m_Layer: 0
+  - component: {fileID: 1085859530250728570}
+  - component: {fileID: 5324267843114851420}
+  - component: {fileID: 3322024147814236521}
+  m_Layer: 8
   m_Name: Zeus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4985,6 +4987,25 @@ MonoBehaviour:
   healthMax: 40
   damage: 2
   speed: 0
+--- !u!114 &4964761859108212751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365789098680743057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 8114887507657382785}
+  enemyHurtFX: {fileID: 0}
+  sfxHurtName: ZeusHurt
+  sfxDeathName: ZeusDead
+  sfxAttackName: ZeusAttack
+  size: {x: 2, y: 2}
+  knockBackPower: 3
 --- !u!114 &1085859530250728570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4999,6 +5020,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 8114887507657382785}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: ZeusHurt
+  sfxDeathName: ZeusDead
+  sfxAttackName: ZeusAttack
   zeus: {fileID: 4918747011478994414}
   topCloudPrefab: {fileID: 4972384301000787284, guid: 4da509f10dc2a554e9bde3b30fb52f95, type: 3}
   sideCloudPrefab: {fileID: 8839231129186560736, guid: a436d979bb7c42441beaf23b91b76734, type: 3}
@@ -5311,19 +5335,76 @@ MonoBehaviour:
   lastPatternEndTime: -Infinity
   isPatternRunning: 0
   nextAttackTime: 1
---- !u!114 &4964761859108212751
-MonoBehaviour:
+--- !u!61 &5324267843114851420
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7365789098680743057}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 8114887507657382785}
-  enemyHurtFX: {fileID: 0}
-  size: {x: 2, y: 2}
-  knockBackPower: 3
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &3322024147814236521
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365789098680743057}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

@@ -84,7 +84,6 @@ public class BTAction_SpawnClouds : BTNode
                 {
                     zcb.tree = tree;
                 }
-
                 currentCloudsAndLightnings.Add(cloudInstance);
             }
             else

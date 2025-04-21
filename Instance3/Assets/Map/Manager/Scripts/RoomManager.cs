@@ -79,6 +79,8 @@ public class RoomManager : MonoBehaviour
         yield return LoadRoomCoroutine(newRoom);
         
         FadeInOut.Instance.FadeOut();
+        
+        PlayerState.onEndOfInvincibility?.Invoke();
     }
 
     private IEnumerator LoadRoomCoroutine(RoomId newRoom)

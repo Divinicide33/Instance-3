@@ -29,8 +29,12 @@ namespace AI.Zeus
         [HideInInspector] public List<GameObject> spawnedGroup;
         [HideInInspector] public BTZeusTree tree;
 
+        [Header("FX")]
+        [HideInInspector] public ZeusAttackFX zeusAttackFX;
+
         private void Start()
         {
+            zeusAttackFX = GetComponentInChildren<ZeusAttackFX>();
             SpawnLightnings();
         }
 
@@ -82,6 +86,7 @@ namespace AI.Zeus
         {
             isSpawningLightnings = false;
             isDestroyingLightning = true;
+            zeusAttackFX?.ShowSFX(tree.sfxAttackName);  
             for (int i = 0; i < spawnedLightnings.Count; i++)
             {
                 if (!spawnedLightnings[i]) continue;

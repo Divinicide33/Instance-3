@@ -9765,6 +9765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8185236951354514711}
+  - component: {fileID: 1298538068826108742}
   m_Layer: 0
   m_Name: FX
   m_TagString: Untagged
@@ -9788,6 +9789,18 @@ Transform:
   - {fileID: 1205968849144957666}
   m_Father: {fileID: 2392396235173834592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1298538068826108742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283553693880667466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f3b99cba4940d4ab29b484c48f24c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4758629394887035101
 GameObject:
   m_ObjectHideFlags: 0
@@ -14807,14 +14820,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5249059981422526792}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d256ea9aebd890644a2901e7a311b3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Potion
   nbPotions: 0
-  nbPotionsMax: 4
+  nbPotionsMax: 1
   healValue: 2
 --- !u!114 &6103533508610122396
 MonoBehaviour:
@@ -14971,21 +14984,17 @@ MonoBehaviour:
     m_ActionId: e6043eab-dbf4-4d4b-9a0b-207928d8cba5
     m_ActionName: 'Player/Dash[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4748789451198910664}
-        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
-        m_MethodName: OnUsePotion
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d9a4723b-9e62-4038-9534-3e7e97d27eef
-    m_ActionName: Player/Potion
+      m_Calls: []
+    m_ActionId: 17887dbe-104e-4b7d-98e1-d323f5db421f
+    m_ActionName: 'Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4eb7edb4-8476-47d9-b2fe-15622410a20d
+    m_ActionName: 'Player/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f03e0a84-2ff1-4d0a-9406-08260dbbad5d
+    m_ActionName: 'Player/Potion[/Keyboard/e,/XInputControllerWindows/buttonSouth]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
