@@ -1,14 +1,19 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
 
-    [SerializeField] private GameObject miniMap;
     [SerializeField] private GameObject largeMap;
     [SerializeField] private GameObject miniMapCamera;
+    [SerializeField] private GameObject mapIcon;
+
+    bool test = false;
 
     public bool isLargeMapActive { get; private set; }
+
+    private float initialCameraPosition;
 
     private void Awake()
     {
@@ -17,6 +22,7 @@ public class MapManager : MonoBehaviour
             instance = this;
         }
         CloseLargeMap();
+        initialCameraPosition = -200;
     }
 
     private void Update()
@@ -36,17 +42,32 @@ public class MapManager : MonoBehaviour
 
     public void OpenLargeMap()
     {
-        miniMap.SetActive(false);
         largeMap.SetActive(true);
         isLargeMapActive = true;
-        miniMapCamera.transform.position = new Vector3(miniMapCamera.transform.position.x, miniMapCamera.transform.position.y, -200f);
+        //if (SceneManager.GetSceneByName("Tutorial2Room").isLoaded)
+        //{
+        //    miniMapCamera.transform.position = new Vector3(0, miniMapCamera.transform.position.y, miniMapCamera.transform.position.z);
+        //    if (!test)
+        //    {
+        //        initialCameraPosition = mapIcon.transform.position.x - 100;
+        //        mapIcon.transform.position = new Vector3(initialCameraPosition, mapIcon.transform.position.y, mapIcon.transform.position.z);
+        //        test = true;
+        //    }
+        //    initialCameraPosition = mapIcon.transform.position.x;
+        //    mapIcon.transform.position = new Vector3(initialCameraPosition, mapIcon.transform.position.y, mapIcon.transform.position.z);
+        //}
+        //else
+        //{
+        //    miniMapCamera.transform.position = new Vector3(-10, miniMapCamera.transform.position.y, miniMapCamera.transform.position.z);
+        //    initialCameraPosition = mapIcon.transform.position.x;
+        //    mapIcon.transform.position = new Vector3(initialCameraPosition, mapIcon.transform.position.y, mapIcon.transform.position.z);
+        //}
+        
     }
 
     public void CloseLargeMap()
     {
-        miniMap.SetActive(true);
         largeMap.SetActive(false);
         isLargeMapActive = false;
-        miniMapCamera.transform.position = new Vector3(miniMapCamera.transform.position.x, miniMapCamera.transform.position.y, -25f);
     }
 }

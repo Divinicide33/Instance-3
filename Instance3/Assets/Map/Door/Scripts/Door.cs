@@ -27,8 +27,9 @@ public class Door : MonoBehaviour
             PlayerState.onInvincible?.Invoke();
             return;
         }
-        
+
         EnterDoor(other.transform.parent);
+
     }
 
     protected virtual void EnterDoor(Transform player)
@@ -39,7 +40,7 @@ public class Door : MonoBehaviour
         RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
         
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
-        // MiniMapRoomManager.instance.RevealRoom();
+        MiniMapRoomManager.instance.RevealRoom(nextRoom);
     }
     
     protected virtual void OnDrawGizmosSelected()
