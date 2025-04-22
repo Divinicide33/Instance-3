@@ -66,7 +66,8 @@ namespace AI.Harpie
             
             returnSpeed = stats.speed;
             diveSpeed = stats.speed * diveSpeedMultiplier;
-            
+
+            treeTransform = transform;
             origin = treeTransform.position;
             idleRotation = treeTransform.rotation;
 
