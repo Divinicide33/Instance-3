@@ -11,9 +11,14 @@ public class PlayerInputScript : PlayerController
     private bool isEnable = true;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
+    [SerializeField] private float offSetInput = 0.5f;
+    private PlayerController player;
     
     private void OnEnable()
     {
+        if (player == null)
+            player = GetComponent<PlayerController>();
+
         onEnableInput += EnableInput;
         onDisableInput += DisableInput;
     }
@@ -26,14 +31,46 @@ public class PlayerInputScript : PlayerController
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !isMoving)
+        {
             isMoving = true;
+            PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
+        }
         else if (context.canceled)
+        {
             isMoving = false;
+            PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
+        }
+
+        Vector2 direction = context.ReadValue<Vector2>();
+
+        if (direction.x > offSetInput) 
+        {
+            player.isFacingRight = true;
+            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
+            direction.x = 1;
+        }
+        else if (direction.x < -offSetInput) 
+        {
+            player.isFacingRight = false;
+            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
+            direction.x = -1;
+        }
+
+        if (direction.y > offSetInput)
+        {
+            player.isFacingUp = true;
+            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
+        }
+        else
+        {
+            player.isFacingUp = false;
+            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
+        }
 
         if (isMoving)
         {
-            PlayerController.onMove?.Invoke(context.ReadValue<Vector2>());
+            PlayerController.onMove?.Invoke(direction);
             return;
         }
 
