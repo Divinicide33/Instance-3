@@ -11,6 +11,7 @@ namespace AI.Harpie
         [HideInInspector] public Transform player;
 
         [Header("Movement")]
+        public float chargeDelay;
         [HideInInspector] public float returnSpeed = 5f;
         [Range(1f, 10f)] public float diveSpeedMultiplier = 3f;
         [HideInInspector] public float diveSpeed= 1f;
@@ -33,10 +34,11 @@ namespace AI.Harpie
 
         [Header("Bool")]
         [HideInInspector] public bool detectedPlayer = false;
+        [HideInInspector] public bool charged = false;
+
 
         [Header("FX")]
         [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
-        
         private void OnEnable()
         {
             GivePlayerForEnnemy.onSetPlayerTarget += SetTarget;
@@ -68,13 +70,14 @@ namespace AI.Harpie
         protected override BTNode SetupTree()
         {
             Init();
-            
+
             BTNode root = new BTSelector(new List<BTNode>
             {
                  new BTSequence(new List<BTNode>
                  {
                     new BTAction_Cooldown(this),
                     new BTAction_CheckPlayerInRange(this),
+                    new BTAction_Delay(this),
                     new BTAction_DiveToPlayer(this),
                  }),
                  new BTAction_PatrolHarpie(this),

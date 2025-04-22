@@ -29,6 +29,7 @@ namespace AI.Harpie
                 rb.gravityScale = 0f;
                 tree.target = tree.lastPlayerPosition;
                 tree.lastDiveTime = Time.time;
+                tree.charged = false;
                 return BTNodeState.SUCCESS;
             }
             return BTNodeState.RUNNING;

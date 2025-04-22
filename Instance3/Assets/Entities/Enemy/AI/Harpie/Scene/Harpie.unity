@@ -651,9 +651,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ca10e971f88e2409541c6cb8595afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  enemyHurtFX: {fileID: 0}
+  sfxHurtName: 
+  sfxDeathName: 
+  sfxAttackName: 
   tree: {fileID: 1176635832}
   player: {fileID: 844517884524557352}
+  chargeDelay: 1
   returnSpeed: 5
+  diveSpeedMultiplier: 3
   diveSpeed: 5
   coolDownTime: 5
   GroundMask:
@@ -669,6 +676,8 @@ MonoBehaviour:
   attackRange: 1.5
   knockbackForce: 5
   detectedPlayer: 0
+  charged: 0
+  fxDetectPlayer: {fileID: 0}
 --- !u!114 &1176635830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,7 +693,7 @@ MonoBehaviour:
   health: 0
   healthMax: 0
   damage: 0
-  speed: 0
+  speed: 2
 --- !u!212 &1176635831
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1185,6 +1194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9394ff526c767c4e81be5094ca36e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  isFacingRight: 1
+  isFacingUp: 1
 --- !u!4 &6246885589332619756
 Transform:
   m_ObjectHideFlags: 0
@@ -1573,7 +1585,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03070ac776404784f80e19aa9aea698e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   isFacingRight: 1
+  isFacingUp: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

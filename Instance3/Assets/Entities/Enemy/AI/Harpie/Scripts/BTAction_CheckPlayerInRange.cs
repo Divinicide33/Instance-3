@@ -29,7 +29,6 @@ namespace AI.Harpie
                 tree.lastPlayerPosition = tree.player.position; 
                 tree.target = tree.lastPlayerPosition;
                 tree.detectedPlayer = true;
-                tree.GetComponent<Rigidbody2D>().simulated = true;
                 return BTNodeState.SUCCESS;
             }
             return BTNodeState.FAILURE;
