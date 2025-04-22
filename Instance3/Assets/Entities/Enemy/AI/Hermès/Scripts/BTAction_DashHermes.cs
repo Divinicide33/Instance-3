@@ -16,17 +16,24 @@ namespace AI.Hermes
 
         private int platformMask;
 
+        float test;
+
         public BTAction_DashHermes(BTHermesTree btParent)
         {
             this.tree = btParent;
             platformMask = LayerMask.GetMask(LayerMap.Platform.ToString());
             dashTimer = btParent.dashDuration;
+            test = dashTimer;
             direction = Vector2.right;
             raycastTransform = btParent.raycast;
         }
 
         public override BTNodeState Evaluate()
         {
+            if (dashTimer == test)
+            {
+                tree.hermesDashFX?.ShowSFX(tree.sfxDashName);
+            }
             dashTimer -= Time.deltaTime;
 
             Vector2 raycastDirection = tree.tree.localScale.x >= 0 ? Vector2.right : Vector2.left;

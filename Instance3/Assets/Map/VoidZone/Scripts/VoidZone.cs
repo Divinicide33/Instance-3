@@ -28,6 +28,7 @@ public class VoidZone : MonoBehaviour
         onUse?.Invoke(); // FX / son / UI
         if (playerControllerInZone.stat.health > 0)
         {
+            PlayerMove.onResetVelocity?.Invoke();
             RoomManager.Instance.ChangeRoomWithFade(
                 playerControllerInZone.GetLastDoorUsed.room,
                 playerControllerInZone.transform,

@@ -8,6 +8,15 @@ public class PlayerAttack : MonoBehaviour
     public static Action<bool> onIsAttacking { get; set; }
     public static Action onStopAction { get; set; }
 
+    [Header("FX")]
+    private AttackFX attackFX;
+    private string sfxName = "PlayerAttack";
+    DashFX dashFx;
+    private void Awake()
+    {
+        attackFX = GetComponentInChildren<AttackFX>();
+        dashFx = GetComponentInChildren<DashFX>();
+    }
     private void OnEnable() 
     {
         PlayerController.onAttack += Attack;
@@ -38,6 +47,8 @@ public class PlayerAttack : MonoBehaviour
         onIsAttacking?.Invoke(isAttacking);
 
         PlayerSword.onSword?.Invoke();
+
+        attackFX?.ShowSFX(sfxName);
     }
 
     public void EndOfTheAttack()

@@ -125,6 +125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 6360911668327473573}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: HermesHurt
+  sfxDeathName: HermesDead
+  sfxAttackName: 
   size: {x: 1.5, y: 1.5}
   knockBackPower: 3
 --- !u!114 &2039279959265930329
@@ -141,6 +144,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 6360911668327473573}
   enemyHurtFX: {fileID: 0}
+  sfxHurtName: HermesHurt
+  sfxDeathName: HermesDead
+  sfxAttackName: 
   action: 0
   tree: {fileID: 7686333355331128391}
   player: {fileID: 0}
@@ -164,6 +170,8 @@ MonoBehaviour:
   targetTime: 1.75
   lastDashDirection: {x: 0, y: 0}
   arrowForHermesFX: {fileID: 0}
+  sfxDashName: HermesDash
+  sfxDiveName: HermesDive
 --- !u!61 &5043463553041402413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5361,6 +5369,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5633491293623521466}
+  - component: {fileID: 5244146645898931786}
+  - component: {fileID: 9119427253344752921}
   m_Layer: 8
   m_Name: FX
   m_TagString: Untagged
@@ -5385,3 +5395,27 @@ Transform:
   - {fileID: 6725980435163849354}
   m_Father: {fileID: 7686333355331128391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5244146645898931786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8217273649493725779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7add5c1b195420478461422922ed502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9119427253344752921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8217273649493725779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bacb39d39e051478d3b2a554b7640b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

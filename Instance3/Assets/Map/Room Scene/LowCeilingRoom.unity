@@ -3009,30 +3009,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: damage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: health
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: healthMax
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: knockBackPower
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1568861015459527580, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.88
@@ -3073,41 +3049,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1875609581773975787, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875609581773975787, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.055
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -5438099044131615788, guid: 1fec8748d93604b4ca32ae71d11dba9e, type: 3}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4089835422839776337, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
       propertyPath: m_Name
       value: WildBoard (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498794438152171834, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9130100575408008711, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: damage
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3167,30 +3111,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: damage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: health
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 149278985928202130, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: healthMax
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1431109938666343583, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: knockBackPower
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1568861015459527580, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.52
@@ -3231,41 +3151,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1875609581773975787, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875609581773975787, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.055
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -5438099044131615788, guid: 1fec8748d93604b4ca32ae71d11dba9e, type: 3}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349627897435695217, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4089835422839776337, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
       propertyPath: m_Name
       value: WildBoard (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498794438152171834, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9130100575408008711, guid: ed7474406568df1428772cf5636ecbd7, type: 3}
-      propertyPath: damage
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
