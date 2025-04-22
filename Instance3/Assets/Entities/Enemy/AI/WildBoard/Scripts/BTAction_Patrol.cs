@@ -1,23 +1,16 @@
-using UnityEngine;
 using BehaviorTree;
+using UnityEngine;
 
 namespace AI.WildBoard
 {
     public class BTAction_Patrol : BTNode
     {
         private BTBoarTree tree;
-
         private float moveSpeed;
-        private float detectionDistance = 2f;
-
-        private Vector2 direction;
-
+        private float detectionDistance = 0.7f;
         private Transform boar;
         private Transform fovOrigin;
-
         private LayerMask platformLayerMask;
-
-        private bool initialized = false;
 
         public BTAction_Patrol(BTBoarTree btParent)
         {
@@ -30,38 +23,25 @@ namespace AI.WildBoard
 
         public override BTNodeState Evaluate()
         {
-            if (!initialized)
-            {
-                direction = tree.lastDashDirection != Vector2.zero ? tree.lastDashDirection : Vector2.right;
-                bool facingRight = direction.x > 0f;
-                boar.eulerAngles = new Vector3(0f, facingRight ? 0f : 180f, 0f);
-
-                initialized = true;
-            }
-            RaycastHit2D hitObstacle = Physics2D.Raycast(fovOrigin.position, direction, detectionDistance, platformLayerMask);
+            RaycastHit2D hitObstacle = Physics2D.Raycast(fovOrigin.position, tree.direction, detectionDistance, platformLayerMask);
             if (hitObstacle.collider != null)
             {
-                FlipDirection();
+                tree.FlipDirection();              
             }
+
             RaycastHit2D hitGround = Physics2D.Raycast(fovOrigin.position, Vector2.down, detectionDistance, platformLayerMask);
             if (hitGround.collider == null)
             {
-                
-                FlipDirection();
+                tree.FlipDirection();
             }
-            boar.position += (Vector3)(direction.normalized * moveSpeed * Time.deltaTime);
-            Debug.DrawRay(fovOrigin.position, direction * detectionDistance, Color.red);
+
+            boar.position += (Vector3)(tree.direction.normalized * moveSpeed * Time.deltaTime);
+
+            Debug.DrawRay(fovOrigin.position, tree.direction * detectionDistance, Color.red);
             Debug.DrawRay(boar.position, Vector2.down * detectionDistance, Color.green);
 
-            state = BTNodeState.SUCCESS;
+            state = BTNodeState.RUNNING;
             return state;
         }
-        private void FlipDirection()
-        {
-            direction *= -1;
-            Vector3 currentEuler = boar.eulerAngles;
-            boar.eulerAngles = new Vector3(currentEuler.x, currentEuler.y + 180f, currentEuler.z);
-        }
-
     }
 }

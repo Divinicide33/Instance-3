@@ -10,6 +10,7 @@ namespace AI.WildBoard
         private bool charging = false;
         private float dashTimer;
         private float delayTimer;
+        private float detectionDistance = 0.7f;
 
         public BTAction_ChargePattern(BTBoarTree tree)
         {
@@ -20,54 +21,45 @@ namespace AI.WildBoard
 
         public override BTNodeState Evaluate()
         {
-            // Phase 1 : Charge Delay
+            // Phase 1 : Delay avant le dash
             if (!charging)
             {
-                tree.fxDetectPlayer?.ShowVFX();
+                tree.fxDetectPlayer.ShowVFX();
                 delayTimer -= Time.deltaTime;
                 if (delayTimer > 0)
-                {
-                    
                     return BTNodeState.RUNNING;
-                }
-                else
-                {
-                    tree.fxDetectPlayer?.ShowSFX(tree.sfxAttackName);
-                }
+
                 charging = true;
                 dashTimer = tree.dashDuration;
             }
 
             dashTimer -= Time.deltaTime;
 
-            Vector2 dashDirection = new Vector2(tree.dashSpeed * Time.deltaTime, 0); 
-            tree.gameObject.transform.Translate(dashDirection);
+            Vector2 raycastOrigin = tree.fovOrigin.transform.position;
+            Vector2 raycastDirection = tree.direction;
 
-            tree.lastDashDirection = dashDirection.normalized;
+            Debug.DrawRay(raycastOrigin, raycastDirection * detectionDistance, Color.red);
+            RaycastHit2D hitWall = Physics2D.Raycast(raycastOrigin, raycastDirection, detectionDistance, tree.obstacleLayer);
 
-            Collider2D hitPlayer = Physics2D.OverlapCircle(tree.gameObject.transform.position, 0.7f, tree.playerLayer);
-            if (hitPlayer != null)
+            if (hitWall.collider != null)
             {
-                Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-/*                    Vector2 knockbackDir = ((Vector2)hitPlayer.transform.position - (Vector2)tree.gameObject.transform.position);
-                    knockbackDir.y = 0;
-                    knockbackDir.Normalize();
-                    knockbackDir.y = knockbackDir.magnitude;
-                    rb.linearVelocity = knockbackDir * tree.knockbackForce;*/
-                    //invincibilter.invoke() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                }
+                tree.FlipDirection();         
+            }        
+
+            Vector2 dashDirection = tree.direction.x >= 0 ? tree.direction : -tree.direction;
+
+            Vector2 dashMovement = dashDirection * tree.dashSpeed * Time.deltaTime;
+            Debug.Log(dashMovement);
+            tree.transform.Translate(dashMovement);
+
+            if (dashTimer <= 0)
+            {
+                ResetCharge();
+                return BTNodeState.SUCCESS;
             }
 
-            if (dashTimer > 0)
-            {
-                tree.fxDetectPlayer?.HideFX();
-                return BTNodeState.RUNNING;
-            }
-
-            ResetCharge();
-            return BTNodeState.SUCCESS;
+            tree.fxDetectPlayer?.HideFX();
+            return BTNodeState.RUNNING;
         }
 
         private void ResetCharge()

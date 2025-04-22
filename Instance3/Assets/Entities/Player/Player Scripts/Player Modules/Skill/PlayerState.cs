@@ -7,15 +7,21 @@ public class PlayerState : SkillModule
     public static Action onEndOfInvincibility { get; set; }
     public static Action<Vector3, float> onKnockBack { get; set; }
 
+
+    [Tooltip("invincibilityDuration in seconds")]
     [SerializeField] private float invincibilityDuration = 1f;
+
+    [Tooltip("knockBackDuration in seconds")]
     [SerializeField] private float knockBackDuration = 0.5f;
     
     private Stats stats;
     private Rigidbody2D rb;
-    
+
+    [Header("Invincibility variable")]
     private float invincibilityTimer = 0;
     private bool isInvincible = false;
-    
+
+    [Header("KnockBack variable")]
     private float knockBackTimer = 0;
     private bool isKnockedBack = false;
 
@@ -42,13 +48,10 @@ public class PlayerState : SkillModule
         Vector2 direction =  transform.position - originPosOfDamage;
 
         if (direction.x > 0)
-        {
             direction.x = 1;
-        }
+
         else if (direction.x < 0)
-        {
             direction.x = -1;
-        }
 
         direction.y = 1;
 
@@ -85,6 +88,7 @@ public class PlayerState : SkillModule
         if (isInvincible) 
         {
             invincibilityTimer += Time.deltaTime;
+
             if (invincibilityDuration <= invincibilityTimer)
             {
                 isInvincible = false;
@@ -95,6 +99,7 @@ public class PlayerState : SkillModule
         if (isKnockedBack) 
         {
             knockBackTimer += Time.deltaTime;
+
             if (knockBackDuration <= knockBackTimer)
             {
                 isKnockedBack = false;

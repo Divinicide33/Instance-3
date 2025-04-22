@@ -40,7 +40,6 @@ public class PlayerMove : MonoBehaviour
     {
         canMove = false; 
         rb.linearVelocity = Vector2.zero;
-        Debug.Log(rb.linearVelocity);
     }
 
     private void SetCanMove(bool value)
@@ -61,8 +60,8 @@ public class PlayerMove : MonoBehaviour
         {
             rb.linearVelocityX = direction.x * stats.speed;
         }
-        
     }
+
     public void Move(Vector2 inputDirection)
     {
         direction = inputDirection;

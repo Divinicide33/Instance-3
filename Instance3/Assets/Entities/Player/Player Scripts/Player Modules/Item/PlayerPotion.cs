@@ -14,17 +14,14 @@ public class PlayerPotion : ItemModule
     {
         Recharge();
     }
-    
+
     protected override void Use()
     {
         if (stats.health == stats.healthMax)
-        {
-            Debug.Log("Already full life");
-            UpdateUi();
             return;
-        }
 
-        if (nbPotions <= 0) return;
+        if (nbPotions <= 0) 
+            return;
 
         nbPotions--;
 
@@ -41,10 +38,14 @@ public class PlayerPotion : ItemModule
 
     private void OnEnable()
     {
-        if (stats == null) stats = GetComponent<Stats>();
-        if (player == null) player = GetComponent<PlayerController>();
+        if (stats == null) 
+            stats = GetComponent<Stats>();
+
+        if (player == null) 
+            player = GetComponent<PlayerController>();
 
         onRecharge += Recharge;
+
         PlayerController.onUsePotion += Use;
         DisplayPotions.onShow?.Invoke();
 
@@ -59,10 +60,11 @@ public class PlayerPotion : ItemModule
 
     private void Recharge()
     {
-        if (PlayerPrefs.HasKey("Potion")) nbPotionsMax = PlayerPrefs.GetInt("Potion");
+        if (PlayerPrefs.HasKey(ItemsName.Potion.ToString())) 
+            nbPotionsMax = PlayerPrefs.GetInt(ItemsName.Potion.ToString());
         else
         {
-            PlayerPrefs.SetInt("Potion", nbPotionsMax);
+            PlayerPrefs.SetInt(ItemsName.Potion.ToString(), nbPotionsMax);
             PlayerPrefs.Save();
         }
 
@@ -72,7 +74,7 @@ public class PlayerPotion : ItemModule
 
     public int GetMaxPotion()
     {
-        nbPotionsMax = PlayerPrefs.GetInt("Potion", nbPotionsMax);
+        nbPotionsMax = PlayerPrefs.GetInt(ItemsName.Potion.ToString(), nbPotionsMax);
         return nbPotionsMax;
     }
 }

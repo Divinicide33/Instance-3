@@ -8,12 +8,21 @@ public class Door : MonoBehaviour
     public RoomId NextRoom => nextRoom;
     [SerializeField] private string selectedDoorName; // Nom de la porte sélectionnée dans la scène cible (renseigné via l'éditeur personnalisé)
     [SerializeField] private Vector3 targetPosition; // Position cible de la porte (renseignée par le DoorEditor)
+    [SerializeField] private SpriteRenderer doorSprite;
     public Vector3 TargetPosition
     {
         get { return targetPosition; }
         set { targetPosition = value; }
     }
-    
+
+    private void Start()
+    {
+        TryGetComponent(out doorSprite);
+
+        DisableSprite();
+    }
+
+
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.TryGetComponent<Enemy>(out _))
@@ -41,6 +50,21 @@ public class Door : MonoBehaviour
         
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
         MiniMapRoomManager.instance.RevealRoom(nextRoom);
+    }
+
+    protected virtual void DisableSprite()
+    {
+        if (doorSprite != null)
+        {
+            doorSprite.enabled = false;
+        }
+    }
+    protected virtual void EnableSprite()
+    {
+        if (doorSprite != null)
+        {
+            doorSprite.enabled = true;
+        }
     }
     
     protected virtual void OnDrawGizmosSelected()

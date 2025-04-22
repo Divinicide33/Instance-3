@@ -8,7 +8,7 @@ public class DisplayHealth : UIElement<DisplayHealth>
     [SerializeField] private Stats playerStats;
     public static Action<Stats> onUpdateHpMax { get; set; }
     [SerializeField] private Transform healthPanel;
-    [SerializeField] GameObject hpImage;
+    [SerializeField] private GameObject hpImage;
     [SerializeField] private Sprite hpFilled;
     [SerializeField] private Sprite hpHollow;
     [SerializeField] private List<Image> images;
@@ -77,7 +77,8 @@ public class DisplayHealth : UIElement<DisplayHealth>
     {
         int index = 0;
 
-        if (playerStats.healthMax < playerStats.health) playerStats.health = playerStats.healthMax;
+        if (playerStats.healthMax < playerStats.health)
+            playerStats.health = playerStats.healthMax;
 
         foreach (Image image in images)
         {
