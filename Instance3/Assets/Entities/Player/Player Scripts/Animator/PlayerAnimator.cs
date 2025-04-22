@@ -8,12 +8,14 @@ public class PlayerAnimator : MonoBehaviour
     public static Action<bool> onSetIsAttacking {get; set;}
     public static Action<bool> onSetIsFacingRight {get; set;}
     public static Action<bool> onSetIsFacingUp {get; set;}
+    public static Action<bool> onSetIsMoving {get; set;}
 
     void OnEnable()
     {
         onSetIsAttacking += IsAttacking;
         onSetIsFacingRight += IsFacingRight;
         onSetIsFacingUp += IsFacingUp;
+        onSetIsMoving += IsMoving;
     }
 
     void OnDisable()
@@ -21,6 +23,12 @@ public class PlayerAnimator : MonoBehaviour
         onSetIsAttacking -= IsAttacking;
         onSetIsFacingRight -= IsFacingRight;
         onSetIsFacingUp -= IsFacingUp;
+        onSetIsMoving -= IsMoving;
+    }
+
+    private void IsMoving(bool value)
+    {
+        animatorUpBody.SetBool(SetAnimatorVariable.isMoving.ToString(), value);
     }
 
     private void IsAttacking(bool value)
@@ -43,6 +51,8 @@ public enum SetAnimatorVariable
 {
     isAttacking,
     isFacingRight,
-    isFacingUp
+    isFacingUp,
+    isMoving,
+    isJumping
 
 }

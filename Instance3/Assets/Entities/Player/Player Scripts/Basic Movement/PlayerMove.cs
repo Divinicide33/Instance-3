@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float offSetInput = 0.5f;
-    private PlayerController player;
     private Rigidbody2D rb;
     private Stats stats;
     private Vector2 direction;
@@ -17,7 +15,6 @@ public class PlayerMove : MonoBehaviour
     {
         stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<PlayerController>();
     }
 
     void OnEnable()
@@ -65,29 +62,5 @@ public class PlayerMove : MonoBehaviour
     public void Move(Vector2 inputDirection)
     {
         direction = inputDirection;
-
-        if (direction.x > offSetInput) 
-        {
-            player.isFacingRight = true;
-            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
-            direction.x = 1;
-        }
-        else if (direction.x < -offSetInput) 
-        {
-            player.isFacingRight = false;
-            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
-            direction.x = -1;
-        }
-
-        if (direction.y > offSetInput)
-        {
-            player.isFacingUp = true;
-            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
-        }
-        else
-        {
-            player.isFacingUp = false;
-            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
-        }
     }
 }
