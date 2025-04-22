@@ -9,10 +9,23 @@ public class DoorArena : Door
     public static Action<Enemy> onAddEnemy;
     public static Action<Enemy> onRemoveEnemy;
 
-    private void OnEnable()
+    protected bool isCleared = false;
+
+    protected override void OnEnable()
     {
         onAddEnemy += AddEnemy;
         onRemoveEnemy += RemoveEnemy;
+        
+        isCleared = PlayerPrefs.HasKey(refSave) && PlayerPrefs.GetInt(refSave) == 1; // truc a ajouter
+        Debug.Log($"isCleared : {isCleared}");
+        
+        TryGetComponent(out sprite);
+        if (isCleared) 
+        {
+            DisableSprite();
+            return;
+        }
+        EnableSprite();
     }
 
     private void OnDisable()
@@ -31,16 +44,23 @@ public class DoorArena : Door
     {
         if (remainingEnemies.Contains(enemy))
             remainingEnemies.Remove(enemy);
+
+        if (remainingEnemies.Count > 0) 
+            return;
+        
+        isCleared = true;
+        DisableSprite();
+            
+        // save
+        PlayerPrefs.SetInt(refSave, 1);
+        PlayerPrefs.Save();
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (remainingEnemies.Count > 0)
-        {
-            Debug.Log("🚫 La porte de l’arène est verrouillée. Ennemis restants : " + remainingEnemies.Count);
+        if (!isCleared)
             return;
-        }
-
-        base.OnTriggerEnter2D(other); // autorise le passage si plus d’ennemis
+        
+        base.OnTriggerEnter2D(other); // autorise le passage si plus d’ennemis   
     }
 }

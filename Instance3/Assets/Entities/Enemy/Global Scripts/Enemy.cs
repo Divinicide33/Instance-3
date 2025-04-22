@@ -22,7 +22,6 @@ public class Enemy : Entity
         base.Defeat();
         enemyHurtFX?.ShowSFX(sfxDeathName);
         DoorArena.onRemoveEnemy?.Invoke(this);
-        DoorBoss.onSetBossDefeated?.Invoke(true);
         Destroy(gameObject);
     }
 

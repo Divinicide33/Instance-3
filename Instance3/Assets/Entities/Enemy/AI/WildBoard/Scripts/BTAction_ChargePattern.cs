@@ -49,7 +49,7 @@ namespace AI.WildBoard
             Vector2 dashDirection = tree.direction.x >= 0 ? tree.direction : -tree.direction;
 
             Vector2 dashMovement = dashDirection * tree.dashSpeed * Time.deltaTime;
-            Debug.Log(dashMovement);
+            //Debug.Log(dashMovement);
             tree.transform.Translate(dashMovement);
 
             if (dashTimer <= 0)

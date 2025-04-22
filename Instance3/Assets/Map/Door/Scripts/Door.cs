@@ -1,5 +1,6 @@
+using System;
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
@@ -8,17 +9,23 @@ public class Door : MonoBehaviour
     public RoomId NextRoom => nextRoom;
     [SerializeField] private string selectedDoorName; // Nom de la porte sélectionnée dans la scène cible (renseigné via l'éditeur personnalisé)
     [SerializeField] private Vector3 targetPosition; // Position cible de la porte (renseignée par le DoorEditor)
-    [SerializeField] private SpriteRenderer doorSprite;
+    [SerializeField] protected SpriteRenderer sprite;
+    protected string refSave = $"";
     public Vector3 TargetPosition
     {
         get { return targetPosition; }
         set { targetPosition = value; }
     }
 
-    private void Start()
+    private void Awake()
     {
-        TryGetComponent(out doorSprite);
+        refSave = $"{SceneManager.GetSceneAt(1).name} is {GetType().Name}";
+    }
 
+    protected virtual void OnEnable()
+    {
+        TryGetComponent(out sprite);
+        
         DisableSprite();
     }
 
@@ -47,22 +54,27 @@ public class Door : MonoBehaviour
         AudioManager.OnStopAllSFX?.Invoke();
         RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
         
+        
+        
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
         // MiniMapRoomManager.instance.RevealRoom();
     }
 
     protected virtual void DisableSprite()
     {
-        if (doorSprite != null)
+        if (sprite != null)
         {
-            doorSprite.enabled = false;
+            Debug.Log($"Disable Sprite : {GetType().Name}");
+            sprite.enabled = false;
         }
     }
+    
     protected virtual void EnableSprite()
     {
-        if (doorSprite != null)
+        if (sprite != null)
         {
-            doorSprite.enabled = true;
+            Debug.Log($"Enable Sprite : {GetType().Name}");
+            sprite.enabled = true;
         }
     }
     
