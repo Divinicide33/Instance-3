@@ -24,24 +24,24 @@ public class PlayerSword : ItemModule
 
         foreach (Collider2D entity in entities)
         {
-            if (!colliderHited.Contains(entity))
-            {
-                if (entity.TryGetComponent(out Entity damageScript)) 
-                {
-                    //Debug.Log($"{damageScript}");
-                    damageScript.TakeDamage(stats.damage);
-                }
+            if (colliderHited.Contains(entity))
+                return;
 
-                colliderHited.Add(entity);
-            }
+            if (entity.TryGetComponent(out Entity damageScript))
+                damageScript.TakeDamage(stats.damage);
+
+            colliderHited.Add(entity);
         }
     }
 
     private void OnEnable() 
     {
-        if (stats == null) stats = GetComponent<Stats>();
+        if (stats == null) 
+            stats = GetComponent<Stats>();
+
         onSword += Use;
     }
+
     private void OnDisable() 
     {
         onSword -= Use;
@@ -49,7 +49,8 @@ public class PlayerSword : ItemModule
 
     void Update()
     {
-        if (isDoingDamage) DealDamage();
+        if (isDoingDamage) 
+            DealDamage();
     }
 
     public void EnableDamage()
@@ -65,10 +66,13 @@ public class PlayerSword : ItemModule
 
     void OnDrawGizmos()
     {
-        if (damagePos == null) return;
+        if (damagePos == null) 
+            return;
 
-        if (isDoingDamage) Gizmos.color = Color.red;
-        else Gizmos.color = Color.blue;
+        if (isDoingDamage) 
+            Gizmos.color = Color.red;
+        else 
+            Gizmos.color = Color.blue;
 
         Vector3 center = damagePos.position;
         float angle = radius;

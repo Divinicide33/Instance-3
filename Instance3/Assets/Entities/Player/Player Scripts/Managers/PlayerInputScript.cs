@@ -27,78 +27,76 @@ public class PlayerInputScript : PlayerController
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
             isMoving = true;
-        }
         else if (context.canceled)
-        {
             isMoving = false;
-        }
 
         if (isMoving)
         {
             PlayerController.onMove?.Invoke(context.ReadValue<Vector2>());
+            return;
         }
-        else
-        {
-            PlayerController.onMove?.Invoke(Vector2.zero);
-        }
+
+        PlayerController.onMove?.Invoke(Vector2.zero);
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             PlayerController.onGlide?.Invoke(true);
-            if (!isEnable) return;
+        
+            if (!isEnable) 
+                return;
+
             PlayerController.onJump?.Invoke(true);
         }
         else if (context.canceled)
         {
             PlayerController.onGlide?.Invoke(false);
-            if (!isEnable) return;
+
+            if (!isEnable) 
+                return;
+
             PlayerController.onJump?.Invoke(false);
         }
     }
+
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (!isEnable) return;
+        if (!isEnable) 
+            return;
+
         if (context.started)
-        {
             PlayerController.onDash?.Invoke();
-        }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!isEnable) return;
+        if (!isEnable)
+            return;
+
         if (context.started)
-        {
             PlayerController.onAttack?.Invoke();
-        }
     }
 
     public void OnUsePotion(InputAction.CallbackContext context)
     {
-        if (!isEnable) return;
+        if (!isEnable) 
+            return;
+
         if (context.started)
-        {
             PlayerController.onUsePotion?.Invoke();
-        }
     }
 
     private void EnableInput()
     {
-        if (isDead) return;
+        if (isDead) 
+            return;
 
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        
-        /*// Obtenir la méthode appelante
-        StackTrace stackTrace = new StackTrace();
-        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
-
-        Debug.Log($"Input enabled (called from: {caller})");*/
     }
 
     private void DisableInput()
@@ -108,12 +106,6 @@ public class PlayerInputScript : PlayerController
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
-        
-        /*// Obtenir la méthode appelante
-        StackTrace stackTrace = new StackTrace();
-        string caller = stackTrace.GetFrame(1)?.GetMethod()?.DeclaringType?.Name;
-
-        Debug.Log($"Input disabled (called from: {caller})");*/
     }
 
     public void StartPause(InputAction.CallbackContext context)

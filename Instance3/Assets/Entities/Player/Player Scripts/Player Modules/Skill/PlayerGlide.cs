@@ -7,12 +7,13 @@ public class PlayerGlide : SkillModule
     [SerializeField] private float maxVelocityY;
     private bool isGliding = false;
     private bool canGlide = true;
-
     public static Action<bool> onCanGlide {get; set;}
 
     private void OnEnable() 
     {
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (rb == null) 
+            rb = GetComponent<Rigidbody2D>();
+        
         PlayerController.onGlide += Glide;
         onCanGlide += SetCanGlide;
     }
@@ -30,10 +31,18 @@ public class PlayerGlide : SkillModule
 
     private void Update() 
     {
-        if (!isGliding || !canGlide) return;
-        if (rb.linearVelocityY < -maxVelocityY) rb.linearVelocityY = -maxVelocityY;
+        if (!isGliding || !canGlide) 
+            return;
+
+        if (rb.linearVelocityY < -maxVelocityY) 
+            rb.linearVelocityY = -maxVelocityY;
     }
-    public void Glide(bool value) // if you are falling too fast while gliding , you are caped to the max velocity
+
+    /// <summary>
+    ///  if you are falling too fast while gliding , you are caped to the max velocity
+    /// </summary>
+    /// <param name="value"></param>
+    public void Glide(bool value) 
     {
         isGliding = value;
     }
