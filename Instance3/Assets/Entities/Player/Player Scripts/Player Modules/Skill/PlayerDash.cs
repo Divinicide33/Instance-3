@@ -5,7 +5,6 @@ public class PlayerDash : SkillModule
 {
     private Rigidbody2D rb;
     private PlayerController player;
-    private PlayerMove playerMove;
 
     [Header("Dash Variable")]
     [SerializeField] private float dashForce;
@@ -18,10 +17,8 @@ public class PlayerDash : SkillModule
     private int direction;
     private float height;
     private bool isGrounded = false;
-
     public static Action onStopDash { get; set; }
     public static Action<bool> onSetIsDashing { get; set; }
-
     private bool isAttacking = false;
     
     [Header("FX")]
@@ -30,7 +27,6 @@ public class PlayerDash : SkillModule
     void Awake()
     {
         player = GetComponent<PlayerController>();
-        playerMove = GetComponent<PlayerMove>();
         rb = GetComponent<Rigidbody2D>();
         dashFx = GetComponentInChildren<DashFX>();
     }
@@ -42,6 +38,7 @@ public class PlayerDash : SkillModule
         GroundCheck.onGrounded += ChangeBool;
         onStopDash += StopDash;
     }
+
     void OnDisable()
     {
         PlayerController.onDash -= Dash;
@@ -54,13 +51,18 @@ public class PlayerDash : SkillModule
     {
         isAttacking = value;
     }
+
     void Update() 
     {
-        if (!canDash) CheckIfCanDash();
-        else timerCooldown = 0;
+        if (!canDash) 
+            CheckIfCanDash();
+        else 
+            timerCooldown = 0;
 
-        if (isDashing) Dashing();
-        else timerDash = 0;
+        if (isDashing) 
+            Dashing();
+        else 
+            timerDash = 0;
     }
 
     private void ChangeBool(bool value)
@@ -76,8 +78,10 @@ public class PlayerDash : SkillModule
             height = transform.position.y;
             rb.linearVelocityY = 0;
 
-            if (player.isFacingRight) direction = 1;
-            else direction = -1;
+            if (player.isFacingRight) 
+                direction = 1;
+            else 
+                direction = -1;
 
             canDash = false;
             isDashing = true;
@@ -94,15 +98,15 @@ public class PlayerDash : SkillModule
         rb.linearVelocityX = direction * dashForce;
         
         if (timerDash >= dashDuration)
-        {
             StopDash();
-        }
-
     }
+
     void CheckIfCanDash()
     {
         timerCooldown += Time.deltaTime;
-        if (timerCooldown >= dashCooldown && isGrounded) canDash = true;
+
+        if (timerCooldown >= dashCooldown && isGrounded)
+            canDash = true;
     }
 
     public void StopDash()

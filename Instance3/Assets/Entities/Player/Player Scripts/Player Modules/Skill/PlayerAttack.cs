@@ -5,7 +5,6 @@ public class PlayerAttack : MonoBehaviour
 {
     private bool isAttacking = false;
     private bool isDashing = false;
-
     public static Action<bool> onIsAttacking { get; set; }
     public static Action onStopAction { get; set; }
 
@@ -29,8 +28,11 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (isAttacking) return;
-        if (isDashing) return;
+        if (isAttacking) 
+            return;
+
+        if (isDashing) 
+            return;
 
         isAttacking = true;
         onIsAttacking?.Invoke(isAttacking);

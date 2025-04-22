@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -22,17 +21,13 @@ public class PlayerSkillManager : MonoBehaviour
         foreach (var skill in playerSkills.playerModules)
         {
             if (PlayerPrefs.HasKey(skill.ModuleName) && PlayerPrefs.GetInt(skill.ModuleName) == 1)
-            {
                 playerSkills.UnlockModule(skill.ModuleName);
-            }
         }
 
         foreach (var item in playerItems.playerModules)
         {
             if (PlayerPrefs.HasKey(item.ModuleName) && PlayerPrefs.GetInt(item.ModuleName) == 1)
-            {
                 playerItems.UnlockModule(item.ModuleName);
-            }
         }
     }
 
@@ -41,11 +36,10 @@ public class PlayerSkillManager : MonoBehaviour
         if (value)
         {
             playerSkills.UnlockModule(name.ToString());
+            return;
         }
-        else
-        {
-            playerSkills.LockModule(name.ToString());
-        }
+
+        playerSkills.LockModule(name.ToString());
     }
 
     void SetItem(ItemsName name, bool value)
@@ -53,11 +47,10 @@ public class PlayerSkillManager : MonoBehaviour
         if (value)
         {
             playerItems.UnlockModule(name.ToString());
+            return;
         }
-        else
-        {
-            playerItems.LockModule(name.ToString());
-        }
+
+        playerItems.LockModule(name.ToString());
     }
 
     private void OnEnable() 
@@ -65,7 +58,7 @@ public class PlayerSkillManager : MonoBehaviour
         onSetItem += SetItem; 
         onSetSkill += SetSkill;
     }
-    
+
     private void OnDisable() 
     {
         onSetItem -= SetItem; 

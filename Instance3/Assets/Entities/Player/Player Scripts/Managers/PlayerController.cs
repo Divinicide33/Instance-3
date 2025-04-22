@@ -37,6 +37,7 @@ public class PlayerController : Entity
         UpdatePlayerUi();
         LoadSavedFountain();
         LoadSavedDoor();
+
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
     }
 
@@ -55,7 +56,7 @@ public class PlayerController : Entity
         onSaveDoor -= SaveDoor;
         onIsDead -= IsDead;
     }
-    
+
     void EndOfInvincibility()
     {
         isInvincible = false;
@@ -68,7 +69,8 @@ public class PlayerController : Entity
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible || isDead) return;
+        if (isInvincible || isDead) 
+            return;
 
         isInvincible = true; // to only get hit once
 
@@ -76,7 +78,6 @@ public class PlayerController : Entity
 
         DisplayHealth.onUpdate?.Invoke(); // update the Ui
         
-        // invoke ();
         PlayerState.onInvincible?.Invoke();
         PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
@@ -97,8 +98,9 @@ public class PlayerController : Entity
         if (lastFountainSaved == null)
             return;
         
-        PlayerMove.onResetVelocity?.Invoke(); // ne fonctionne pas
+        PlayerMove.onResetVelocity?.Invoke();
         PlayerPotion.onRecharge?.Invoke();
+
         stat.SetHpToHpMax();
         
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform,lastFountainSaved.position);
