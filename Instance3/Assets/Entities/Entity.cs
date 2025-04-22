@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Stats))]
 public abstract class Entity : MonoBehaviour
 {
-    protected Stats stat;
+    public Stats stat;
     protected bool isDead = false;
     public bool IsDead => isDead;
 
@@ -15,16 +14,16 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        if (isDead) return;
-
-        //Debug.Log($"{gameObject.name} is taking {damage} damage");
+        if (isDead) 
+            return;
 
         stat.health -= damage;
-        if (stat.health <= 0) 
-        {
-            stat.health = 0;
-            Defeat();
-        }
+
+        if (stat.health > 0) 
+            return;
+        
+        stat.health = 0;
+        Defeat();
     }
 
     public virtual void TakeDamage(int damage, Vector3 originPosOfDamage, float power = 3)
@@ -34,16 +33,15 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void Healing(int heal)
     {
-        if (isDead) return;
+        if (isDead) 
+            return;
 
-        //stat.health += heal;
         stat.AddHp(heal);
         
-        if (stat.health > stat.healthMax)
-        {
-            //stat.health = stat.healthMax;
-            stat.SetHpToHpMax();
-        }
+        if (stat.health <= stat.healthMax)
+            return;
+        
+        stat.SetHpToHpMax();
     }
     
     public virtual void Reset()
@@ -55,6 +53,6 @@ public abstract class Entity : MonoBehaviour
     public virtual void Defeat()
     {
         isDead = true;
-        Debug.Log($"{gameObject.name} is dead");
+        //Debug.Log($"{gameObject.name} is dead");
     }
 }

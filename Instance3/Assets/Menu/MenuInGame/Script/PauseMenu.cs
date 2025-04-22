@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
     private void OnControlsChanged(PlayerInput input)
     {
         lastControlScheme = input.currentControlScheme;
-        if (lastControlScheme == ControlScheme.Joystick.ToString() && currentFirstButton != null)
+        if (currentFirstButton != null)
         {
             SetSelectedUI(currentFirstButton);
         }
@@ -76,8 +76,9 @@ public class PauseMenu : MonoBehaviour
 
     private void SetSelectedUI(GameObject button)
     {
-        if (lastControlScheme == ControlScheme.Joystick.ToString() && button != null)
+        if (button != null)
         {
+            Debug.Log("if (lastControlScheme == ControlScheme.Joystick.ToString() && button != null) is true");
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(button);
         }
