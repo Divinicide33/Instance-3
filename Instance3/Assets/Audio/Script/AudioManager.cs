@@ -39,8 +39,10 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < sfxPoolSize; i++) 
         {
             AudioSource sfxSource = gameObject.AddComponent<AudioSource>();
+            
             sfxSource.outputAudioMixerGroup = sfxGroup;
             sfxSource.playOnAwake = false;
+            
             sfxSources.Add(sfxSource);
         }
     }
@@ -71,11 +73,13 @@ public class AudioManager : MonoBehaviour
 
     private void HandlePlaySFX(string sfxName) 
     {
-        var sfxAsset = sfxDatabase.GetSFX(sfxName);
-        if (sfxAsset == null || sfxAsset.clip == null) return;
+        SFXAsset sfxAsset = sfxDatabase.GetSFX(sfxName);
+        if (sfxAsset == null || sfxAsset.clip == null) 
+            return;
 
-        var source = GetAvaibleSFXSource();
-        if (source == null) return;
+        AudioSource source = GetAvaibleSFXSource();
+        if (source == null) 
+            return;
 
         source.clip = sfxAsset.clip;
         source.volume = sfxAsset.volume;
@@ -87,7 +91,7 @@ public class AudioManager : MonoBehaviour
 
     private void HandlePauseSFX(string sfxName) 
     {
-        if (activeSFX.TryGetValue(sfxName, out var source) && source.isPlaying) 
+        if (activeSFX.TryGetValue(sfxName, out AudioSource source) && source.isPlaying) 
         {
             source.Pause();
         }
@@ -95,7 +99,7 @@ public class AudioManager : MonoBehaviour
 
     private void HandlePauseAllSFX() 
     {
-        foreach (var source in sfxSources) 
+        foreach (AudioSource source in sfxSources) 
         {
             source.Pause();
         }
@@ -103,7 +107,7 @@ public class AudioManager : MonoBehaviour
 
     private void HandleStopAllSFX()
     {
-        foreach (var source in sfxSources)
+        foreach (AudioSource source in sfxSources)
         {
             source.Stop();
         }
@@ -113,8 +117,9 @@ public class AudioManager : MonoBehaviour
 
     private void HandlePlayMusic(string musicName) 
     {
-        var musicAsset = musicDatabase.GetSFX(musicName);
-        if (musicAsset == null || musicAsset.clip == null) return;
+        SFXAsset musicAsset = musicDatabase.GetSFX(musicName);
+        if (musicAsset == null || musicAsset.clip == null)
+            return;
 
         musicSource.clip = musicAsset.clip;
         musicSource.volume = musicAsset.volume;
@@ -130,22 +135,22 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void HandleStopMusic() 
+    private void HandleStopMusic()
     {
-        if (musicSource.isPlaying) 
-        {
-            musicSource.Stop();
-        }
+        if (!musicSource.isPlaying)
+            return;
+        
+        musicSource.Stop();
     }
 
     private AudioSource GetAvaibleSFXSource() 
     {
-        foreach (var source in sfxSources) 
+        foreach (AudioSource source in sfxSources)
         {
-            if (!source.isPlaying) 
-            {
-                return source;
-            }
+            if (source.isPlaying) 
+                continue;
+            
+            return source;
         }
 
         return null;
