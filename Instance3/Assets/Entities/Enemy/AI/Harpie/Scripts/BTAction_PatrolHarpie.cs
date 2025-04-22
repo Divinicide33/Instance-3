@@ -7,13 +7,11 @@ namespace AI.Harpie
     {
         private BTHapieTree tree;
         private Transform harpie;
-        private Rigidbody2D rb;
 
         public BTAction_PatrolHarpie(BTHapieTree btParent)
         {
             tree = btParent;
-            harpie = tree.tree;
-            rb = harpie.GetComponent<Rigidbody2D>();
+            harpie = tree.treeTransform;
         }
 
         public override BTNodeState Evaluate()
