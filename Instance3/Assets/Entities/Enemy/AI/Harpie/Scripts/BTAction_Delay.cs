@@ -6,9 +6,7 @@ namespace AI.Harpie
     public class BTAction_Delay : BTNode
     {
         private BTHapieTree tree;
-
         private float delayTimer;
-
         public BTAction_Delay(BTHapieTree btParent)
         {
             tree = btParent;
@@ -28,6 +26,7 @@ namespace AI.Harpie
             {
                 return BTNodeState.RUNNING;
             }
+
             delayTimer = tree.chargeDelay;
             tree.charged = true;
             tree.rb.simulated = true;
