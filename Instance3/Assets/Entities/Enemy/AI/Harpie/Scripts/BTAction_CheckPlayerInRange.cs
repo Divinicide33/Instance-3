@@ -18,15 +18,15 @@ namespace AI.Harpie
                 return BTNodeState.SUCCESS;
             }
 
-            if (tree.player == null) 
+            if (tree.playerTransform == null) 
                 return BTNodeState.FAILURE;
 
-            float distance = Vector2.Distance(tree.tree.position, tree.player.position);
+            float distance = Vector2.Distance(tree.treeTransform.position, tree.playerTransform.position);
 
             if (distance <= tree.detectionRadius)
             {
                 tree.fxDetectPlayer?.ShowSFX(tree.sfxAttackName);
-                tree.lastPlayerPosition = tree.player.position; 
+                tree.lastPlayerPosition = tree.playerTransform.position; 
                 tree.target = tree.lastPlayerPosition;
                 tree.detectedPlayer = true;
                 return BTNodeState.SUCCESS;

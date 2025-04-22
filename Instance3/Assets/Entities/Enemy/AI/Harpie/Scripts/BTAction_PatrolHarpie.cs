@@ -12,7 +12,7 @@ namespace AI.Harpie
         public BTAction_PatrolHarpie(BTHapieTree btParent)
         {
             tree = btParent;
-            harpie = tree.tree;
+            harpie = tree.treeTransform;
             rb = harpie.GetComponent<Rigidbody2D>();
         }
 

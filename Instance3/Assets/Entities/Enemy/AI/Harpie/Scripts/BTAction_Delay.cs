@@ -30,7 +30,7 @@ namespace AI.Harpie
             }
             delayTimer = tree.chargeDelay;
             tree.charged = true;
-            tree.GetComponent<Rigidbody2D>().simulated = true;
+            tree.rb.simulated = true;
             return BTNodeState.SUCCESS;
         }
     }
