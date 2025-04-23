@@ -44,7 +44,11 @@ public class RoomManager : MonoBehaviour
     private IEnumerator ChangeRoomCoroutine(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
         //Debug.Log("Changement de salle avec fondu : " + newRoom);
-        
+
+        Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
+
+        rb.simulated = false;
+
         bool fadeInComplete = false;
         
         FadeInOut.Instance.FadeIn(() => fadeInComplete = true);
@@ -57,7 +61,10 @@ public class RoomManager : MonoBehaviour
         currentRoom = newRoom;
         
         yield return LoadRoomCoroutine(newRoom);
-        
+
+        rb.simulated = true;
+
+        if (SceneManager.GetSceneAt(1) != null)
         FadeInOut.Instance.FadeOut();
         //PlayerState.onEndOfInvincibility?.Invoke();
     }
