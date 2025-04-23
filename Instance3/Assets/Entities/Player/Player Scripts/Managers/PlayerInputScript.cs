@@ -59,8 +59,6 @@ public class PlayerInputScript : PlayerController
             player.isFacingUp = false;
         }
 
-        direction.y = 0;
-
         return direction;
     }
 
