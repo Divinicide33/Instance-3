@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.27, y: -2.74, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1087196165910372228}
@@ -111,7 +111,7 @@ MonoBehaviour:
   health: 20
   healthMax: 20
   damage: 1
-  speed: 10
+  speed: 7
 --- !u!114 &669234487343989082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   sfxHurtName: HermesHurt
   sfxDeathName: HermesDead
   sfxAttackName: 
-  size: {x: 1, y: 1.4}
+  size: {x: 1.2, y: 1.65}
   knockBackPower: 3
 --- !u!114 &2039279959265930329
 MonoBehaviour:
@@ -214,7 +214,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0012093931, y: -0.0031362176}
+  m_Offset: {x: 0.0026929975, y: -0.034543276}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -224,7 +224,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.66936135, y: 0.9308225}
+  m_Size: {x: 0.6005522, y: 0.8680084}
   m_EdgeRadius: 0
 --- !u!50 &3139758775723533893
 Rigidbody2D:

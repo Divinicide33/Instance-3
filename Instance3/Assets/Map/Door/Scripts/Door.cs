@@ -65,7 +65,7 @@ public class Door : MonoBehaviour
     {
         if (sprite != null)
         {
-            Debug.Log($"Disable Sprite : {GetType().Name}");
+            //Debug.Log($"Disable Sprite : {GetType().Name}");
             sprite.enabled = false;
         }
     }
@@ -74,7 +74,7 @@ public class Door : MonoBehaviour
     {
         if (sprite != null)
         {
-            Debug.Log($"Enable Sprite : {GetType().Name}");
+            //Debug.Log($"Enable Sprite : {GetType().Name}");
             sprite.enabled = true;
         }
     }
