@@ -1165,8 +1165,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283350271
+  m_fontColor: {r: 1, g: 0.7372549, b: 0.30588236, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3748,8 +3748,8 @@ MonoBehaviour:
   playerStats: {fileID: 0}
   healthPanel: {fileID: 801804715}
   hpImage: {fileID: 552141542063635705, guid: 90ca6d08355c21f49b76d7ebca8050ca, type: 3}
-  hpFilled: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  hpHollow: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  hpFilled: {fileID: 7980934933768138934, guid: 21044be4434ac7a45a1d59966a1b763c, type: 3}
+  hpHollow: {fileID: 6367305555249685090, guid: 5398cff9d8e3f9a4ca43c04f162390b2, type: 3}
   images: []
 --- !u!114 &785395911
 MonoBehaviour:
@@ -10387,7 +10387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1886751227
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10406,7 +10406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -741}
+  m_AnchoredPosition: {x: 25, y: -109}
   m_SizeDelta: {x: 933.24, y: 106.8509}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1886751228
@@ -10504,7 +10504,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 804cd6191b3c12f4fb5f36ba15d6a9cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
