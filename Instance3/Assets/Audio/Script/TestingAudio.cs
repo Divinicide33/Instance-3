@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestingAudio : MonoBehaviour
 {
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
@@ -23,5 +23,5 @@ public class TestingAudio : MonoBehaviour
         {
             AudioManager.OnPlaySFX?.Invoke("MusicTest");
         }
-    }
+    }*/
 }
