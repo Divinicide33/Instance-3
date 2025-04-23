@@ -1035,8 +1035,8 @@ GameObject:
   m_Component:
   - component: {fileID: 121568676}
   - component: {fileID: 121568677}
-  - component: {fileID: 121568678}
   - component: {fileID: 121568679}
+  - component: {fileID: 121568678}
   m_Layer: 7
   m_Name: MapIcon
   m_TagString: Untagged
@@ -9763,7 +9763,8 @@ PrefabInstance:
       value: -0.19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6322664984928401197, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2392396235173834592, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
       insertIndex: -1

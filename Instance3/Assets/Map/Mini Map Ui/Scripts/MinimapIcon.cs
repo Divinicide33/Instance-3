@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MinimapPlayerIcon : MonoBehaviour
 {
-    public Transform icon;   // L’icône du joueur sur la minimap
-    public Transform player; // Le joueur dans la scène
+    public Transform icon;
+    public Transform player;
 
     void Update()
     {
@@ -23,7 +23,6 @@ public class MinimapPlayerIcon : MonoBehaviour
 
         Vector2 finalMinimapPos = roomOrigin + Vector2.Scale(normalizedPos, roomSize);
 
-        // Appliquer à l’icône
         Vector3 iconPos = icon.localPosition;
         iconPos.x = finalMinimapPos.x;
         iconPos.y = finalMinimapPos.y;
