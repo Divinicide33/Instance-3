@@ -15,6 +15,7 @@ public class Enemy : Entity
     {
         TryGetComponent(out stats);
         enemyHurtFX = GetComponentInChildren<EnemyHurtFX>();
+        DoorArena.onAddEnemy?.Invoke(this);
     }
 
     public override void Defeat()

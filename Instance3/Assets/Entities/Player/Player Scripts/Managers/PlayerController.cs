@@ -16,6 +16,7 @@ public class PlayerController : Entity
     public static Action<FountainData> onSavefountain { get; set; }
     public static Action<DoorData> onSaveDoor { get; set; }
     public static Action<bool> onIsDead { get; set; }
+    public static Action<bool> onPlayerHurt { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
@@ -75,12 +76,14 @@ public class PlayerController : Entity
 
         isInvincible = true; // to only get hit once
 
+        PlayerState.onInvincible?.Invoke();
+        PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
+
+        onPlayerHurt?.Invoke(false);
+
         base.TakeDamage(damage, originPosOfDamage, power); // to make him take damage et do the defeat if he die
 
         DisplayHealth.onUpdate?.Invoke(); // update the Ui
-        
-        PlayerState.onInvincible?.Invoke();
-        PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
         playerHurtFX?.ShowVFX();
         playerHurtFX?.ShowSFX(sfxHurtName);

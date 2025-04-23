@@ -4,13 +4,15 @@ using System.Collections;
 
 public class DoorBoss : DoorArena
 {
-    /*
-    [SerializeField] private GameObject bossAura;
-
-    protected override void OnEnable()
+    protected override void AddToList(Enemy enemy)
     {
-        base.OnEnable();
-        if (bossAura) bossAura.SetActive(!isCleared);
+        if (isCleared)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+        else
+        {
+            base.AddToList(enemy);
+        }
     }
-    */
 }

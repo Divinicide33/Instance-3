@@ -448,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f04bb7bef2c46244b11ebcff2aee4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
   stats: {fileID: 149278985928202130}
   enemyHurtFX: {fileID: 0}
   sfxHurtName: WildBoardHurt
@@ -470,6 +471,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   lastDashDirection: {x: 1, y: 0}
+  direction: {x: 1, y: 0}
   fxDetectPlayer: {fileID: 0}
 --- !u!114 &1431109938666343583
 MonoBehaviour:
@@ -483,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
   stats: {fileID: 149278985928202130}
   enemyHurtFX: {fileID: 0}
   sfxHurtName: WildBoardHurt

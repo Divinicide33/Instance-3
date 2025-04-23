@@ -30,44 +30,55 @@ public class PlayerInputScript : PlayerController
         onDisableInput -= DisableInput;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    private Vector2 SetDirection(Vector2 input)
     {
-        if (context.started && !isMoving)
-        {
-            isMoving = true;
-            PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
-        }
-        else if (context.canceled)
-        {
-            isMoving = false;
-            PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
-        }
-
-        Vector2 direction = context.ReadValue<Vector2>();
+        Vector2 direction = input;
 
         if (direction.x > offSetInput) 
         {
             player.isFacingRight = true;
-            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
             direction.x = 1;
         }
         else if (direction.x < -offSetInput) 
         {
             player.isFacingRight = false;
-            PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
             direction.x = -1;
         }
 
         if (direction.y > offSetInput)
         {
             player.isFacingUp = true;
-            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
         }
         else
         {
             player.isFacingUp = false;
-            PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
         }
+
+        return direction;
+    }
+
+    private void ForAnimation()
+    {
+        PlayerAnimator.onSetIsFacingRight?.Invoke(player.isFacingRight);
+        PlayerAnimator.onSetIsFacingUp?.Invoke(player.isFacingUp);
+        PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (context.started && !isMoving)
+        {
+            isMoving = true;
+        }
+        else if (context.canceled)
+        {
+            isMoving = false;
+        }
+
+        Vector2 direction = SetDirection(context.ReadValue<Vector2>());
+
+        if (isEnable)
+            ForAnimation();
 
         if (isMoving)
         {
@@ -135,6 +146,7 @@ public class PlayerInputScript : PlayerController
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
+        ForAnimation();
     }
 
     private void DisableInput()
@@ -144,6 +156,7 @@ public class PlayerInputScript : PlayerController
         PlayerAttack.onStopAction?.Invoke();
         PlayerMove.onSetMove?.Invoke(false);
         PlayerGlide.onCanGlide?.Invoke(false);
+        PlayerAnimator.onSetIsMoving?.Invoke(false);
     }
 
     public void StartPause(InputAction.CallbackContext context)
