@@ -82,7 +82,7 @@ public class PlayerInputScript : PlayerController
             return;
         }
 
-        PlayerController.onMove?.Invoke(Vector2.zero);
+        PlayerController.onMove?.Invoke(new Vector2(0, direction.y));
     }
 
     public void OnJump(InputAction.CallbackContext context)
