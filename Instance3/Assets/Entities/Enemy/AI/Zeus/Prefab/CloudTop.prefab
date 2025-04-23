@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8471417642077945820}
   - component: {fileID: 751751964678831441}
   - component: {fileID: 2869894170553896764}
+  - component: {fileID: 2592663930184285610}
+  - component: {fileID: -3742926443778224646}
   m_Layer: 0
   m_Name: CloudTop
   m_TagString: Untagged
@@ -109,12 +111,86 @@ MonoBehaviour:
   lightningSpacing: 1
   numberOfLightnings: 30
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
+  damage: 1
   spawnPoint: {fileID: 7497984369552320272}
   spawnedLightnings: []
   spawnInterrupted: 0
   spawnedGroup: []
   tree: {fileID: 0}
   zeusAttackFX: {fileID: 0}
+--- !u!61 &2592663930184285610
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972384301000787284}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.0027759075, y: 0.027757004}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.9611399, y: 0.36714002}
+  m_EdgeRadius: 0
+--- !u!50 &-3742926443778224646
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972384301000787284}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &7117316514062426655
 GameObject:
   m_ObjectHideFlags: 0

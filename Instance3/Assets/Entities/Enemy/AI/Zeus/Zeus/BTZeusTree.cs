@@ -20,6 +20,9 @@ namespace AI.Zeus
         public float minCooldown = 3f;
         public float maxCooldown = 5f;
 
+        [Header("Damage")]
+        public int knockbackPower = 0;
+
         [Header("Grid")]
         public Transform roomTransform;        
         public Vector2 gridSize = new Vector2(10f, 5f);  

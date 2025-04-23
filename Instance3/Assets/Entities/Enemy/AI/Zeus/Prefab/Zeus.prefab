@@ -4999,6 +4999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317edc064b83ea648a662874c4a33a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
   stats: {fileID: 8114887507657382785}
   enemyHurtFX: {fileID: 0}
   sfxHurtName: ZeusHurt
@@ -5018,6 +5019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08a47a7e4a4b0a478c4ba344ccaf735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
   stats: {fileID: 8114887507657382785}
   enemyHurtFX: {fileID: 0}
   sfxHurtName: ZeusHurt
