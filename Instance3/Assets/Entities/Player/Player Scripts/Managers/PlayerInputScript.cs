@@ -33,6 +33,7 @@ public class PlayerInputScript : PlayerController
     private Vector2 SetDirection(Vector2 input)
     {
         Vector2 direction = input;
+        isMoving = true;
 
         if (direction.x > offSetInput) 
         {
@@ -44,6 +45,10 @@ public class PlayerInputScript : PlayerController
             player.isFacingRight = false;
             direction.x = -1;
         }
+        else
+        {
+            isMoving = false;
+        }
 
         if (direction.y > offSetInput)
         {
@@ -53,6 +58,8 @@ public class PlayerInputScript : PlayerController
         {
             player.isFacingUp = false;
         }
+
+        direction.y = 0;
 
         return direction;
     }
@@ -66,15 +73,6 @@ public class PlayerInputScript : PlayerController
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.started && !isMoving)
-        {
-            isMoving = true;
-        }
-        else if (context.canceled)
-        {
-            isMoving = false;
-        }
-
         Vector2 direction = SetDirection(context.ReadValue<Vector2>());
 
         if (isEnable)
