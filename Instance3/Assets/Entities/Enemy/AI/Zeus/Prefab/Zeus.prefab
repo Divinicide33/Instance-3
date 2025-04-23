@@ -5073,7 +5073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   healthMax: 40
-  damage: 2
+  damage: 1
   speed: 0
 --- !u!114 &4964761859108212751
 MonoBehaviour:
