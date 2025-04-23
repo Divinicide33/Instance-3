@@ -1,6 +1,7 @@
 using UnityEngine;
 using BehaviorTree;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 namespace AI.WildBoard
 {
@@ -30,9 +31,11 @@ namespace AI.WildBoard
         [Header("Degets et Knockback")]
         public LayerMask obstacleLayer;
         public Vector2 lastDashDirection = Vector2.right;
+        public Vector2 direction = Vector2.right;
 
         [Header("FX")]
         [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+
 
         private void Init()
         {
@@ -58,6 +61,13 @@ namespace AI.WildBoard
             });
 
             return root;
+        }
+
+        public void FlipDirection()
+        {
+            direction *= -1;
+            Vector3 currentEuler = transform.eulerAngles;
+            transform.eulerAngles = new Vector3(currentEuler.x, currentEuler.y + 180f, currentEuler.z);
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace AI.Zeus
 {
@@ -15,6 +16,7 @@ namespace AI.Zeus
         public float lightningSpacing = 20f;
         public int numberOfLightnings = 3;
         public GameObject lightningPrefab;
+        [HideInInspector] public int damage = 1;
 
         [Header("Spawn")]
         public Transform spawnPoint;
@@ -34,6 +36,7 @@ namespace AI.Zeus
 
         private void Start()
         {
+            damage = tree.stat.damage;
             zeusAttackFX = GetComponentInChildren<ZeusAttackFX>();
             SpawnLightnings();
         }
@@ -57,10 +60,8 @@ namespace AI.Zeus
             }
             else if (timeElapsed >= despawnDelay)
             {
-
                 Destroy(gameObject);
             }
-            
         }
 
         void SpawnLightnings()
@@ -72,7 +73,14 @@ namespace AI.Zeus
                     : new Vector2(i * lightningSpacing, 0);
 
                 Vector2 finalPosition = (Vector2)spawnPoint.position + offset;
-                GameObject lightning = Instantiate(lightningPrefab, finalPosition, Quaternion.identity, tree.lightningContainer);
+                Quaternion rotation = cloudType == CloudType.Side ? Quaternion.Euler(0, 0, 90) : Quaternion.identity;
+
+                GameObject lightning = Instantiate(lightningPrefab, finalPosition, rotation, tree.lightningContainer);
+
+                LightningDamageZone ltnDamage = lightning.GetComponent<LightningDamageZone>();
+                ltnDamage.SetDamage(damage);
+                ltnDamage.SetKnockbackPower(tree.knockbackPower);
+
                 lightning.SetActive(false);
                 spawnedLightnings.Add(lightning);
                 spawnedGroup?.Add(lightning);
@@ -86,11 +94,13 @@ namespace AI.Zeus
         {
             isSpawningLightnings = false;
             isDestroyingLightning = true;
-            zeusAttackFX?.ShowSFX(tree.sfxAttackName);  
+            zeusAttackFX?.ShowSFX(tree.sfxAttackName);
             for (int i = 0; i < spawnedLightnings.Count; i++)
             {
                 if (!spawnedLightnings[i]) continue;
                 spawnedLightnings[i].SetActive(true);
+                spawnedLightnings[i].GetComponent<LightningDamageZone>().enabled = true;
+                CloudDamage();
             }
         }
 
@@ -145,6 +155,19 @@ namespace AI.Zeus
                 }
             }
             isDestroyingLightning = false;
+        }
+
+        private void CloudDamage()
+        {
+            LightningDamageZone ltnDamage;
+
+            if (!TryGetComponent<LightningDamageZone>(out ltnDamage))
+            {
+                ltnDamage = gameObject.AddComponent<LightningDamageZone>();
+            }
+            ltnDamage.SetDamage(damage);
+            ltnDamage.SetKnockbackPower(tree.knockbackPower);
+            ltnDamage.enabled = true;
         }
     }
 }

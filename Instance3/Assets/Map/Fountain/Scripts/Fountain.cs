@@ -71,7 +71,7 @@ namespace Fountain
             
             
             PlayerPotion.onRecharge?.Invoke();
-            playerControllerInZone.stats.SetHpToHpMax();
+            playerControllerInZone.stat.SetHpToHpMax();
 
             onUseFountain?.Invoke(); // sound ? fx utilisation de la fontaine
             ReactiveTimer();

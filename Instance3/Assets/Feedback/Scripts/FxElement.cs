@@ -5,7 +5,7 @@ public abstract class FxElement<T> : MonoBehaviour where T : FxElement<T>
     protected abstract void Show();
     protected virtual void Show(string sfxName) 
     {
-        Debug.Log($"Play SFX: {sfxName}");
+        //Debug.Log($"Play SFX: {sfxName}");
         AudioManager.OnPlaySFX?.Invoke(sfxName);
     }
     protected abstract void Hide();

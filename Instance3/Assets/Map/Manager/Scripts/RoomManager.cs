@@ -20,38 +20,17 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else 
+            Destroy(gameObject);
     }
 
     private void Start()
     {
         GiveColliderForCinemachine.onColliderChange += UpdateConfinerWithRoom;
-        
-        //StartCoroutine(LoadRoomCoroutine(startingRoom));
-        //StartCoroutine(ChangeRoomWithFade(lastFountainSaved.room, Transform playerTransform, Vector3 newPosition));
     }
-    private RoomId LoadSavedFountain()
-    {
-        if (PlayerPrefs.HasKey("FountainRoom"))
-        {
-            string roomStr = PlayerPrefs.GetString("FountainRoom");
-            RoomId room = (RoomId)Enum.Parse(typeof(RoomId), roomStr);
-
-            float x = PlayerPrefs.GetFloat("FountainPosX");
-            float y = PlayerPrefs.GetFloat("FountainPosY");
-            float z = PlayerPrefs.GetFloat("FountainPosZ");
-
-            FountainData lastFountainSaved = new FountainData(room, new Vector3(x, y, z));
-            
-            transform.position = lastFountainSaved.position;
-            return room;
-        }
-
-        return startingRoom;
-        //Debug.LogWarning("🟡 Aucune fontaine sauvegardée trouvée. Position actuelle utilisée comme point de réapparition.");
-
-    }
+    
     private void OnDestroy()
     {
         GiveColliderForCinemachine.onColliderChange -= UpdateConfinerWithRoom;
@@ -65,22 +44,29 @@ public class RoomManager : MonoBehaviour
     private IEnumerator ChangeRoomCoroutine(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
         //Debug.Log("Changement de salle avec fondu : " + newRoom);
-        
+
+        Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
+
+        rb.simulated = false;
+
         bool fadeInComplete = false;
+        
         FadeInOut.Instance.FadeIn(() => fadeInComplete = true);
         yield return new WaitUntil(() => fadeInComplete);
         
         yield return UnloadRoomCoroutine(currentRoom);
         
         playerTransform.position = newPosition;
-        
         rooms = newRoom;
         currentRoom = newRoom;
+        
         yield return LoadRoomCoroutine(newRoom);
-        
+
+        rb.simulated = true;
+
+        if (SceneManager.GetSceneAt(1) != null)
         FadeInOut.Instance.FadeOut();
-        
-        PlayerState.onEndOfInvincibility?.Invoke();
+        //PlayerState.onEndOfInvincibility?.Invoke();
     }
 
     private IEnumerator LoadRoomCoroutine(RoomId newRoom)

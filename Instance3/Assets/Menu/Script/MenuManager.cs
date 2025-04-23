@@ -48,15 +48,18 @@ public class MenuManager : MonoBehaviour
     private void OnControlsChanged(PlayerInput input)
     {
         if (IsGamepad(input))
+        {
             SelectFirstButton();
-        else
-            EventSystem.current.SetSelectedGameObject(null);
+            return;
+        }
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private bool IsGamepad(PlayerInput input)
     {
         return input.currentControlScheme != null &&
-               (input.currentControlScheme.ToLower().Contains("gamepad") ||
+                (input.currentControlScheme.ToLower().Contains("gamepad") ||
                 input.currentControlScheme.ToLower().Contains("joystick"));
     }
 
@@ -64,14 +67,19 @@ public class MenuManager : MonoBehaviour
     {
         if (settingsMenu != null && settingsMenu.activeSelf)
             SetSelected(settingsMenuFirstButton);
+
         else if (creditsMenu != null && creditsMenu.activeSelf)
             SetSelected(creditsMenuFirstButton);
+
         else if (optionMenu != null && optionMenu.activeSelf)
             SetSelected(controlMenuFirstButton);
+
         else if (bindMenu != null && bindMenu.activeSelf)
             SetSelected(controlMenuFirstButton);
+
         else if (soundMenu != null & soundMenu.activeSelf)
             SetSelected(musicMenuFirstButton);
+
         else
             SetSelected(mainMenuFirstButton);
     }
@@ -91,10 +99,7 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator ChangeScene()
     {
-        
-        Debug.Log("ChangeScene is called");
         yield return fade.FadeIn();
-        Debug.Log("ChangeScene : yield return fade.FadeIn() has been checked");
         SceneManager.LoadScene(1);
         fade.FadeOut();
     }
@@ -151,7 +156,6 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        //Debug.Log("Quit Game");
         Application.Quit();
     }
 }

@@ -18,15 +18,19 @@ namespace AI.Hermes
         [Header("Characters")]
         [HideInInspector] public Transform tree;
         [HideInInspector] public Transform player;
+        [HideInInspector] public Rigidbody2D rb;
 
         [Header("Movement")]
         public Transform raycast;
         public Transform targetTransform;
 
         [Header("Dash")]
-        public float dashSpeed = 20f; // modifier par un multiplicateur
+        [Range(0.1f, 5f)] public float dashSpeedMultiplier = 2f;
+        [HideInInspector] public float dashSpeed = 1f;
+        
+        [Tooltip("dashChance in Percent")] 
+        [Range(0.1f, 100f)]public float dashChance = 50f;
         public float dashDuration = 0.3f;
-        public float dashChance = 10;
         public float chargeDelay = 1f;
         public float coolDownEnterDash = 1f;
 
@@ -37,14 +41,16 @@ namespace AI.Hermes
         public bool hasJumped = false;
 
         [Header("Jump")]
-        [HideInInspector] public Rigidbody2D rb;
-        public float jumpSpeed;
+        [Range(0.1f, 5f)] public float jumpSpeedMultiplier = 2f;
+        [HideInInspector] public float jumpSpeed = 1f;
         [HideInInspector] public Vector3 target;
-        public float diveSpeed = 15f;
+        
+        [Range(1f, 10f)] public float diveSpeedMultiplier = 3f;
+        [HideInInspector] public float diveSpeed = 1f;
+        
         public float timeInAir = 1f;
         [Range(0, 100)] public float percentToTargetTime = 87.5f;
         [HideInInspector] public float targetTime;
-
         [HideInInspector] public Vector2 lastDashDirection = Vector2.right;
 
         [Header("FX")]
@@ -81,14 +87,18 @@ namespace AI.Hermes
         private void Init()
         {
             tree = transform;
-            dashSpeed = stats.speed;
-            diveSpeed = stats.speed * 1.5f;
-            jumpSpeed = stats.speed;
+            dashSpeed = stats.speed * dashSpeedMultiplier;
+            diveSpeed = stats.speed * diveSpeedMultiplier;
+            jumpSpeed = stats.speed * jumpSpeedMultiplier;
+            
             arrowForHermesFX = GetComponentInChildren<ArrowForHermesFX>();
             hermesDashFX = GetComponentInChildren<HermesDashFX>();
-            hermesDiveFX = GetComponentInChildren<HermesDiveFX>();
+            hermesDiveFX = GetComponentInChildren<HermesDiveFX>(); 
             rb = GetComponent<Rigidbody2D>();
+            
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
+            
+            // SFX
             sfxDashName = "HermesDash";
             sfxDiveName = "HermesDive";
         }
