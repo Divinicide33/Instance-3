@@ -5093,8 +5093,8 @@ MonoBehaviour:
   sfxHurtName: ZeusHurt
   sfxDeathName: ZeusDead
   sfxAttackName: ZeusAttack
-  size: {x: 2, y: 3}
-  knockBackPower: 3
+  size: {x: 0, y: 0}
+  knockBackPower: 0
 --- !u!114 &1085859530250728570
 MonoBehaviour:
   m_ObjectHideFlags: 0
