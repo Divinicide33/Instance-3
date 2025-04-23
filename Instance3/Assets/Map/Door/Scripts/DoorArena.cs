@@ -21,7 +21,7 @@ public class DoorArena : Door
         onRemoveEnemy += RemoveEnemy;
         
         isCleared = PlayerPrefs.HasKey(refSave) && PlayerPrefs.GetInt(refSave) == 1; // truc a ajouter
-        Debug.Log($"isCleared : {isCleared}");
+        //Debug.Log($"isCleared : {isCleared}");
 
         hasCheckedPlayerPrefs = true;
 
@@ -44,7 +44,7 @@ public class DoorArena : Door
 
     protected void AddEnemy(Enemy enemy)
     {
-        Debug.Log("AddEnemy is called");
+        //Debug.Log("AddEnemy is called");
         StartCoroutine(WaitForPlayerPrefs(enemy));
     }
 
@@ -55,7 +55,7 @@ public class DoorArena : Door
             yield return null; // Attend une frame, puis recommence
         }
 
-        Debug.Log($"hasCheckedPlayerPrefs = {hasCheckedPlayerPrefs}");
+        //Debug.Log($"hasCheckedPlayerPrefs = {hasCheckedPlayerPrefs}");
 
         AddToList(enemy);
     }
@@ -65,12 +65,12 @@ public class DoorArena : Door
         if (!remainingEnemies.Contains(enemy.gameObject))
             remainingEnemies.Add(enemy.gameObject);
 
-        Debug.Log($"New enemy = {enemy}");
+        //Debug.Log($"New enemy = {enemy}");
     }
 
     protected void RemoveEnemy(Enemy enemy)
     {
-        Debug.Log($"RemoveEnemy = {enemy}");
+        //Debug.Log($"RemoveEnemy = {enemy}");
         if (remainingEnemies.Contains(enemy.gameObject))
             remainingEnemies.Remove(enemy.gameObject);
 
