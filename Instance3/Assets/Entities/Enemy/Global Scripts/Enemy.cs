@@ -15,6 +15,7 @@ public class Enemy : Entity
     {
         TryGetComponent(out stats);
         enemyHurtFX = GetComponentInChildren<EnemyHurtFX>();
+        DoorArena.onAddEnemy?.Invoke(this);
     }
 
     public override void Defeat()
@@ -22,7 +23,6 @@ public class Enemy : Entity
         base.Defeat();
         enemyHurtFX?.ShowSFX(sfxDeathName);
         DoorArena.onRemoveEnemy?.Invoke(this);
-        DoorBoss.onSetBossDefeated?.Invoke(true);
         Destroy(gameObject);
     }
 

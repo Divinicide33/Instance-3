@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Menu/Scenes/Menu.unity
     guid: 0f5541dc62c07934c98dff239ff7b492
-  - enabled: 0
-    path: Assets/Menu/Scenes/Menu fix player Pref.unity
-    guid: ac1190120f9da5246b2a5e163dee6b56
   - enabled: 1
     path: Assets/Init Game/Init Game.unity
     guid: 5bbc5f9e17874be4d98831a16befa7ef
@@ -125,6 +122,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Menu/MenuInGame/Scene/VictoryScene.unity
     guid: 0d77b21f73f737b4c8a909261c876891
+  - enabled: 0
+    path: Assets/Map/Fountain/Scenes/FountainTestRoom.unity
+    guid: c60b25885982f204aaa29de69a7fa964
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

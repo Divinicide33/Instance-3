@@ -3,21 +3,51 @@ using UnityEngine;
 
 public class PlayerPotion : ItemModule
 {
-    PlayerController player;
-    Stats stats;
+    private PlayerController player;
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
     public static Action onRecharge { get; set; }
+    private bool isUsingPotion = false;
+    [SerializeField] private float useDuration = 1f;
+    private float timer = 0;
 
     private void Start()
     {
         Recharge();
     }
 
+    void Update()
+    {
+        if(isUsingPotion)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= useDuration)
+            {
+                player.Healing(healValue);
+                UpdateUi();
+                StopPotion(true);
+            }
+        }
+    }
+
+
+
+    private void StopPotion(bool hasHealed)
+    {
+        isUsingPotion = false;
+        timer = 0;
+        
+        if (hasHealed)
+        {
+            PlayerInputScript.onEnableInput?.Invoke();
+        }
+    }
+
     protected override void Use()
     {
-        if (stats.health == stats.healthMax)
+        if (player.stat.health == player.stat.healthMax)
             return;
 
         if (nbPotions <= 0) 
@@ -25,8 +55,12 @@ public class PlayerPotion : ItemModule
 
         nbPotions--;
 
-        player.Healing(healValue);
+        isUsingPotion = true;
+        timer = 0;
+
         UpdateUi();
+
+        PlayerInputScript.onDisableInput?.Invoke();
     }
 
     private void UpdateUi()
@@ -38,15 +72,13 @@ public class PlayerPotion : ItemModule
 
     private void OnEnable()
     {
-        if (stats == null) 
-            stats = GetComponent<Stats>();
-
         if (player == null) 
             player = GetComponent<PlayerController>();
 
         onRecharge += Recharge;
 
         PlayerController.onUsePotion += Use;
+        PlayerController.onPlayerHurt += StopPotion;
         DisplayPotions.onShow?.Invoke();
 
         UpdateUi();
@@ -55,6 +87,7 @@ public class PlayerPotion : ItemModule
     private void OnDisable()
     {
         PlayerController.onUsePotion -= Use;
+        PlayerController.onPlayerHurt -= StopPotion;
         DisplayPotions.onHide?.Invoke();
     }
 

@@ -37,6 +37,7 @@ public class PlayerState : SkillModule
     private void EndOfInvincibility()
     {
         isInvincible = false;
+        PlayerController.onEndOfInvincibility?.Invoke();
     }
 
     private void KnockBack(Vector3 originPosOfDamage, float power)
@@ -91,8 +92,7 @@ public class PlayerState : SkillModule
 
             if (invincibilityDuration <= invincibilityTimer)
             {
-                isInvincible = false;
-                PlayerController.onEndOfInvincibility?.Invoke();
+                EndOfInvincibility();
             }
         }
 

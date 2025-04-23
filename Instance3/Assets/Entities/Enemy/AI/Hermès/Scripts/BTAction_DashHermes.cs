@@ -47,8 +47,7 @@ namespace AI.Hermes
             {
                 tree.FlipDirection(ref direction);
                 lastFlipTime = Time.time;
-                dashTimer = tree.dashDuration;
-                //Debug.Log("Collision détectée avec : " + hitWall.collider.name);
+                //Debug.Log("Collision dï¿½tectï¿½e avec : " + hitWall.collider.name);
             }
 
             Vector2 dashMovement = direction * tree.dashSpeed * Time.deltaTime;
