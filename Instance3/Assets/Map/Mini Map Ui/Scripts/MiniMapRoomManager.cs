@@ -34,6 +34,11 @@ public class MiniMapRoomManager : MonoBehaviour
         }
 
         CheckRoomRevealed();
+        if (PlayerPrefs.GetInt("FirstTime", 0) == 0)
+        {
+            PlayerPrefs.SetInt("FirstTime", 1);
+            RevealRoom(RoomId.TutorialRoom);
+        }
     }
 
 

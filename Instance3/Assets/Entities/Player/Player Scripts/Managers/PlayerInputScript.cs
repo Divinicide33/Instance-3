@@ -9,6 +9,7 @@ public class PlayerInputScript : PlayerController
 {
     private bool isMoving = false;
     private bool isEnable = true;
+    private bool isPause = false;
     public static Action onEnableInput { get; set; }
     public static Action onDisableInput { get; set; }
     [SerializeField] private float offSetInput = 0.5f;
@@ -161,12 +162,31 @@ public class PlayerInputScript : PlayerController
     public void StartPause(InputAction.CallbackContext context)
     {
         if (context.started)
-            PauseMenu.onStartPause?.Invoke();
+        {
+            if (!isPause)
+            {
+                isPause = true;
+                DisableInput();
+                MapManager.instance.CloseLargeMap();
+                PauseMenu.onStartPause?.Invoke();
+            }
+            else
+            {
+                isPause = false;
+                EnableInput();
+                PauseMenu.onCancel?.Invoke();
+            } 
+        }
     }
 
-    public void HandleCancel(InputAction.CallbackContext context)
+    public void OnOpenMap(InputAction.CallbackContext context)
     {
+        if (!isEnable)
+            return;
+
         if (context.started)
-            PauseMenu.onCancel?.Invoke();
+        {
+            MapManager.instance.OpenMap();
+        }
     }
 }

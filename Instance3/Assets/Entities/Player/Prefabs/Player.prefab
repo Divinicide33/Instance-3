@@ -15030,6 +15030,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f03e0a84-2ff1-4d0a-9406-08260dbbad5d
     m_ActionName: 'Player/Potion[/Keyboard/e,/Mad catz Inc. Madcatz fightstick/button4]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4748789451198910664}
+        m_TargetAssemblyTypeName: PlayerInputScript, Assembly-CSharp
+        m_MethodName: OnOpenMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eb52f94d-71eb-4e57-b13c-7a153986d902
+    m_ActionName: 'Player/Map[/Keyboard/tab,/Mad catz Inc. Madcatz fightstick/button5]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -20012,6 +20028,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7719148393207602814}
   - component: {fileID: 8810492140035292113}
+  - component: {fileID: 2667252816921915346}
+  - component: {fileID: 8569007846536504885}
   m_Layer: 7
   m_Name: MapIcon
   m_TagString: Untagged
@@ -20028,8 +20046,8 @@ Transform:
   m_GameObject: {fileID: 6322664984928401197}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.366, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: -200, y: 0.366, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2392396235173834592}
@@ -20089,6 +20107,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2667252816921915346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322664984928401197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd74eb8722b1c47acf125b9f818ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRoomCoords: {x: -6, y: 0}
+--- !u!114 &8569007846536504885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322664984928401197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df6a7fb4a127a34c9e384e68b86eca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 7719148393207602814}
+  player: {fileID: 2024590223544603750}
 --- !u!1 &7157970686025683427
 GameObject:
   m_ObjectHideFlags: 0
