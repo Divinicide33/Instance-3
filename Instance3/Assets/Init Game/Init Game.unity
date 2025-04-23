@@ -906,7 +906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 804cd6191b3c12f4fb5f36ba15d6a9cb, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1528,9 +1528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomScene: 0
-  roomCoords: {x: 0, y: 0}
-  roomOriginOnMap: {x: 0, y: 0}
-  roomSize: {x: 0, y: 0}
 --- !u!1 &1238299094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,9 +1933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21da044fe22ca604a825f65a50d755b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniMap: {fileID: 54293949}
   largeMap: {fileID: 1431372941}
   miniMapCamera: {fileID: 1128215629}
-  mapIcon: {fileID: 0}
 --- !u!1 &1345292445
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,7 +2126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1470076637
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2148,7 +2145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -124}
+  m_AnchoredPosition: {x: 25, y: -741}
   m_SizeDelta: {x: 933.24, y: 106.8509}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1470076639
@@ -2327,9 +2324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomScene: 1
-  roomCoords: {x: 0, y: 0}
-  roomOriginOnMap: {x: 0, y: 0}
-  roomSize: {x: 0, y: 0}
 --- !u!1 &1790030569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8597643526645173366, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
@@ -2647,9 +2641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomScene: 2
-  roomCoords: {x: 0, y: 0}
-  roomOriginOnMap: {x: 0, y: 0}
-  roomSize: {x: 0, y: 0}
 --- !u!1 &2128822965 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6013062002454559486, guid: bbe58a01332cf244786996f1c2a719bd, type: 3}
