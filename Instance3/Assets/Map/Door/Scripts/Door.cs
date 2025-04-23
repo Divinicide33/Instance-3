@@ -54,9 +54,7 @@ public class Door : MonoBehaviour
         PlayerController.onSaveDoor?.Invoke(new DoorData(nextRoom, targetPosition));
         AudioManager.OnStopAllSFX?.Invoke();
         RoomManager.Instance.ChangeRoomWithFade(nextRoom, player, targetPosition);
-        
-        
-        
+
         // Vous pouvez ajouter d'autres actions après la transition, par exemple révéler la mini-map
         MiniMapRoomManager.instance.RevealRoom(nextRoom);
     }
