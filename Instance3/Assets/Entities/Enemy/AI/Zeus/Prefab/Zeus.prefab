@@ -5152,7 +5152,7 @@ MonoBehaviour:
       duration: 4
     - cloudSpawns:
       - colum: 0
-        line: 3
+        line: 5
         type: 0
       - colum: 1
         line: 5
@@ -5353,7 +5353,7 @@ MonoBehaviour:
       - colum: 0
         line: 2
         type: 1
-      duration: 1.75
+      duration: 2.5
     - cloudSpawns:
       - colum: 0
         line: 0
@@ -5409,8 +5409,8 @@ MonoBehaviour:
         line: 5
         type: 0
       duration: 2.5
-  minCooldown: 3
-  maxCooldown: 5
+  minCooldown: 1
+  maxCooldown: 3
   knockbackPower: 0
   roomTransform: {fileID: 0}
   gridSize: {x: 17.5, y: 9}

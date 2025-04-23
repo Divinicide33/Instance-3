@@ -60,10 +60,8 @@ namespace AI.Zeus
             }
             else if (timeElapsed >= despawnDelay)
             {
-
                 Destroy(gameObject);
             }
-            
         }
 
         void SpawnLightnings()
@@ -75,7 +73,9 @@ namespace AI.Zeus
                     : new Vector2(i * lightningSpacing, 0);
 
                 Vector2 finalPosition = (Vector2)spawnPoint.position + offset;
-                GameObject lightning = Instantiate(lightningPrefab, finalPosition, Quaternion.identity, tree.lightningContainer);
+                Quaternion rotation = cloudType == CloudType.Side ? Quaternion.Euler(0, 0, 90) : Quaternion.identity;
+
+                GameObject lightning = Instantiate(lightningPrefab, finalPosition, rotation, tree.lightningContainer);
 
                 LightningDamageZone ltnDamage = lightning.GetComponent<LightningDamageZone>();
                 ltnDamage.SetDamage(damage);
@@ -94,7 +94,7 @@ namespace AI.Zeus
         {
             isSpawningLightnings = false;
             isDestroyingLightning = true;
-            zeusAttackFX?.ShowSFX(tree.sfxAttackName);  
+            zeusAttackFX?.ShowSFX(tree.sfxAttackName);
             for (int i = 0; i < spawnedLightnings.Count; i++)
             {
                 if (!spawnedLightnings[i]) continue;
