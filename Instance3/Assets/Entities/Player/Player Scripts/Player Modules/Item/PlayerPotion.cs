@@ -7,6 +7,7 @@ public class PlayerPotion : ItemModule
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
+    private bool isGrounded = false;
     public static Action onRecharge { get; set; }
     private bool isUsingPotion = false;
     [SerializeField] private float useDuration = 1f;
@@ -32,8 +33,6 @@ public class PlayerPotion : ItemModule
         }
     }
 
-
-
     private void StopPotion(bool hasHealed)
     {
         isUsingPotion = false;
@@ -47,6 +46,9 @@ public class PlayerPotion : ItemModule
 
     protected override void Use()
     {
+        if (!isGrounded)
+            return;
+
         if (player.stat.health == player.stat.healthMax)
             return;
 
@@ -80,6 +82,7 @@ public class PlayerPotion : ItemModule
         PlayerController.onUsePotion += Use;
         PlayerController.onPlayerHurt += StopPotion;
         DisplayPotions.onShow?.Invoke();
+        GroundCheck.onGrounded += CheckIsGrounded;
 
         UpdateUi();
     }
@@ -89,6 +92,12 @@ public class PlayerPotion : ItemModule
         PlayerController.onUsePotion -= Use;
         PlayerController.onPlayerHurt -= StopPotion;
         DisplayPotions.onHide?.Invoke();
+        GroundCheck.onGrounded -= CheckIsGrounded;
+    }
+
+    private void CheckIsGrounded(bool value)
+    {
+        isGrounded = value;
     }
 
     private void Recharge()
