@@ -1,46 +1,95 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class DoorArena : Door
 {
-    private List<Enemy> remainingEnemies = new();
+    private List<GameObject> remainingEnemies = new();
 
     public static Action<Enemy> onAddEnemy;
     public static Action<Enemy> onRemoveEnemy;
 
-    private void OnEnable()
+    protected bool isCleared = false;
+    protected bool hasCheckedPlayerPrefs = false;
+
+    protected override void OnEnable()
     {
+        hasCheckedPlayerPrefs = false; // DO NOT REMOVE
+
         onAddEnemy += AddEnemy;
         onRemoveEnemy += RemoveEnemy;
+        
+        isCleared = PlayerPrefs.HasKey(refSave) && PlayerPrefs.GetInt(refSave) == 1; // truc a ajouter
+        //Debug.Log($"isCleared : {isCleared}");
+
+        hasCheckedPlayerPrefs = true;
+
+        TryGetComponent(out sprite);
+
+        if (isCleared) 
+        {
+            DisableSprite();
+            return;
+        }
+
+        EnableSprite();
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         onAddEnemy -= AddEnemy;
         onRemoveEnemy -= RemoveEnemy;
     }
 
-    private void AddEnemy(Enemy enemy)
+    protected void AddEnemy(Enemy enemy)
     {
-        if (!remainingEnemies.Contains(enemy))
-            remainingEnemies.Add(enemy);
+        //Debug.Log("AddEnemy is called");
+        StartCoroutine(WaitForPlayerPrefs(enemy));
     }
 
-    private void RemoveEnemy(Enemy enemy)
+    protected virtual IEnumerator WaitForPlayerPrefs(Enemy enemy)
     {
-        if (remainingEnemies.Contains(enemy))
-            remainingEnemies.Remove(enemy);
+        while (!hasCheckedPlayerPrefs)
+        {
+            yield return null; // Attend une frame, puis recommence
+        }
+
+        //Debug.Log($"hasCheckedPlayerPrefs = {hasCheckedPlayerPrefs}");
+
+        AddToList(enemy);
+    }
+
+    protected virtual void AddToList(Enemy enemy)
+    {
+        if (!remainingEnemies.Contains(enemy.gameObject))
+            remainingEnemies.Add(enemy.gameObject);
+
+        //Debug.Log($"New enemy = {enemy}");
+    }
+
+    protected void RemoveEnemy(Enemy enemy)
+    {
+        //Debug.Log($"RemoveEnemy = {enemy}");
+        if (remainingEnemies.Contains(enemy.gameObject))
+            remainingEnemies.Remove(enemy.gameObject);
+
+        if (remainingEnemies.Count > 0) 
+            return;
+        
+        isCleared = true;
+        DisableSprite();
+            
+        // save
+        PlayerPrefs.SetInt(refSave, 1);
+        PlayerPrefs.Save();
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (remainingEnemies.Count > 0)
-        {
-            Debug.Log("🚫 La porte de l’arène est verrouillée. Ennemis restants : " + remainingEnemies.Count);
+        if (!isCleared)
             return;
-        }
-
-        base.OnTriggerEnter2D(other); // autorise le passage si plus d’ennemis
+        
+        base.OnTriggerEnter2D(other); // autorise le passage si plus d’ennemis   
     }
 }

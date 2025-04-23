@@ -5,17 +5,20 @@ using UnityEngine;
 public class DisplayPotions : UIElement<DisplayPotions>
 {
     [SerializeField] private Transform PotionsPanel;
-    [SerializeField] TMP_Text nbPotions;
-    PlayerPotion playerPotion;
+    [SerializeField] private TMP_Text nbPotions;
+    private PlayerPotion playerPotion;
     public static Action<PlayerPotion> onPotionDisplay { get; set; }
+
     protected override void Show()
     {
         PotionsPanel.gameObject.SetActive(true);
     }
+
     protected override void Hide()
     {
         PotionsPanel.gameObject.SetActive(false);
     }
+
     protected override void UpdateDisplay()
     {
         UpdateImage();
@@ -24,24 +27,22 @@ public class DisplayPotions : UIElement<DisplayPotions>
     private void UpdateImage()
     {
         if (playerPotion == null)
-        {
-            Debug.Log($"playerPotion is null");
             return;
-        }
 
-        nbPotions.text = playerPotion.nbPotions.ToString() + " / " + playerPotion.GetMaxPotion().ToString();
+        nbPotions.text = $"{playerPotion.nbPotions} / {playerPotion.GetMaxPotion()}";
     }
 
     private void GetPotionScript(PlayerPotion script)
     {
         playerPotion = script;
     }
+
     protected override void OnEnable() 
     {
         base.OnEnable();
         onPotionDisplay += GetPotionScript;
     }
-    
+
     protected override void OnDisable()
     {
         base.OnDisable();

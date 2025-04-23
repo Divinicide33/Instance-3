@@ -18,6 +18,7 @@ namespace AI.Hermes
             {
                 case Action.None:
                     float dashChance = Random.Range(0f, 100f);
+                    
                     if (dashChance <= tree.dashChance)
                     {
                         tree.action = Action.Dash;

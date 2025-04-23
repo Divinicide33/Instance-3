@@ -6,8 +6,6 @@ using Fountain;
 [RequireComponent(typeof(PlayerInputScript))]
 public class PlayerController : Entity
 {
-    [HideInInspector] public Stats stats;
-
     public static Action<Vector2> onMove { get; set; }
     public static Action<bool> onJump { get; set; }
     public static Action onAttack { get; set; }
@@ -18,6 +16,7 @@ public class PlayerController : Entity
     public static Action<FountainData> onSavefountain { get; set; }
     public static Action<DoorData> onSaveDoor { get; set; }
     public static Action<bool> onIsDead { get; set; }
+    public static Action<bool> onPlayerHurt { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
@@ -35,14 +34,13 @@ public class PlayerController : Entity
     {
         playerHurtFX = GetComponentInChildren<PlayerHurtFX>();
 
-        stats = GetComponent<Stats>();
         PlayerInputScript.onDisableInput?.Invoke();
 
         UpdatePlayerUi();
         LoadSavedFountain();
         LoadSavedDoor();
+
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
-        //PlayerInputScript.onEnableInput?.Invoke(); // ligne a supprimer
     }
 
     private void OnEnable() 
@@ -60,7 +58,7 @@ public class PlayerController : Entity
         onSaveDoor -= SaveDoor;
         onIsDead -= IsDead;
     }
-    
+
     void EndOfInvincibility()
     {
         isInvincible = false;
@@ -68,7 +66,7 @@ public class PlayerController : Entity
 
     void UpdatePlayerUi()
     {
-        DisplayHealth.onUpdateHpMax?.Invoke(stats);
+        DisplayHealth.onUpdateHpMax?.Invoke(stat);
     }
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
@@ -78,13 +76,14 @@ public class PlayerController : Entity
 
         isInvincible = true; // to only get hit once
 
+        PlayerState.onInvincible?.Invoke();
+        PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
+
+        onPlayerHurt?.Invoke(false);
+
         base.TakeDamage(damage, originPosOfDamage, power); // to make him take damage et do the defeat if he die
 
         DisplayHealth.onUpdate?.Invoke(); // update the Ui
-        
-        // invoke ();
-        PlayerState.onInvincible?.Invoke();
-        PlayerState.onKnockBack?.Invoke(originPosOfDamage, power);
 
         playerHurtFX?.ShowVFX();
         playerHurtFX?.ShowSFX(sfxHurtName);
@@ -104,9 +103,10 @@ public class PlayerController : Entity
         if (lastFountainSaved == null)
             return;
         
-        PlayerMove.onResetVelocity?.Invoke(); // ne fonctionne pas
+        PlayerMove.onResetVelocity?.Invoke();
         PlayerPotion.onRecharge?.Invoke();
-        stats.SetHpToHpMax();
+
+        stat.SetHpToHpMax();
         
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform,lastFountainSaved.position);
     }

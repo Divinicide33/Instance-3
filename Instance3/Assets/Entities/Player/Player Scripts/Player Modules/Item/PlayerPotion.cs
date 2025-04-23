@@ -3,33 +3,66 @@ using UnityEngine;
 
 public class PlayerPotion : ItemModule
 {
-    PlayerController player;
-    Stats stats;
+    private PlayerController player;
     public int nbPotions;
     [SerializeField] private int nbPotionsMax;
     [SerializeField] private int healValue;
+    private bool isGrounded = false;
     public static Action onRecharge { get; set; }
+    private bool isUsingPotion = false;
+    [SerializeField] private float useDuration = 1f;
+    private float timer = 0;
 
     private void Start()
     {
         Recharge();
     }
-    
+
+    void Update()
+    {
+        if(isUsingPotion)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= useDuration)
+            {
+                player.Healing(healValue);
+                UpdateUi();
+                StopPotion(true);
+            }
+        }
+    }
+
+    private void StopPotion(bool hasHealed)
+    {
+        isUsingPotion = false;
+        timer = 0;
+        
+        if (hasHealed)
+        {
+            PlayerInputScript.onEnableInput?.Invoke();
+        }
+    }
+
     protected override void Use()
     {
-        if (stats.health == stats.healthMax)
-        {
-            Debug.Log("Already full life");
-            UpdateUi();
+        if (!isGrounded)
             return;
-        }
 
-        if (nbPotions <= 0) return;
+        if (player.stat.health == player.stat.healthMax)
+            return;
+
+        if (nbPotions <= 0) 
+            return;
 
         nbPotions--;
 
-        player.Healing(healValue);
+        isUsingPotion = true;
+        timer = 0;
+
         UpdateUi();
+
+        PlayerInputScript.onDisableInput?.Invoke();
     }
 
     private void UpdateUi()
@@ -41,12 +74,15 @@ public class PlayerPotion : ItemModule
 
     private void OnEnable()
     {
-        if (stats == null) stats = GetComponent<Stats>();
-        if (player == null) player = GetComponent<PlayerController>();
+        if (player == null) 
+            player = GetComponent<PlayerController>();
 
         onRecharge += Recharge;
+
         PlayerController.onUsePotion += Use;
+        PlayerController.onPlayerHurt += StopPotion;
         DisplayPotions.onShow?.Invoke();
+        GroundCheck.onGrounded += CheckIsGrounded;
 
         UpdateUi();
     }
@@ -54,15 +90,23 @@ public class PlayerPotion : ItemModule
     private void OnDisable()
     {
         PlayerController.onUsePotion -= Use;
+        PlayerController.onPlayerHurt -= StopPotion;
         DisplayPotions.onHide?.Invoke();
+        GroundCheck.onGrounded -= CheckIsGrounded;
+    }
+
+    private void CheckIsGrounded(bool value)
+    {
+        isGrounded = value;
     }
 
     private void Recharge()
     {
-        if (PlayerPrefs.HasKey("Potion")) nbPotionsMax = PlayerPrefs.GetInt("Potion");
+        if (PlayerPrefs.HasKey(ItemsName.Potion.ToString())) 
+            nbPotionsMax = PlayerPrefs.GetInt(ItemsName.Potion.ToString());
         else
         {
-            PlayerPrefs.SetInt("Potion", nbPotionsMax);
+            PlayerPrefs.SetInt(ItemsName.Potion.ToString(), nbPotionsMax);
             PlayerPrefs.Save();
         }
 
@@ -72,7 +116,7 @@ public class PlayerPotion : ItemModule
 
     public int GetMaxPotion()
     {
-        nbPotionsMax = PlayerPrefs.GetInt("Potion", nbPotionsMax);
+        nbPotionsMax = PlayerPrefs.GetInt(ItemsName.Potion.ToString(), nbPotionsMax);
         return nbPotionsMax;
     }
 }

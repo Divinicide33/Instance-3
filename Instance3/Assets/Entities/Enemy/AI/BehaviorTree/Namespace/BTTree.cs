@@ -17,9 +17,6 @@ namespace BehaviorTree
         {
             TryGetComponent(out stats);
             enemyHurtFX = GetComponentInChildren<EnemyHurtFX>();
-            
-            DoorArena.onAddEnemy?.Invoke(this);
-            DoorBoss.onSetBossDefeated?.Invoke(false);
         }
         
         // Called once per frame
