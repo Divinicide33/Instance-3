@@ -145,7 +145,7 @@ public class PlayerInputScript : PlayerController
         isEnable = true;
         PlayerMove.onSetMove?.Invoke(true);
         PlayerGlide.onCanGlide?.Invoke(true);
-        PlayerAnimator.onSetIsMoving?.Invoke(isMoving);
+        ForAnimation();
     }
 
     private void DisableInput()
