@@ -14828,6 +14828,7 @@ MonoBehaviour:
   nbPotions: 0
   nbPotionsMax: 1
   healValue: 2
+  useDuration: 1
 --- !u!114 &6103533508610122396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20210,7 +20211,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4334783836991956000, guid: a53f819e6d1b3da4e9b9ff460b2f8e70, type: 3}
+  m_Sprite: {fileID: 3127219185701121287, guid: 1a2ee2f55d0b34f4a8f94061f04e1c52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
