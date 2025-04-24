@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class MenuManager : MonoBehaviour
     private bool isUsingController = false;
     [SerializeField] float inputDelay = 0.2f;
     private float lastInputTime;
+    private Selectable selectedElement;
 
     void Start()
     {
@@ -27,12 +29,6 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.Escape))
-        {
-            ShowMenu(0);
-            return;
-        }
-
         HandleInput();
         UpdateSelection();
     }
@@ -46,6 +42,34 @@ public class MenuManager : MonoBehaviour
         else
             HandleMouseInput();
     }
+    public void Submit(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (selectedElement is Button button)
+            {
+                button.onClick.Invoke();
+            }
+        }
+    }
+
+    public void Navigate(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+
+        }
+    }
+
+    public void Back(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            ShowMenu(0);
+        }
+    }
+
+
 
     void HandleControllerInput()
     {
@@ -68,7 +92,7 @@ public class MenuManager : MonoBehaviour
             lastInputTime = Time.time;
         }
 
-        var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+        selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
 
         if (selectedElement is Slider slider)
         {
@@ -77,13 +101,6 @@ public class MenuManager : MonoBehaviour
             slider.value = Mathf.Clamp(slider.value, slider.minValue, slider.maxValue);
         }
 
-        if (Input.GetButtonDown("Submit"))
-        {
-            if (selectedElement is Button button)
-            {
-                button.onClick.Invoke();
-            }
-        }
 
         if (selectedElement is Button selectedButton)
         {
