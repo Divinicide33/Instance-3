@@ -275,6 +275,7 @@ MonoBehaviour:
   numberOfLightnings: 30
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
   damage: 1
+  spawnDelay: 0.05
   spawnPoint: {fileID: 2640883158037267531}
   spawnedLightnings: []
   spawnInterrupted: 0
