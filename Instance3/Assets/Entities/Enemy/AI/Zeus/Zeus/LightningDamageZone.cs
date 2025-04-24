@@ -20,19 +20,14 @@ public class LightningDamageZone : MonoBehaviour
         if (other.gameObject.TryGetComponent<Enemy>(out _))
             return;
 
-        if (!other.gameObject.transform.parent.TryGetComponent(out PlayerController player))
-        {
+        Transform parent = other.transform.parent;
+        if (parent == null || !parent.TryGetComponent(out PlayerController player))
             return;
-        }
-
-        if (player == null)
-        {
-            return;
-        }
 
         Vector3 direction = (other.transform.position - transform.position).normalized;
         Ray ray = new Ray(other.transform.position - direction * 1f, direction);
-        
-        player.TakeDamage(damage, direction , knockbackPower);
+
+        player.TakeDamage(damage, direction, knockbackPower);
     }
+
 }
