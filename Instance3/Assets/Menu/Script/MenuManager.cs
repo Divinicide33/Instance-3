@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -22,14 +24,19 @@ public class MenuManager : MonoBehaviour
     [SerializeField] float inputDelay = 0.2f;
     private float lastInputTime;
     private Selectable selectedElement;
+    private FadeInOut fade;
 
     private void Start()
     {
+        fade = FindObjectOfType<FadeInOut>();
         ShowMenu(0);
     }
 
     private void Update()
     {
+        if (menus.Length == 0) 
+            return;
+        
         HandleInput();
         UpdateSelection();
     }
@@ -175,6 +182,9 @@ public class MenuManager : MonoBehaviour
 
     public void ShowMenu(int index)
     {
+        if (menus.Length == 0)
+            return;
+        
         if (index < 0 || index >= menus.Length)
             return;
 
@@ -231,5 +241,27 @@ public class MenuManager : MonoBehaviour
                 buttonHoverImage.OnDeselect(null);
             }
         }
+    }
+    
+    public void PlayGame()
+    {
+        StartCoroutine(ChangeScene(1));
+    }
+
+    private IEnumerator ChangeScene(int sceneValue)
+    {
+        yield return fade.FadeIn();
+        SceneManager.LoadScene(sceneValue);
+        fade.FadeOut();
+    }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    
+    public void BackToMainMenu()
+    {
+        StartCoroutine(ChangeScene(0));
     }
 }
