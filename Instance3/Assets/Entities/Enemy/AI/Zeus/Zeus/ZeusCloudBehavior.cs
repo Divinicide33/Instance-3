@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Collections;
 
 namespace AI.Zeus
 {
@@ -17,6 +17,7 @@ namespace AI.Zeus
         public int numberOfLightnings = 3;
         public GameObject lightningPrefab;
         [HideInInspector] public int damage = 1;
+        [SerializeField] private float spawnDelay = 0.05f;
 
         [Header("Spawn")]
         public Transform spawnPoint;
@@ -48,7 +49,7 @@ namespace AI.Zeus
             {
                 if (timeElapsed >= lightningDelay)
                 {
-                    ActivateLightning();
+                    StartCoroutine(ActivateLightning());
                 }
             }
             else if (isDestroyingLightning)
@@ -90,10 +91,9 @@ namespace AI.Zeus
             }
         }
 
-        private void ActivateLightning()
+        private IEnumerator ActivateLightning()
         {
-            isSpawningLightnings = false;
-            isDestroyingLightning = true;
+            gameObject.AddComponent<LightningDamageZone>();
             zeusAttackFX?.ShowSFX(tree.sfxAttackName);
             for (int i = 0; i < spawnedLightnings.Count; i++)
             {
@@ -101,7 +101,12 @@ namespace AI.Zeus
                 spawnedLightnings[i].SetActive(true);
                 spawnedLightnings[i].GetComponent<LightningDamageZone>().enabled = true;
                 CloudDamage();
+                yield return new WaitForSeconds(spawnDelay);
             }
+
+
+            isSpawningLightnings = false;
+            isDestroyingLightning = true;
         }
 
         public void StopLightningSpawning(GameObject hittingLightning)

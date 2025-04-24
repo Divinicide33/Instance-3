@@ -1,161 +1,235 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("Menu Panels")]
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject creditsMenu;
-    [SerializeField] private GameObject optionMenu;
-    [SerializeField] private GameObject bindMenu;
-    [SerializeField] private GameObject soundMenu;
-
-    [Header("First Selected Buttons")]
-    [SerializeField] private GameObject selectResetButton;
-    [SerializeField] private GameObject newGameMainMenuFirstButton;
-    [SerializeField] private GameObject mainMenuFirstButton;
-    [SerializeField] private GameObject settingsMenuFirstButton;
-    [SerializeField] private GameObject creditsMenuFirstButton;
-    [SerializeField] private GameObject controlMenuFirstButton;
-    [SerializeField] private GameObject musicMenuFirstButton;
-
-    [Header("Input")]
-    [SerializeField] private PlayerInput playerInput;
-
-    private FadeInOut fade;
-
-    private void OnEnable()
+    [System.Serializable]
+    public class Menu
     {
-        if (playerInput != null)
-            playerInput.onControlsChanged += OnControlsChanged;
+        public string menuName;
+        public GameObject menuRoot;
+        public Selectable[] menuElements;
     }
 
-    private void OnDisable()
-    {
-        if (playerInput != null)
-            playerInput.onControlsChanged -= OnControlsChanged;
-    }
+    public Menu[] menus;
+
+    private int currentMenuIndex = 0;
+    private int currentElementIndex = 0;
+
+    private bool isUsingController = false;
+    [SerializeField] float inputDelay = 0.2f;
+    private float lastInputTime;
+    private Selectable selectedElement;
 
     private void Start()
     {
-        fade = FindObjectOfType<FadeInOut>();
+        ShowMenu(0);
     }
 
-    private void OnControlsChanged(PlayerInput input)
+    private void Update()
     {
-        if (IsGamepad(input))
+        HandleInput();
+        UpdateSelection();
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetJoystickNames().Length > 0)
         {
-            SelectFirstButton();
-            return;
+            HandleControllerInput();
         }
 
-        EventSystem.current.SetSelectedGameObject(null);
+        HandleMouseInput();
     }
 
-    private bool IsGamepad(PlayerInput input)
+    public void Submit(InputAction.CallbackContext context)
     {
-        return input.currentControlScheme != null &&
-                (input.currentControlScheme.ToLower().Contains("gamepad") ||
-                input.currentControlScheme.ToLower().Contains("joystick"));
+        if (context.started)
+        {
+            if (selectedElement is Button button)
+            {
+                button.onClick.Invoke();
+            }
+        }
     }
 
-    private void SelectFirstButton()
+    public void Navigate(InputAction.CallbackContext context)
     {
-        if (settingsMenu != null && settingsMenu.activeSelf)
-            SetSelected(settingsMenuFirstButton);
+        if (!context.performed || Time.time - lastInputTime < inputDelay)
+            return;
 
-        else if (creditsMenu != null && creditsMenu.activeSelf)
-            SetSelected(creditsMenuFirstButton);
+        Vector2 input = context.ReadValue<Vector2>();
 
-        else if (optionMenu != null && optionMenu.activeSelf)
-            SetSelected(controlMenuFirstButton);
+        if (input.y > 0.5f) // Up
+        {
+            Selectable previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
 
-        else if (bindMenu != null && bindMenu.activeSelf)
-            SetSelected(controlMenuFirstButton);
+            currentElementIndex = Mathf.Max(0, currentElementIndex - 1);
+            lastInputTime = Time.time;
+        }
+        else if (input.y < -0.5f) // Down
+        {
+            Selectable previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
 
-        else if (soundMenu != null & soundMenu.activeSelf)
-            SetSelected(musicMenuFirstButton);
-
-        else
-            SetSelected(mainMenuFirstButton);
+            currentElementIndex = Mathf.Min(menus[currentMenuIndex].menuElements.Length - 1, currentElementIndex + 1);
+            lastInputTime = Time.time;
+        }
     }
 
-    private void SetSelected(GameObject button)
+    public void Back(InputAction.CallbackContext context)
     {
-        if (button == null) return;
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(button);
+        if (context.started)
+        {
+            ShowMenu(0);
+        }
     }
 
-    public void PlayGame()
+    private void HandleControllerInput()
     {
-        StartCoroutine(ChangeScene());
+        selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+
+        if (selectedElement is Slider slider)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            slider.value += horizontalInput * 0.01f;
+            slider.value = Mathf.Clamp(slider.value, slider.minValue, slider.maxValue);
+        }
+
+        if (selectedElement is Button selectedButton)
+        {
+            ButtonHoverImage buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
+            if (buttonHoverImage != null)
+            {
+                buttonHoverImage.OnSelect(null);
+            }
+        }
     }
 
-    private IEnumerator ChangeScene()
+    private void HandleMouseInput()
     {
-        yield return fade.FadeIn();
-        SceneManager.LoadScene(1);
-        fade.FadeOut();
+        Selectable[] menuElements = menus[currentMenuIndex].menuElements;
+
+        bool foundHover = false;
+
+        for (int i = 0; i < menuElements.Length; i++)
+        {
+            Selectable element = menuElements[i];
+            RectTransform rectTransform = element.GetComponent<RectTransform>();
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition))
+            {
+                foundHover = true;
+
+                if (currentElementIndex != i)
+                {
+                    Selectable previousElement = menuElements[currentElementIndex];
+                    DeselectButton(previousElement);
+
+                    currentElementIndex = i;
+                    selectedElement = menuElements[currentElementIndex];
+
+                    EventSystem.current.SetSelectedGameObject(selectedElement.gameObject);
+                    UpdateSelection();
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (selectedElement is Button button)
+                    {
+                        button.onClick.Invoke();
+                    }
+                    else if (selectedElement is Slider slider)
+                    {
+                        Vector2 localMousePos;
+                        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, Input.mousePosition, null, out localMousePos);
+                        float normalized = Mathf.InverseLerp(-rectTransform.rect.width / 2, rectTransform.rect.width / 2, localMousePos.x);
+                        slider.value = Mathf.Lerp(slider.minValue, slider.maxValue, normalized);
+                    }
+                }
+
+                break;
+            }
+        }
+
+        if (!foundHover && selectedElement != null)
+        {
+            DeselectButton(selectedElement);
+            EventSystem.current.SetSelectedGameObject(null);
+            selectedElement = null;
+        }
     }
 
-    public void OpenSettings()
+
+
+
+
+    public void BackToPlay()
     {
-        if (IsGamepad(playerInput))
-            SetSelected(settingsMenuFirstButton);
+        ShowMenu(0);
+        UpdateSelection();
     }
 
-    public void OpenCredits()
+    public void ShowMenu(int index)
     {
-        mainMenu.SetActive(false);
-        creditsMenu.SetActive(true);
+        if (index < 0 || index >= menus.Length)
+            return;
 
-        if (IsGamepad(playerInput))
-            SetSelected(creditsMenuFirstButton);
+        for (int i = 0; i < menus.Length; i++)
+        {
+            if (menus[i].menuRoot != null)
+                menus[i].menuRoot.SetActive(i == index);
+        }
+
+        currentMenuIndex = index;
+        currentElementIndex = 0;
+
+        UpdateSelection();
     }
 
-    public void BackToMainMenu()
+    private void UpdateSelection()
     {
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
-        optionMenu.SetActive(false);
-        mainMenu.SetActive(true);
+        foreach (Selectable element in menus[currentMenuIndex].menuElements)
+        {
+            if (element is Button button)
+            {
+                button.GetComponent<MenuButtonEffect>()?.RemoveEffect();
+                ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                if (buttonHoverImage != null)
+                {
+                    buttonHoverImage.OnDeselect(null);
+                }
+            }
+        }
 
-        if (IsGamepad(playerInput))
-            SetSelected(mainMenuFirstButton);
+        if (menus[currentMenuIndex].menuElements.Length > 0)
+        {
+            selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+
+            if (selectedElement is Button button)
+            {
+                button.GetComponent<MenuButtonEffect>()?.ApplyEffect();
+                ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                if (buttonHoverImage != null)
+                {
+                    buttonHoverImage.OnSelect(null);
+                }
+            }
+        }
     }
 
-    public void NewGameMainMenu()
+    private void DeselectButton(Selectable element)
     {
-        if (IsGamepad(playerInput))
-            SetSelected(newGameMainMenuFirstButton);
-    }
-
-    public void SelectResetButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(selectResetButton);
-    }
-
-    public void ControlMenuFirstButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(controlMenuFirstButton);
-    }
-
-    public void MusicMenuFirstButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(musicMenuFirstButton);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
+        if (element is Button button)
+        {
+            ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+            if (buttonHoverImage != null)
+            {
+                buttonHoverImage.OnDeselect(null);
+            }
+        }
     }
 }

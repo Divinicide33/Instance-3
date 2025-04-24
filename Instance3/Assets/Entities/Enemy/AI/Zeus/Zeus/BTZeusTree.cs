@@ -29,6 +29,12 @@ namespace AI.Zeus
         public int columns = 10;
         public int rows = 5;
 
+        [Header("TpZone")]
+        public List<Transform> tpZones = new List<Transform>();
+        public int zone;
+        public int lastZone;
+        public bool haveChangeZone = true;
+
         [Header("Parent")]
         public Transform cloudContainer;      
         public Transform lightningContainer;  

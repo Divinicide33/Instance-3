@@ -41,6 +41,11 @@ public class RoomManager : MonoBehaviour
         StartCoroutine(ChangeRoomCoroutine(newRoom, playerTransform, newPosition));
     }
 
+    public void RespawnAfterVoid(Transform playerTransform, Vector3 newPosition)
+    {
+        playerTransform.position = newPosition;
+    }
+
     private IEnumerator ChangeRoomCoroutine(RoomId newRoom, Transform playerTransform, Vector3 newPosition)
     {
         //Debug.Log("Changement de salle avec fondu : " + newRoom);
