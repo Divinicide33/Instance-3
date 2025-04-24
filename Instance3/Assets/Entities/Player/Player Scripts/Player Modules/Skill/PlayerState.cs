@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerState : SkillModule
 {
+
+    [SerializeField] private Animator animator;
     public static Action onInvincible { get; set; }
     public static Action onEndOfInvincibility { get; set; }
     public static Action<Vector3, float> onKnockBack { get; set; }
@@ -29,8 +31,11 @@ public class PlayerState : SkillModule
     {
         if (isInvincible) 
             return;
+            
+        animator.Play("Player Invincibility");
 
         isInvincible = true;
+        
         invincibilityTimer = 0;
     }
     
@@ -38,6 +43,7 @@ public class PlayerState : SkillModule
     {
         isInvincible = false;
         PlayerController.onEndOfInvincibility?.Invoke();
+        animator.Play("Default");
     }
 
     private void KnockBack(Vector3 originPosOfDamage, float power)
