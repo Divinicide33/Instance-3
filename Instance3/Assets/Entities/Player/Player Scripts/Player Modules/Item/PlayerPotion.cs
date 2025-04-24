@@ -27,7 +27,7 @@ public class PlayerPotion : ItemModule
             if (timer >= useDuration)
             {
                 player.Healing(healValue);
-                FxPlayerHeal.onHeal?.Invoke(timer);
+                FxPlayerHeal.onHeal?.Invoke(useDuration);
                 UpdateUi();
                 StopPotion(true);
             }
