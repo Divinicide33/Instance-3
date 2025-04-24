@@ -13,6 +13,8 @@ public class DoorArena : Door
     protected bool isCleared = false;
     protected bool hasCheckedPlayerPrefs = false;
 
+    private Collider2D collider;
+
     protected override void OnEnable()
     {
         hasCheckedPlayerPrefs = false; // DO NOT REMOVE
@@ -21,7 +23,6 @@ public class DoorArena : Door
         onRemoveEnemy += RemoveEnemy;
         
         isCleared = PlayerPrefs.HasKey(refSave) && PlayerPrefs.GetInt(refSave) == 1; // truc a ajouter
-        //Debug.Log($"isCleared : {isCleared}");
 
         hasCheckedPlayerPrefs = true;
 
@@ -30,14 +31,19 @@ public class DoorArena : Door
         if (isCleared) 
         {
             DisableSprite();
+            collider.isTrigger = true;
             return;
         }
 
         EnableSprite();
+        
+        TryGetComponent(out collider);
+        collider.isTrigger = false;
     }
 
-    protected void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         onAddEnemy -= AddEnemy;
         onRemoveEnemy -= RemoveEnemy;
     }
@@ -78,6 +84,8 @@ public class DoorArena : Door
             return;
         
         isCleared = true;
+        collider.isTrigger = true;
+        
         DisableSprite();
             
         // save
@@ -88,7 +96,9 @@ public class DoorArena : Door
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (!isCleared)
+        {
             return;
+        }
         
         base.OnTriggerEnter2D(other); // autorise le passage si plus d’ennemis   
     }

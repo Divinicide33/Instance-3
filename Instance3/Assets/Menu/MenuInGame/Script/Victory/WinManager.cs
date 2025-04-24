@@ -11,11 +11,7 @@ public class WinManager : MonoBehaviour
     [Header("Victory")]
     [SerializeField] private string sceneToLoadOnVictory = "VictoryScene";
 
-
-
     public static Action onVictory;
-
-    private bool hasWon = false;
 
     private void Start()
     {
@@ -32,9 +28,6 @@ public class WinManager : MonoBehaviour
 
     private void TriggerVictory()
     {
-        if (hasWon) return;
-
-        hasWon = true;
         Time.timeScale = 1f;
         LoadVictoryScene();
     }
@@ -48,14 +41,6 @@ public class WinManager : MonoBehaviour
         else
         {
             Debug.LogError("No scene name assigned in 'sceneToLoadOnVictory'.");
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            WinGame();
         }
     }
 }

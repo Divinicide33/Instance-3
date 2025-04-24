@@ -1,5 +1,5 @@
-using UnityEngine;
 using BehaviorTree;
+using UnityEngine;
 
 namespace AI.Hermes
 {
@@ -22,6 +22,7 @@ namespace AI.Hermes
         public override BTNodeState Evaluate()
         {
             direction = tree.lastDashDirection.x >= 0 ? Vector2.right : Vector2.left;
+
             Vector3 scale = tree.tree.localScale;
             scale.x = direction.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
             tree.tree.localScale = scale;
@@ -32,10 +33,9 @@ namespace AI.Hermes
             if (hitObstacle.collider != null)
             {
                 tree.FlipDirection(ref direction);
-                tree.lastDashDirection = direction;
+                tree.lastDashDirection = direction;  
             }
 
-            // Mouvement
             tree.tree.position += (Vector3)(direction.normalized * tree.stats.speed * Time.deltaTime);
 
             return BTNodeState.RUNNING;

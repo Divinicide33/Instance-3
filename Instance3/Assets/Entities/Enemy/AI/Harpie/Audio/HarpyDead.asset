@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HarpyDead
   m_EditorClassIdentifier: 
   sfxName: HarpyDead
-  clip: {fileID: 8300000, guid: 670a86635d91a014ea46e419b5031910, type: 3}
+  clip: {fileID: 8300000, guid: bbc7db1bfed69d44cb9a31d4733956e3, type: 3}
   volume: 1
   loop: 0

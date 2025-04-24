@@ -59,6 +59,9 @@ namespace AI.Hermes
         [HideInInspector] public HermesDiveFX hermesDiveFX;
         [HideInInspector] public string sfxDashName = "HermesDash";
         [HideInInspector] public string sfxDiveName = "HermesDive";
+        [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+        public GameObject dashFeedback;
+        [HideInInspector] public Vector3 initialScale;
 
         public void FlipDirection(ref Vector2 direction)
         {
@@ -87,6 +90,7 @@ namespace AI.Hermes
         private void Init()
         {
             tree = transform;
+            initialScale = transform.localScale;
             dashSpeed = stats.speed * dashSpeedMultiplier;
             diveSpeed = stats.speed * diveSpeedMultiplier;
             jumpSpeed = stats.speed * jumpSpeedMultiplier;
@@ -95,7 +99,8 @@ namespace AI.Hermes
             hermesDashFX = GetComponentInChildren<HermesDashFX>();
             hermesDiveFX = GetComponentInChildren<HermesDiveFX>(); 
             rb = GetComponent<Rigidbody2D>();
-            
+            fxDetectPlayer = GetComponentInChildren<EnemyDetectPlayerFX>();
+
             targetTime = timeInAir * (percentToTargetTime / 100); // 2 * 0.875f
             
             // SFX

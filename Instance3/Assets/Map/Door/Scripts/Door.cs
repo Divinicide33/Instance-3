@@ -29,6 +29,11 @@ public class Door : MonoBehaviour
         DisableSprite();
     }
 
+    protected virtual void OnDisable()
+    {
+        
+    }
+
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {

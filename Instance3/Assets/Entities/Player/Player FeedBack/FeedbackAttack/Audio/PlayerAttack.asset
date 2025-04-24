@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerAttack
   m_EditorClassIdentifier: 
   sfxName: PlayerAttack
-  clip: {fileID: 8300000, guid: fef4a851f4352ee46b9da1786c5b7f21, type: 3}
+  clip: {fileID: 8300000, guid: 71b41fcf4078b424abdbf47f38dfc113, type: 3}
   volume: 1
   loop: 0

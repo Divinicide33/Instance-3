@@ -32,12 +32,14 @@ public class DisplayHealth : UIElement<DisplayHealth>
         if (images.Count == playerStats.healthMax)
         {
             UpdateDisplay();
+            Debug.Log($"images.Count = {images.Count}");
             return;
         } 
 
         if (images.Count < playerStats.healthMax)
         {
             int nb = playerStats.healthMax - images.Count;
+            Debug.Log($"if (images.Count < playerStats.healthMax) : nb = {nb}");
 
             for (int i = 0; i < nb; i++)
             {
@@ -48,10 +50,14 @@ public class DisplayHealth : UIElement<DisplayHealth>
         else
         {
             int nb =  images.Count - playerStats.healthMax;
+            Debug.Log($"else : nb = {nb}");
 
             for (int i = 0; i < nb; i++)
             {
-                images.Remove(images[images.Count]);
+                Debug.Log($"Destroy(images[images.Count - 1]); = {images[images.Count - 1]}");
+                Destroy(images[images.Count - 1]);
+                //images.Remove(images[images.Count]);
+
             }
         }
 
@@ -76,6 +82,9 @@ public class DisplayHealth : UIElement<DisplayHealth>
     private void UpdateImage()
     {
         int index = 0;
+
+        if (playerStats == null) 
+            return;
 
         if (playerStats.healthMax < playerStats.health)
             playerStats.health = playerStats.healthMax;
