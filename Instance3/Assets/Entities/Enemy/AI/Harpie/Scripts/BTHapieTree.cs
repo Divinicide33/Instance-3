@@ -40,7 +40,10 @@ namespace AI.Harpie
         [HideInInspector] public bool charged = false;
 
         [Header("FX")]
+        public GameObject dashFeedback;
         [HideInInspector] public EnemyDetectPlayerFX fxDetectPlayer;
+
+        [HideInInspector] public Vector3 initialScale;
 
         private void OnEnable()
         {
@@ -70,6 +73,7 @@ namespace AI.Harpie
             treeTransform = transform;
             origin = treeTransform.position;
             idleRotation = treeTransform.rotation;
+            initialScale = transform.localScale;
 
         }
 
