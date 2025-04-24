@@ -14884,7 +14884,7 @@ MonoBehaviour:
   nbPotions: 0
   nbPotionsMax: 1
   healValue: 2
-  useDuration: 1
+  useDuration: 0.5
 --- !u!114 &6103533508610122396
 MonoBehaviour:
   m_ObjectHideFlags: 0
