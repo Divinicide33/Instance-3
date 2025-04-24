@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
@@ -341,6 +332,17 @@
                 },
                 {
                     "name": "",
+                    "id": "48baa7dd-5ca3-41ed-bc12-1a4278caace1",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -385,28 +387,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1c04ea5f-b012-41d1-a6f7-02e963b52893",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3f66d0b-7751-423f-908b-a11c5bd95930",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f73836dc-c600-41ae-b618-bea2ecbef83f",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -430,7 +410,7 @@
                 {
                     "name": "",
                     "id": "4221210b-b029-4223-ab0f-bcfac9204c58",
-                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button8",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button4",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Joystick",
@@ -507,10 +487,10 @@
                 {
                     "name": "",
                     "id": "4f3831af-b276-4e39-93e6-df9359fffa9c",
-                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button4",
+                    "path": "<HID::Mad catz Inc. Madcatz fightstick>/button6",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Joystick",
                     "action": "Potion",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -543,7 +523,7 @@
                     "path": "<HID::Mad catz Inc. Madcatz fightstick>/button7",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Joystick",
                     "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
