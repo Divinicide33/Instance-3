@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Stats))]
 public abstract class Entity : MonoBehaviour
 {
-    public Stats stat;
+    [HideInInspector] public Stats stat;
     protected bool isDead = false;
     public bool IsDead => isDead;
 

@@ -12,14 +12,16 @@ public class EndMenu : MonoBehaviour
 
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput;
-
-    [Header("Scene")]
-    [SerializeField] private int nextSceneIndex = 1;
-
     private string lastControlScheme = ControlScheme.KeyboardMouse.ToString();
 
     public static Action onVictory;
 
+    private FadeInOut fade;
+
+    private void Start()
+    {
+        fade = FindObjectOfType<FadeInOut>();
+    }
 
     private void OnEnable()
     {
@@ -55,12 +57,18 @@ public class EndMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
-    public void LoadNextScene()
+    public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(nextSceneIndex);
+        StartCoroutine(ChangeScene());
     }
 
+    private IEnumerator ChangeScene()
+    {
+        yield return fade.FadeIn();
+        SceneManager.LoadScene(1);
+        fade.FadeOut();
+    }
     public void QuitGame()
     {
         Application.Quit();

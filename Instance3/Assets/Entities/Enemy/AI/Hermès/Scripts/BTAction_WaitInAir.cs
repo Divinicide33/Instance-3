@@ -45,7 +45,7 @@ namespace AI.Hermes
             if (delayTimer > 0)
             {
                 tree.rb.linearVelocity = Vector2.zero;
-                tree.rb.simulated = false;
+                tree.rb.gravityScale = 0f;
                 return BTNodeState.RUNNING;
             }
 
@@ -57,7 +57,7 @@ namespace AI.Hermes
             tree.arrowForHermesFX?.HideFX();
             tree.waited = true;
             hasTarget = false;
-            tree.rb.simulated = true;
+            tree.rb.gravityScale = 1f;
             delayTimer = tree.timeInAir;
             return BTNodeState.SUCCESS;
         }

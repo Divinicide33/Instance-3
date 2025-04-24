@@ -9,7 +9,7 @@ namespace Fountain
         [SerializeField] private FountainData fountain;
         
         [Header("Settings")]
-        [SerializeField] private float inputReactivateDelay = 2f;
+        [SerializeField] private float inputReactivateDelay = 1f;
         
         public static Action onUseFountain { get; set; }
         
@@ -64,6 +64,7 @@ namespace Fountain
         private void UseFountain() 
         {
             Debug.Log("Utilisation de la fontaine");
+            FxPlayerHeal.onHeal?.Invoke(inputReactivateDelay);
             PlayerInputScript.onDisableInput?.Invoke();
 
             fountain.position = fountain.transform.position;

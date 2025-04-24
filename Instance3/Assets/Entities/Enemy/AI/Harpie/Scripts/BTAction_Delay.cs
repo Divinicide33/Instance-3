@@ -24,9 +24,10 @@ namespace AI.Harpie
 
             if (delayTimer > 0)
             {
+                tree.fxDetectPlayer?.ShowVFX();
                 return BTNodeState.RUNNING;
             }
-
+            tree.fxDetectPlayer?.HideFX();
             delayTimer = tree.chargeDelay;
             tree.charged = true;
             tree.rb.simulated = true;

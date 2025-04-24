@@ -9,6 +9,7 @@ namespace AI.WildBoard
     {
         [Header("Parametres de mouvement")]
         [HideInInspector] public float moveSpeed = 2f;
+        public GameObject dashFeedback;
 
         [Header("Parametres de charge")]
         [Tooltip("Delay in seconds.")] 

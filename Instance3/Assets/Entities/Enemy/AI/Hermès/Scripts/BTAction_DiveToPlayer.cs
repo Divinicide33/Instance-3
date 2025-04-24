@@ -27,15 +27,24 @@ namespace AI.Hermes
                 direction = ((Vector2)tree.target - (Vector2)tree.tree.position).normalized;
                 hasDirection = true;
             }
+            if (direction.x > 0)
+            {
+                tree.transform.localScale = new Vector3(-Mathf.Abs(tree.initialScale.x), tree.initialScale.y, tree.initialScale.z);
+            }
+            else
+            {
+                tree.transform.localScale = new Vector3(Mathf.Abs(tree.initialScale.x), tree.initialScale.y, tree.initialScale.z);
+            }
 
+            tree.dashFeedback.gameObject.SetActive(true);
             tree.gameObject.transform.Translate(direction * diveSpeed * Time.deltaTime);
 
             RaycastHit2D hitGround = Physics2D.Raycast(tree.tree.position, direction, 2f, platformMask);
-
             Debug.DrawRay(tree.tree.position, direction * 2, Color.red);
 
             if (hitGround.collider != null)
             {
+                tree.dashFeedback.gameObject.SetActive(false);
                 tree.waited = false;
                 tree.target = Vector3.zero;
                 tree.actionStarted = false;
@@ -44,10 +53,13 @@ namespace AI.Hermes
                 tree.hasJumped = false;
                 hasDirection = false;
                 tree.rb.simulated = true;
+
+                tree.lastDashDirection = direction;
+
                 return BTNodeState.SUCCESS;
             }
 
-            return BTNodeState.RUNNING; // Le boss continue de se d�placer vers le joueur
+            return BTNodeState.RUNNING;
         }
     }
 }

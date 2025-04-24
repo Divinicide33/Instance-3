@@ -21,7 +21,6 @@ public class DoorArena : Door
         onRemoveEnemy += RemoveEnemy;
         
         isCleared = PlayerPrefs.HasKey(refSave) && PlayerPrefs.GetInt(refSave) == 1; // truc a ajouter
-        //Debug.Log($"isCleared : {isCleared}");
 
         hasCheckedPlayerPrefs = true;
 
@@ -78,6 +77,7 @@ public class DoorArena : Door
             return;
         
         isCleared = true;
+
         DisableSprite();
             
         // save
