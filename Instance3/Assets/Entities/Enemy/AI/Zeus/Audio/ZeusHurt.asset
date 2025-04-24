@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ZeusHurt
   m_EditorClassIdentifier: 
   sfxName: ZeusHurt
-  clip: {fileID: 8300000, guid: 88f8171babccbb84d800b3f59b3c35db, type: 3}
+  clip: {fileID: 8300000, guid: acb0ac682c3d1a042a559a0a46ba726f, type: 3}
   volume: 1
   loop: 0

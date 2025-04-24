@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HarpyAttack
   m_EditorClassIdentifier: 
   sfxName: HarpyAttack
-  clip: {fileID: 8300000, guid: b3e372b651383334c889c25364767c14, type: 3}
+  clip: {fileID: 8300000, guid: 76a05f13a2ac8ef42819d75a0990bcad, type: 3}
   volume: 1
   loop: 0

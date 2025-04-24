@@ -34,6 +34,8 @@ namespace AI.Hermes
             {
                 tree.hermesDashFX?.ShowSFX(tree.sfxDashName);
             }
+            tree.dashFeedback.gameObject.SetActive(true);
+
             dashTimer -= Time.deltaTime;
 
             Vector2 raycastDirection = tree.tree.localScale.x >= 0 ? Vector2.right : Vector2.left;
@@ -70,6 +72,7 @@ namespace AI.Hermes
             dashTimer = tree.dashDuration;
             tree.action = Action.None;
             tree.charged = false;
+            tree.dashFeedback.gameObject.SetActive(false);
         }
     }
 }

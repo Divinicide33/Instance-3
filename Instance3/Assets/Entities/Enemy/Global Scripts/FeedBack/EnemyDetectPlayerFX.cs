@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyDetectPlayerFX : FxElement<EnemyDetectPlayerFX>
 {
     private GameObject detect;
+    [SerializeField] private Animator animator;
 
     private void Awake()
     {
@@ -12,11 +13,13 @@ public class EnemyDetectPlayerFX : FxElement<EnemyDetectPlayerFX>
 
     protected override void Show()
     {
+        animator.SetBool("Attack?",true);
         detect.SetActive(true);
     }
 
     protected override void Hide()
     {
+        animator.SetBool("Attack?", false);
         detect.SetActive(false);
     }
 

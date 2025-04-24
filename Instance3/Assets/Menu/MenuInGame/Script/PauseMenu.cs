@@ -131,6 +131,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         panelManager.HideAll();
         InputManager.onSwitchInputMap?.Invoke(InputActionMap.Player);
+        PlayerInputScript.onEnableInput?.Invoke();
     }
 
     private void HandleCancelInput()
