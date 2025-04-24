@@ -49,6 +49,7 @@ namespace AI.WildBoard
             Vector2 dashDirection = tree.direction.x >= 0 ? tree.direction : -tree.direction;
 
             Vector2 dashMovement = dashDirection * tree.dashSpeed * Time.deltaTime;
+            tree.dashFeedback.gameObject.SetActive(true);
             //Debug.Log(dashMovement);
             tree.transform.Translate(dashMovement);
 
@@ -57,7 +58,6 @@ namespace AI.WildBoard
                 ResetCharge();
                 return BTNodeState.SUCCESS;
             }
-
             tree.fxDetectPlayer?.HideFX();
             return BTNodeState.RUNNING;
         }
@@ -68,6 +68,7 @@ namespace AI.WildBoard
             charging = false;
             delayTimer = tree.chargeDelay;
             dashTimer = tree.dashDuration;
+            tree.dashFeedback.gameObject.SetActive(false);
         }
     }
 }
