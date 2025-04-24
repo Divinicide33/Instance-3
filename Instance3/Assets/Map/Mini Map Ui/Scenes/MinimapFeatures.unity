@@ -1044,30 +1044,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7719148393207602814, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7719148393207602814, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810492140035292113, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810492140035292113, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_Color.g
-      value: 0.827451
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810492140035292113, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_Color.r
-      value: 0.015686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810492140035292113, guid: 12f1a1e1d42a0e04d91daa1e0d88dfc3, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
