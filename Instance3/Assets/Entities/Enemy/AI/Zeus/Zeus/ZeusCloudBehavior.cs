@@ -92,6 +92,7 @@ namespace AI.Zeus
 
         private void ActivateLightning()
         {
+            gameObject.AddComponent<LightningDamageZone>();
             isSpawningLightnings = false;
             isDestroyingLightning = true;
             zeusAttackFX?.ShowSFX(tree.sfxAttackName);
