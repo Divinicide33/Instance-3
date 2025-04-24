@@ -3,21 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class ItemToUnlock : MonoBehaviour
 {
-    [SerializeField] private ItemsName itemName;
+    [SerializeField] protected ItemsName itemName;
 
     void Start()
     {
-        // For debug
-        /*PlayerPrefs.SetInt(itemName.ToString(), 0);
-        PlayerPrefs.Save();*/
-
         if (PlayerPrefs.HasKey(itemName.ToString() + SceneManager.GetSceneAt(1).name)) 
         {
             gameObject.SetActive(false);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer(LayerMap.Player.ToString()))
