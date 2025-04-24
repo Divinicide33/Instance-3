@@ -15164,6 +15164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: PlayerState
+  animator: {fileID: 483788621097753933}
   invincibilityDuration: 2
   knockBackDuration: 0.5
 --- !u!114 &4530792423523707861
@@ -20201,6 +20202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4688805518569591202}
   - component: {fileID: 8421717946042715829}
+  - component: {fileID: 483788621097753933}
   m_Layer: 3
   m_Name: MainBody
   m_TagString: Untagged
@@ -20278,6 +20280,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &483788621097753933
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7157970686025683427}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c010abbca9d7d214cab22ef465303974, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8383788041149876044
 GameObject:
   m_ObjectHideFlags: 0
