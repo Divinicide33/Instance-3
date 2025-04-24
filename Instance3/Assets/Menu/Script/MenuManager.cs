@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -22,25 +23,25 @@ public class MenuManager : MonoBehaviour
     private float lastInputTime;
     private Selectable selectedElement;
 
-    void Start()
+    private void Start()
     {
         ShowMenu(0);
     }
 
-    void Update()
+    private void Update()
     {
         HandleInput();
         UpdateSelection();
     }
 
-    void HandleInput()
+    private void HandleInput()
     {
-        isUsingController = Input.GetJoystickNames().Length > 0;
-
-        if (isUsingController)
+        if (Input.GetJoystickNames().Length > 0)
+        {
             HandleControllerInput();
-        else
-            HandleMouseInput();
+        }
+
+        HandleMouseInput();
     }
 
     public void Submit(InputAction.CallbackContext context)
@@ -63,7 +64,7 @@ public class MenuManager : MonoBehaviour
 
         if (input.y > 0.5f) // Up
         {
-            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            Selectable previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
             DeselectButton(previousElement);
 
             currentElementIndex = Mathf.Max(0, currentElementIndex - 1);
@@ -71,7 +72,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (input.y < -0.5f) // Down
         {
-            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            Selectable previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
             DeselectButton(previousElement);
 
             currentElementIndex = Mathf.Min(menus[currentMenuIndex].menuElements.Length - 1, currentElementIndex + 1);
@@ -87,7 +88,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    void HandleControllerInput()
+    private void HandleControllerInput()
     {
         selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
 
@@ -100,40 +101,71 @@ public class MenuManager : MonoBehaviour
 
         if (selectedElement is Button selectedButton)
         {
-            var buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
+            ButtonHoverImage buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
             if (buttonHoverImage != null)
             {
-                buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image du survol
+                buttonHoverImage.OnSelect(null);
             }
         }
     }
 
-    void HandleMouseInput()
+    private void HandleMouseInput()
     {
-        var mb = menus[currentMenuIndex].menuElements;
-        for (int i = 0; i < mb.Length; i++)
+        Selectable[] menuElements = menus[currentMenuIndex].menuElements;
+
+        bool foundHover = false;
+
+        for (int i = 0; i < menuElements.Length; i++)
         {
-            var rt = mb[i].GetComponent<RectTransform>();
-            if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition))
+            Selectable element = menuElements[i];
+            RectTransform rectTransform = element.GetComponent<RectTransform>();
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition))
             {
-                var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
-                DeselectButton(previousElement);
+                foundHover = true;
 
-                currentElementIndex = i;
-                var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
-
-                if (selectedElement is Button selectedButton)
+                if (currentElementIndex != i)
                 {
-                    var buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
-                    if (buttonHoverImage != null)
+                    Selectable previousElement = menuElements[currentElementIndex];
+                    DeselectButton(previousElement);
+
+                    currentElementIndex = i;
+                    selectedElement = menuElements[currentElementIndex];
+
+                    EventSystem.current.SetSelectedGameObject(selectedElement.gameObject);
+                    UpdateSelection();
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (selectedElement is Button button)
                     {
-                        buttonHoverImage.OnSelect(null);
+                        button.onClick.Invoke();
+                    }
+                    else if (selectedElement is Slider slider)
+                    {
+                        Vector2 localMousePos;
+                        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, Input.mousePosition, null, out localMousePos);
+                        float normalized = Mathf.InverseLerp(-rectTransform.rect.width / 2, rectTransform.rect.width / 2, localMousePos.x);
+                        slider.value = Mathf.Lerp(slider.minValue, slider.maxValue, normalized);
                     }
                 }
+
                 break;
             }
         }
+
+        if (!foundHover && selectedElement != null)
+        {
+            DeselectButton(selectedElement);
+            EventSystem.current.SetSelectedGameObject(null);
+            selectedElement = null;
+        }
     }
+
+
+
+
 
     public void BackToPlay()
     {
@@ -158,14 +190,14 @@ public class MenuManager : MonoBehaviour
         UpdateSelection();
     }
 
-    void UpdateSelection()
+    private void UpdateSelection()
     {
-        foreach (var element in menus[currentMenuIndex].menuElements)
+        foreach (Selectable element in menus[currentMenuIndex].menuElements)
         {
             if (element is Button button)
             {
                 button.GetComponent<MenuButtonEffect>()?.RemoveEffect();
-                var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
                 if (buttonHoverImage != null)
                 {
                     buttonHoverImage.OnDeselect(null);
@@ -180,7 +212,7 @@ public class MenuManager : MonoBehaviour
             if (selectedElement is Button button)
             {
                 button.GetComponent<MenuButtonEffect>()?.ApplyEffect();
-                var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
                 if (buttonHoverImage != null)
                 {
                     buttonHoverImage.OnSelect(null);
@@ -189,11 +221,11 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    void DeselectButton(Selectable element)
+    private void DeselectButton(Selectable element)
     {
         if (element is Button button)
         {
-            var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+            ButtonHoverImage buttonHoverImage = button.GetComponent<ButtonHoverImage>();
             if (buttonHoverImage != null)
             {
                 buttonHoverImage.OnDeselect(null);
