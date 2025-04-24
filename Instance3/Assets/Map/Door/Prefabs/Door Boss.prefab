@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1079916290498343410}
   - component: {fileID: 315653165056308366}
   - component: {fileID: 6811621803314130215}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8483665484865727478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}

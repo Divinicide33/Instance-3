@@ -18,10 +18,12 @@ public class PlayerController : Entity
     public static Action<bool> onIsDead { get; set; }
     public static Action<bool> onPlayerHurt { get; set; }
     public static Action onUpdatePlayerMaxHealth { get; set; }
+    public static Action onSetTotallyInvincible { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
     private bool isInvincible = false;
+    private bool isTotallyInvincible = false;
 
     private FountainData lastFountainSaved;
     private DoorData lastDoorUsed;
@@ -56,7 +58,7 @@ public class PlayerController : Entity
             PlayerPrefs.SetInt(ItemsName.HpMax.ToString(), stat.healthMax);
             PlayerPrefs.Save();
         }
-        
+
         UpdatePlayerUi();
 
     } 
@@ -68,6 +70,7 @@ public class PlayerController : Entity
         onSaveDoor += SaveDoor;
         onIsDead += IsDead;
         onUpdatePlayerMaxHealth += UpdatePlayerMaxHealth;
+        onSetTotallyInvincible += SetIsTotallyInvincible;
     }
 
     private void OnDisable() 
@@ -77,21 +80,26 @@ public class PlayerController : Entity
         onSaveDoor -= SaveDoor;
         onIsDead -= IsDead;
         onUpdatePlayerMaxHealth -= UpdatePlayerMaxHealth;
+        onSetTotallyInvincible -= SetIsTotallyInvincible;
+    }
+    private void SetIsTotallyInvincible()
+    {
+        isTotallyInvincible = !isTotallyInvincible;
     }
 
-    void EndOfInvincibility()
+    private void EndOfInvincibility()
     {
         isInvincible = false;
     }
 
-    void UpdatePlayerUi()
+    private void UpdatePlayerUi()
     {
         DisplayHealth.onUpdateHpMax?.Invoke(stat);
     }
 
     public override void TakeDamage(int damage, Vector3 originPosOfDamage, float power)
     {
-        if (isInvincible || isDead) 
+        if (isInvincible || isDead || isTotallyInvincible) 
             return;
 
         isInvincible = true; // to only get hit once
