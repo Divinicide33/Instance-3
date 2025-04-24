@@ -22,15 +22,12 @@ public class VoidZone : MonoBehaviour
 
     private void UseVoidZone()
     {
-        PlayerInputScript.onDisableInput?.Invoke();
-
         playerControllerInZone.stat.AddHp(-1);
         onUse?.Invoke(); // FX / son / UI
         if (playerControllerInZone.stat.health > 0)
         {
             PlayerMove.onResetVelocity?.Invoke();
-            RoomManager.Instance.ChangeRoomWithFade(
-                playerControllerInZone.GetLastDoorUsed.room,
+            RoomManager.Instance.RespawnAfterVoid(
                 playerControllerInZone.transform,
                 playerControllerInZone.GetLastDoorUsed.position);
             Debug.Log("✅ VoidZone utilisée. Sauvegarde et reset du joueur.");
