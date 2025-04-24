@@ -3270,12 +3270,16 @@ PrefabInstance:
       value: Door Right Boss
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.54
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.8
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3379,12 +3383,16 @@ PrefabInstance:
       value: Door Left Boss
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.568
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.797
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1063145483788835377, guid: 8c3d800ede77de044a858e052f585144, type: 3}
       propertyPath: m_LocalPosition.z

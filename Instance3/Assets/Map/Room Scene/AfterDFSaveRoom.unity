@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.y
-      value: -2.9333045
+      value: -2.964
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1264,7 +1264,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 16
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2215,12 +2215,12 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -153235439, guid: 7e3bf31fb97b3ae43802838a6618a2ea, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: -1559138569, guid: b63555e49861c654a99e9fee87a99a62, type: 3}
   - m_RefCount: 1
@@ -3031,11 +3031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.x
-      value: 8.983
+      value: 9.01
       objectReference: {fileID: 0}
     - target: {fileID: 5034216214227033490, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: targetPosition.y
-      value: -3.7830935
+      value: -3.507
       objectReference: {fileID: 0}
     - target: {fileID: 8483665484865727478, guid: 40eb9d8e7dd8358418b0a3e6a9701e1e, type: 3}
       propertyPath: m_LocalPosition.x
