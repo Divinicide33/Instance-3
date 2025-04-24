@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.25, y: -1.897371, z: 0}
-  m_LocalScale: {x: 1, y: 2.4419, z: 1}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8483665484865727478}
@@ -151,6 +151,7 @@ MonoBehaviour:
   nextRoom: 1
   selectedDoorName: Door Left
   targetPosition: {x: -9.33, y: -2.521162, z: 0}
+  sprite: {fileID: 0}
 --- !u!1 &7070490341537828744
 GameObject:
   m_ObjectHideFlags: 0
