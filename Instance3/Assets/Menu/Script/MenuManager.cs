@@ -42,6 +42,7 @@ public class MenuManager : MonoBehaviour
         else
             HandleMouseInput();
     }
+
     public void Submit(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -55,9 +56,26 @@ public class MenuManager : MonoBehaviour
 
     public void Navigate(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
+        if (!context.performed || Time.time - lastInputTime < inputDelay)
+            return;
 
+        Vector2 input = context.ReadValue<Vector2>();
+
+        if (input.y > 0.5f) // Up
+        {
+            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
+
+            currentElementIndex = Mathf.Max(0, currentElementIndex - 1);
+            lastInputTime = Time.time;
+        }
+        else if (input.y < -0.5f) // Down
+        {
+            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
+
+            currentElementIndex = Mathf.Min(menus[currentMenuIndex].menuElements.Length - 1, currentElementIndex + 1);
+            lastInputTime = Time.time;
         }
     }
 
@@ -69,38 +87,16 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
-
     void HandleControllerInput()
     {
-        if (Time.time - lastInputTime < inputDelay) return;
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical") > 0.5f)
-        {
-            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
-            DeselectButton(previousElement);
-
-            currentElementIndex = Mathf.Max(0, currentElementIndex - 1);
-            lastInputTime = Time.time;
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical") < -0.5f)
-        {
-            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
-            DeselectButton(previousElement);
-
-            currentElementIndex = Mathf.Min(menus[currentMenuIndex].menuElements.Length - 1, currentElementIndex + 1);
-            lastInputTime = Time.time;
-        }
-
         selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
 
         if (selectedElement is Slider slider)
         {
-            float verticalInput = Input.GetAxis("Horizontal");
-            slider.value += verticalInput * 0.01f;
+            float horizontalInput = Input.GetAxis("Horizontal");
+            slider.value += horizontalInput * 0.01f;
             slider.value = Mathf.Clamp(slider.value, slider.minValue, slider.maxValue);
         }
-
 
         if (selectedElement is Button selectedButton)
         {
@@ -120,20 +116,18 @@ public class MenuManager : MonoBehaviour
             var rt = mb[i].GetComponent<RectTransform>();
             if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition))
             {
-                // Si un bouton avec un HoverImage est quitté, désactive le survol
                 var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
                 DeselectButton(previousElement);
 
                 currentElementIndex = i;
                 var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
 
-                // Si le bouton a le composant HoverImage, appelle OnSelect
                 if (selectedElement is Button selectedButton)
                 {
                     var buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
                     if (buttonHoverImage != null)
                     {
-                        buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image du survol
+                        buttonHoverImage.OnSelect(null);
                     }
                 }
                 break;
@@ -174,14 +168,14 @@ public class MenuManager : MonoBehaviour
                 var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
                 if (buttonHoverImage != null)
                 {
-                    buttonHoverImage.OnDeselect(null); // Appelle OnDeselect pour enlever l'image de survol
+                    buttonHoverImage.OnDeselect(null);
                 }
             }
         }
 
         if (menus[currentMenuIndex].menuElements.Length > 0)
         {
-            var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
 
             if (selectedElement is Button button)
             {
@@ -189,7 +183,7 @@ public class MenuManager : MonoBehaviour
                 var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
                 if (buttonHoverImage != null)
                 {
-                    buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image de survol
+                    buttonHoverImage.OnSelect(null);
                 }
             }
         }
@@ -202,7 +196,7 @@ public class MenuManager : MonoBehaviour
             var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
             if (buttonHoverImage != null)
             {
-                buttonHoverImage.OnDeselect(null); // Désactive l'effet de survol lorsque l'on quitte le bouton
+                buttonHoverImage.OnDeselect(null);
             }
         }
     }
