@@ -268,9 +268,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloudType: 1
-  despawnDelay: 5
+  despawnDelay: 3
   lightningDelay: 2.5
-  lightningDespawnDelay: 5
+  lightningDespawnDelay: 3
   lightningSpacing: 1
   numberOfLightnings: 30
   lightningPrefab: {fileID: 5176910672881824203, guid: edff457682ed2914485649362749714b, type: 3}
@@ -325,7 +325,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.86814, y: 0.5488988}
+  m_Size: {x: 1, y: 0.5488988}
   m_EdgeRadius: 0
 --- !u!50 &-5217087174519032364
 Rigidbody2D:
