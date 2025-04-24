@@ -9,6 +9,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public static Action<ItemsName,bool> onSetItem {get; set;}
     public static Action<SkillsName,bool> onSetSkill {get; set;}
+    public static Action onUnlockAll {get; set;}
 
     private void Awake()
     {
@@ -28,6 +29,19 @@ public class PlayerSkillManager : MonoBehaviour
         {
             if (PlayerPrefs.HasKey(item.ModuleName) && PlayerPrefs.GetInt(item.ModuleName) == 1)
                 playerItems.UnlockModule(item.ModuleName);
+        }
+    }
+
+    private void UnlockAll()
+    {
+        foreach (var skill in playerSkills.playerModules)
+        {
+            playerSkills.UnlockModule(skill.ModuleName);
+        }
+
+        foreach (var item in playerItems.playerModules)
+        {
+            playerItems.UnlockModule(item.ModuleName);
         }
     }
 
@@ -57,11 +71,13 @@ public class PlayerSkillManager : MonoBehaviour
     {
         onSetItem += SetItem; 
         onSetSkill += SetSkill;
+        onUnlockAll += UnlockAll;
     }
 
     private void OnDisable() 
     {
         onSetItem -= SetItem; 
         onSetSkill -= SetSkill;
+        onUnlockAll -= UnlockAll;
     }
 }

@@ -14867,7 +14867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleName: Glide
-  maxVelocityY: 1
+  maxVelocityY: 0.5
 --- !u!114 &194301721331538098
 MonoBehaviour:
   m_ObjectHideFlags: 0
