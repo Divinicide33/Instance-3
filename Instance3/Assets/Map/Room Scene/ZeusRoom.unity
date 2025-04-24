@@ -2473,47 +2473,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[0].cloudSpawnsWithDurations.Array.data[0].duration
-      value: 3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[0].cloudSpawnsWithDurations.Array.data[1].duration
-      value: 3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[0].cloudSpawnsWithDurations.Array.data[2].duration
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[1].cloudSpawnsWithDurations.Array.data[0].duration
-      value: 3
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[1].cloudSpawnsWithDurations.Array.data[1].duration
-      value: 3
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[1].cloudSpawnsWithDurations.Array.data[2].duration
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[2].cloudSpawnsWithDurations.Array.data[0].duration
-      value: 1.75
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[2].cloudSpawnsWithDurations.Array.data[1].duration
-      value: 1.75
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[2].cloudSpawnsWithDurations.Array.data[2].duration
-      value: 1.75
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[2].cloudSpawnsWithDurations.Array.data[3].duration
-      value: 1.75
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[2].cloudSpawnsWithDurations.Array.data[4].duration
-      value: 1.75
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[3].cloudSpawnsWithDurations.Array.data[0].duration
@@ -2529,19 +2529,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[3].cloudSpawnsWithDurations.Array.data[3].duration
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[4].cloudSpawnsWithDurations.Array.data[0].duration
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[4].cloudSpawnsWithDurations.Array.data[1].duration
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[4].cloudSpawnsWithDurations.Array.data[2].duration
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[4].cloudSpawnsWithDurations.Array.data[3].duration
@@ -2549,7 +2549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[4].cloudSpawnsWithDurations.Array.data[4].duration
-      value: 0.75
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[5].cloudSpawnsWithDurations.Array.data[0].duration
@@ -2566,6 +2566,10 @@ PrefabInstance:
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[5].cloudSpawnsWithDurations.Array.data[3].duration
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
+      propertyPath: attackPatterns.Array.data[5].cloudSpawnsWithDurations.Array.data[4].duration
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085859530250728570, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: attackPatterns.Array.data[0].cloudSpawnsWithDurations.Array.data[0].cloudSpawns.Array.size
