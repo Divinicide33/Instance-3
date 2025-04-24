@@ -1,161 +1,192 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("Menu Panels")]
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject creditsMenu;
-    [SerializeField] private GameObject optionMenu;
-    [SerializeField] private GameObject bindMenu;
-    [SerializeField] private GameObject soundMenu;
-
-    [Header("First Selected Buttons")]
-    [SerializeField] private GameObject selectResetButton;
-    [SerializeField] private GameObject newGameMainMenuFirstButton;
-    [SerializeField] private GameObject mainMenuFirstButton;
-    [SerializeField] private GameObject settingsMenuFirstButton;
-    [SerializeField] private GameObject creditsMenuFirstButton;
-    [SerializeField] private GameObject controlMenuFirstButton;
-    [SerializeField] private GameObject musicMenuFirstButton;
-
-    [Header("Input")]
-    [SerializeField] private PlayerInput playerInput;
-
-    private FadeInOut fade;
-
-    private void OnEnable()
+    [System.Serializable]
+    public class Menu
     {
-        if (playerInput != null)
-            playerInput.onControlsChanged += OnControlsChanged;
+        public string menuName;
+        public GameObject menuRoot;
+        public Selectable[] menuElements;
     }
 
-    private void OnDisable()
+    public Menu[] menus;
+
+    private int currentMenuIndex = 0;
+    private int currentElementIndex = 0;
+
+    private bool isUsingController = false;
+    [SerializeField] float inputDelay = 0.2f;
+    private float lastInputTime;
+
+    void Start()
     {
-        if (playerInput != null)
-            playerInput.onControlsChanged -= OnControlsChanged;
+        ShowMenu(0);
     }
 
-    private void Start()
+    void Update()
     {
-        fade = FindObjectOfType<FadeInOut>();
-    }
-
-    private void OnControlsChanged(PlayerInput input)
-    {
-        if (IsGamepad(input))
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.Escape))
         {
-            SelectFirstButton();
+            ShowMenu(0);
             return;
         }
 
-        EventSystem.current.SetSelectedGameObject(null);
+        HandleInput();
+        UpdateSelection();
     }
 
-    private bool IsGamepad(PlayerInput input)
+    void HandleInput()
     {
-        return input.currentControlScheme != null &&
-                (input.currentControlScheme.ToLower().Contains("gamepad") ||
-                input.currentControlScheme.ToLower().Contains("joystick"));
-    }
+        isUsingController = Input.GetJoystickNames().Length > 0;
 
-    private void SelectFirstButton()
-    {
-        if (settingsMenu != null && settingsMenu.activeSelf)
-            SetSelected(settingsMenuFirstButton);
-
-        else if (creditsMenu != null && creditsMenu.activeSelf)
-            SetSelected(creditsMenuFirstButton);
-
-        else if (optionMenu != null && optionMenu.activeSelf)
-            SetSelected(controlMenuFirstButton);
-
-        else if (bindMenu != null && bindMenu.activeSelf)
-            SetSelected(controlMenuFirstButton);
-
-        else if (soundMenu != null & soundMenu.activeSelf)
-            SetSelected(musicMenuFirstButton);
-
+        if (isUsingController)
+            HandleControllerInput();
         else
-            SetSelected(mainMenuFirstButton);
+            HandleMouseInput();
     }
 
-    private void SetSelected(GameObject button)
+    void HandleControllerInput()
     {
-        if (button == null) return;
+        if (Time.time - lastInputTime < inputDelay) return;
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(button);
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical") > 0.5f)
+        {
+            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
+
+            currentElementIndex = Mathf.Max(0, currentElementIndex - 1);
+            lastInputTime = Time.time;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical") < -0.5f)
+        {
+            var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+            DeselectButton(previousElement);
+
+            currentElementIndex = Mathf.Min(menus[currentMenuIndex].menuElements.Length - 1, currentElementIndex + 1);
+            lastInputTime = Time.time;
+        }
+
+        var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+
+        if (selectedElement is Slider slider)
+        {
+            float verticalInput = Input.GetAxis("Horizontal");
+            slider.value += verticalInput * 0.01f;
+            slider.value = Mathf.Clamp(slider.value, slider.minValue, slider.maxValue);
+        }
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            if (selectedElement is Button button)
+            {
+                button.onClick.Invoke();
+            }
+        }
+
+        if (selectedElement is Button selectedButton)
+        {
+            var buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
+            if (buttonHoverImage != null)
+            {
+                buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image du survol
+            }
+        }
     }
 
-    public void PlayGame()
+    void HandleMouseInput()
     {
-        StartCoroutine(ChangeScene());
+        var mb = menus[currentMenuIndex].menuElements;
+        for (int i = 0; i < mb.Length; i++)
+        {
+            var rt = mb[i].GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition))
+            {
+                // Si un bouton avec un HoverImage est quitté, désactive le survol
+                var previousElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+                DeselectButton(previousElement);
+
+                currentElementIndex = i;
+                var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+
+                // Si le bouton a le composant HoverImage, appelle OnSelect
+                if (selectedElement is Button selectedButton)
+                {
+                    var buttonHoverImage = selectedButton.GetComponent<ButtonHoverImage>();
+                    if (buttonHoverImage != null)
+                    {
+                        buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image du survol
+                    }
+                }
+                break;
+            }
+        }
     }
 
-    private IEnumerator ChangeScene()
+    public void BackToPlay()
     {
-        yield return fade.FadeIn();
-        SceneManager.LoadScene(1);
-        fade.FadeOut();
+        ShowMenu(0);
+        UpdateSelection();
     }
 
-    public void OpenSettings()
+    public void ShowMenu(int index)
     {
-        if (IsGamepad(playerInput))
-            SetSelected(settingsMenuFirstButton);
+        if (index < 0 || index >= menus.Length)
+            return;
+
+        for (int i = 0; i < menus.Length; i++)
+        {
+            if (menus[i].menuRoot != null)
+                menus[i].menuRoot.SetActive(i == index);
+        }
+
+        currentMenuIndex = index;
+        currentElementIndex = 0;
+
+        UpdateSelection();
     }
 
-    public void OpenCredits()
+    void UpdateSelection()
     {
-        mainMenu.SetActive(false);
-        creditsMenu.SetActive(true);
+        foreach (var element in menus[currentMenuIndex].menuElements)
+        {
+            if (element is Button button)
+            {
+                button.GetComponent<MenuButtonEffect>()?.RemoveEffect();
+                var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                if (buttonHoverImage != null)
+                {
+                    buttonHoverImage.OnDeselect(null); // Appelle OnDeselect pour enlever l'image de survol
+                }
+            }
+        }
 
-        if (IsGamepad(playerInput))
-            SetSelected(creditsMenuFirstButton);
+        if (menus[currentMenuIndex].menuElements.Length > 0)
+        {
+            var selectedElement = menus[currentMenuIndex].menuElements[currentElementIndex];
+
+            if (selectedElement is Button button)
+            {
+                button.GetComponent<MenuButtonEffect>()?.ApplyEffect();
+                var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+                if (buttonHoverImage != null)
+                {
+                    buttonHoverImage.OnSelect(null); // Appelle OnSelect pour afficher l'image de survol
+                }
+            }
+        }
     }
 
-    public void BackToMainMenu()
+    void DeselectButton(Selectable element)
     {
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
-        optionMenu.SetActive(false);
-        mainMenu.SetActive(true);
-
-        if (IsGamepad(playerInput))
-            SetSelected(mainMenuFirstButton);
-    }
-
-    public void NewGameMainMenu()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(newGameMainMenuFirstButton);
-    }
-
-    public void SelectResetButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(selectResetButton);
-    }
-
-    public void ControlMenuFirstButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(controlMenuFirstButton);
-    }
-
-    public void MusicMenuFirstButton()
-    {
-        if (IsGamepad(playerInput))
-            SetSelected(musicMenuFirstButton);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
+        if (element is Button button)
+        {
+            var buttonHoverImage = button.GetComponent<ButtonHoverImage>();
+            if (buttonHoverImage != null)
+            {
+                buttonHoverImage.OnDeselect(null); // Désactive l'effet de survol lorsque l'on quitte le bouton
+            }
+        }
     }
 }
