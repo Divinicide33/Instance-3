@@ -7,6 +7,7 @@ public enum ItemsName
 {
     Potion,
     Bow,
-    Sword
+    Sword,
+    HpMax
 
 }

@@ -17,6 +17,7 @@ public class PlayerController : Entity
     public static Action<DoorData> onSaveDoor { get; set; }
     public static Action<bool> onIsDead { get; set; }
     public static Action<bool> onPlayerHurt { get; set; }
+    public static Action onUpdatePlayerMaxHealth { get; set; }
 
     [HideInInspector] public bool isFacingRight = true;
     [HideInInspector] public bool isFacingUp = true;
@@ -35,13 +36,30 @@ public class PlayerController : Entity
         playerHurtFX = GetComponentInChildren<PlayerHurtFX>();
 
         PlayerInputScript.onDisableInput?.Invoke();
-
-        UpdatePlayerUi();
         LoadSavedFountain();
         LoadSavedDoor();
+        
+        UpdatePlayerMaxHealth();
 
         RoomManager.Instance.ChangeRoomWithFade(lastFountainSaved.room, transform, lastFountainSaved.position);
     }
+
+    private void UpdatePlayerMaxHealth()
+    {
+        if (PlayerPrefs.HasKey(ItemsName.HpMax.ToString()))
+        {
+            stat.healthMax = PlayerPrefs.GetInt(ItemsName.HpMax.ToString());
+            stat.SetHpToHpMax();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(ItemsName.HpMax.ToString(), stat.healthMax);
+            PlayerPrefs.Save();
+        }
+        
+        UpdatePlayerUi();
+
+    } 
 
     private void OnEnable() 
     {
@@ -49,6 +67,7 @@ public class PlayerController : Entity
         onSavefountain += SaveFountain;
         onSaveDoor += SaveDoor;
         onIsDead += IsDead;
+        onUpdatePlayerMaxHealth += UpdatePlayerMaxHealth;
     }
 
     private void OnDisable() 
@@ -57,6 +76,7 @@ public class PlayerController : Entity
         onSavefountain -= SaveFountain;
         onSaveDoor -= SaveDoor;
         onIsDead -= IsDead;
+        onUpdatePlayerMaxHealth -= UpdatePlayerMaxHealth;
     }
 
     void EndOfInvincibility()
