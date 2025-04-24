@@ -5274,7 +5274,7 @@ MonoBehaviour:
     room: 30
     transform: {fileID: 2462275626158104359}
     position: {x: 0, y: 0, z: 0}
-  inputReactivateDelay: 2
+  inputReactivateDelay: 1
 --- !u!1 &7040102157061211493
 GameObject:
   m_ObjectHideFlags: 0
