@@ -13,7 +13,7 @@ public class DoorArena : Door
     protected bool isCleared = false;
     protected bool hasCheckedPlayerPrefs = false;
 
-    private Collider2D collider;
+    private new Collider2D collider;
 
     protected override void OnEnable()
     {
@@ -31,14 +31,16 @@ public class DoorArena : Door
         if (isCleared) 
         {
             DisableSprite();
-            collider.isTrigger = true;
+            if (collider != null)
+                collider.isTrigger = true;
             return;
         }
 
         EnableSprite();
         
         TryGetComponent(out collider);
-        collider.isTrigger = false;
+        if (collider != null)
+            collider.isTrigger = false;
     }
 
     protected override void OnDisable()
@@ -84,7 +86,8 @@ public class DoorArena : Door
             return;
         
         isCleared = true;
-        collider.isTrigger = true;
+        if (collider != null)
+            collider.isTrigger = true;
         
         DisableSprite();
             
