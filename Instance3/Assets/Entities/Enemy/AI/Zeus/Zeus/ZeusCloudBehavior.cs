@@ -93,8 +93,9 @@ namespace AI.Zeus
 
         private IEnumerator ActivateLightning()
         {
-            gameObject.AddComponent<LightningDamageZone>();
+            isSpawningLightnings = false;
             zeusAttackFX?.ShowSFX(tree.sfxAttackName);
+            gameObject.AddComponent<LightningDamageZone>();
             for (int i = 0; i < spawnedLightnings.Count; i++)
             {
                 if (!spawnedLightnings[i]) continue;
@@ -103,9 +104,6 @@ namespace AI.Zeus
                 CloudDamage();
                 yield return new WaitForSeconds(spawnDelay);
             }
-
-
-            isSpawningLightnings = false;
             isDestroyingLightning = true;
         }
 
