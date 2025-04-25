@@ -26,7 +26,6 @@ public class VoidZone : MonoBehaviour
         onUse?.Invoke(); // FX / son / UI
         if (playerControllerInZone.stat.health > 0)
         {
-            PlayerMove.onResetVelocity?.Invoke();
             RoomManager.Instance.RespawnAfterVoid(
                 playerControllerInZone.transform,
                 playerControllerInZone.GetLastDoorUsed.position);
