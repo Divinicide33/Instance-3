@@ -3112,6 +3112,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4964761859108212751, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
+      propertyPath: size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964761859108212751, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
+      propertyPath: size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964761859108212751, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
+      propertyPath: positionEnemyOffSet.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5324267843114851420, guid: 49eae1ad70861de429301ea05d06822f, type: 3}
       propertyPath: m_Size.x
       value: 0.7916796
